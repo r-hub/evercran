@@ -6,6 +6,10 @@
 source("lib.R")
 
 main <- function() {
+  init_db()
+}
+
+init_db <- function(force = FALSE) {
   if (file.exists("cran-full.json.gz")) {
     system2("gzip", c("-d", "cran-full.json.gz"))
   }
@@ -20,7 +24,7 @@ main <- function() {
   pkgs <- jsonlite::fromJSON("cran-full.json", simplifyVector = FALSE)$rows
   for (pkg in pkgs) {
     if (is.null(pkg$doc$type) && !startsWith(pkg$id, "_")) {
-      update_package(pkg)
+      update_package(pkg, force = force)
     }
   }
 }
@@ -32,13 +36,25 @@ needs_update <- function(pkg, id) {
 
 format_deps_field <- function(x) {
   if (is.null(x)) return(NA_character_)
-  paste0(names(x), ifelse(unlist(x) == "*", "", paste0(" ", x)), collapse = ", ")
+  paste0(
+    names(x),
+    ifelse(unlist(x) == "*", "", paste0(" (", x, ")")),
+    collapse = ", "
+  )
 }
 
-update_package <- function(pkgdata) {
+fix_ws <- function(x) {
+  sub(":? .*$", "", x)
+}
+
+fix_ver <- function(x) {
+  gsub("[a-zA-Z]+", "-", x)
+}
+
+update_package <- function(pkgdata, force = FALSE) {
   pkgname <- pkgdata$id
   id <- pkgdata$value$rev
-  if (!needs_update(pkgname, id)) return()
+  if (!force && !needs_update(pkgname, id)) return()
 
   message("Updating package ", pkgname);
 
@@ -55,8 +71,8 @@ update_package <- function(pkgdata) {
   }
   df <- data.frame(
     stringsAsFactors = FALSE,
-    package = x("Package"),
-    version = x("Version"),
+    package = fix_ws(x("Package")),
+    version = fix_ver(fix_ws(x("Version"))),
     depends = xd("Depends"),
     suggests = xd("Suggests"),
     imports = xd("Imports"),
