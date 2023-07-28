@@ -73,6 +73,7 @@ metadata_fields <- c(
 write_dcf <- function(tab, file) {
   fields <- mapply(names(tab), tab, FUN = function(name, val) {
     val <- gsub("\n", " ", val, fixed = TRUE)
+    val <- gsub("<U+000a>", " ", val, fixed = TRUE)
     ifelse (is.na(val), "", paste0(name, ": ", val, "\n"))
   })
   recs <- apply(fields, 1, paste, collapse = "")
