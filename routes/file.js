@@ -2,7 +2,7 @@ import express from 'express';
 var router = express.Router();
 import pool from '../lib/pool.js';
 
-const re_pkgfile = /^(?<pkg>[a-zA-Z]+)_(?<ver>[-a-zA-Z0-9.]+)[.]tar[.]gz$/;
+const re_pkgfile = /^(?<pkg>[a-zA-Z0-9]+)_(?<ver>[-a-zA-Z0-9.]+)[.]tar[.]gz$/;
 const cran_mirror = process.env.CRAN_MIRROR || "https://cloud.r-project.org";
 
 async function get_package_path(pkg, ver) {
