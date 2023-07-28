@@ -1,0 +1,78 @@
+volumes:
+  packages:
+  dbdata:
+
+secrets:
+  pg-password:
+    external: true
+
+services:
+  evercran:
+    image: "rhub/evercran:0.0.1"
+    build: .
+    environment:
+      - PG_USER=postgres
+      - PG_HOST=db
+      - PG_PASS_FILE=/run/secrets/pg-password
+    depends_on:
+      - db
+    ports:
+      - "80:3000"
+    secrets:
+      - pg-password
+    volumes:
+      - packages:/packages
+    deploy:
+      update_config:
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  db:
+    image: "postgres:15.3-alpine3.18"
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+      - POSTGRES_PASSWORD_FILE=/run/secrets/pg-password
+    volumes:
+      - dbdata:/var/lib/postgresql
+      - ./pg-init:/docker-entrypoint-initdb.d
+    secrets:
+      - pg-password
+    deploy:
+      update_config:
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  shell:
+    build: shell
+    image: "rhub/evercran-shell:0.0.1"
+    command: sleep 1000000
+    environment:
+      - PG_USER=postgres
+      - PG_HOST=db
+      - PG_PASS_FILE=/run/secrets/pg-password
+    volumes:
+      - packages:/packages
+      - ./scripts:/scripts
+    secrets:
+      - pg-password
+    deploy:
+      restart_policy:
+        condition: any
