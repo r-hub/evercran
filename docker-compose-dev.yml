@@ -2,4 +2,4 @@ services:
   evercran:
     command: nodemon bin/www.js
     volumes:
-      - .:/src
+      - ./evercran:/src

@@ -9,7 +9,7 @@ secrets:
 services:
   evercran:
     image: "rhub/evercran:0.0.1"
-    build: .
+    build: evercran
     environment:
       - PG_USER=postgres
       - PG_HOST=db
