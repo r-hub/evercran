@@ -359,3 +359,16 @@ services:
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
+
+  r-1.0.0:
+    image: "rhub/evercran-build:1.0.0"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "1.0.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output

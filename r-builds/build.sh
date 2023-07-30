@@ -61,13 +61,14 @@ fetch_r_source() {
     fi
     local rver="$1"
     echo "Downloading R-${rver}"
+    local major=`echo $rver | sed 's/\..*$//'`
     if [ "$rver" = "0.99.0" ]; then
-        local url="${CRAN}/src/base/R-0/R-${rver}a.tgz"
+        local url="${CRAN}/src/base/R-${major}/R-${rver}a.tgz"
     elif [ "$rver" = "0.60" -o "$rver" = "0.61" -o "$rver" = "0.62" \
                  -o "$rver" = "0.63" ]; then
-	local url="${CRAN}/src/base/R-0/R-${rver}.0.tgz"
+	local url="${CRAN}/src/base/R-${major}/R-${rver}.0.tgz"
     else
-	local url="${CRAN}/src/base/R-0/R-${rver}.tgz"
+	local url="${CRAN}/src/base/R-${major}/R-${rver}.tgz"
     fi
     wget "$url" -O R.tgz
     tar xzf R.tgz
