@@ -61,7 +61,8 @@ fetch_r_source() {
     fi
     local rver="$1"
     echo "Downloading R-${rver}"
-    if [ "$rver" = "0.60" -o "$rver" = "0.61" -o "$rver" = "0.62" ]; then
+    if [ "$rver" = "0.60" -o "$rver" = "0.61" -o "$rver" = "0.62" \
+                 -o "$rver" = "0.63" ]; then
 	local url="${CRAN}/src/base/R-0/R-${rver}.0.tgz"
     else
 	local url="${CRAN}/src/base/R-0/R-${rver}.tgz"
@@ -110,6 +111,7 @@ configure_r() {
     fi
     (
 	cd ${build_dir}
+        export "PATH=/usr/X11R6/bin:$PATH"
         if dpkg --compare-versions "${rver}" lt 0.62; then
 	    ./configure                         \
 	        --x-includes=/usr/X11R6/include \

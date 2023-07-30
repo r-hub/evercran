@@ -1,0 +1,72 @@
+diff --git a/config.site b/config.site
+index 4d4766e..7748816 100644
+--- a/config.site
++++ b/config.site
+@@ -40,7 +40,7 @@
+ # If unspecified, a search is made for gcc and cc (in that order).
+ # To override this choice, specify the name of the command which runs
+ # the compiler here, for example `c89'.
+-# CC=
++CC=gcc-2.95
+ 
+ # Debugging and optimization options for the C compiler.
+ # Use this to specify CFLAGS for the version of the C compiler specified
+@@ -58,7 +58,7 @@
+ # found; otherwise, R cannot be compiled.  The search mechanism can be
+ # changed using the `--with-g77', `--with-f77', and `--with-f2c' command
+ # line options to configure.
+-# FC=
++FC=g77-2.95
+ 
+ # Options for the FORTRAN compiler.
+ # Use this to specify FFLAGS for the version of the compiler specified
+@@ -91,4 +91,4 @@
+ 
+ # Any special flags which are required by "ld" when creating shared
+ # libraries.  This is usually automatically detected by configure.
+-# SHLIBLDFLAGS=
++SHLIBLDFLAGS="-lm -shared"
+diff --git a/configure b/configure
+index 1360475..9d0bcb3 100755
+--- a/configure
++++ b/configure
+@@ -1052,7 +1052,7 @@ if test -n "${PERL}"; then
+   echo $ac_n "checking whether perl is perl 5""... $ac_c" 1>&6
+ echo "configure:1054: checking whether perl is perl 5" >&5
+   perl_version=`${PERL} -v | sed -n 's/^.*perl.*version \(.\).*/\1/p'`
+-  if test ${perl_version} -ge 5
++  if true
+   then
+     NO_PERL5=false
+     echo "$ac_t""yes" 1>&6
+diff --git a/src/unix/system.c b/src/unix/system.c
+index 60aa7aa..248ee61 100644
+--- a/src/unix/system.c
++++ b/src/unix/system.c
+@@ -299,7 +299,7 @@ void R_ClearerrConsole()
+ 
+ 
+ #ifdef HAVE_LIBREADLINE
+-char *tilde_expand(char*);
++/* char *tilde_expand(char*); */
+ 
+ char *R_ExpandFileName(char *s)
+ {
+@@ -541,7 +541,7 @@ int main(int ac, char **av)
+ #endif
+ 
+ #ifdef linux
+-    __setfpucw(_FPU_IEEE);
++    /* __setfpucw(_FPU_IEEE); */
+ #endif
+ 
+ #ifdef HAVE_LIBREADLINE
+@@ -622,7 +622,7 @@ void R_CleanUp(int ask)
+ #endif
+ 
+ #ifdef linux
+-    __setfpucw(_FPU_DEFAULT);
++    /* __setfpucw(_FPU_DEFAULT); */
+ #endif
+ 
+     exit(0);
