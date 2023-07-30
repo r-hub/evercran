@@ -1,0 +1,54 @@
+diff --git a/config.site b/config.site
+index 4d4766e..7748816 100644
+--- a/config.site
++++ b/config.site
+@@ -40,7 +40,7 @@
+ # If unspecified, a search is made for gcc and cc (in that order).
+ # To override this choice, specify the name of the command which runs
+ # the compiler here, for example `c89'.
+-# CC=
++CC=gcc-2.95
+ 
+ # Debugging and optimization options for the C compiler.
+ # Use this to specify CFLAGS for the version of the C compiler specified
+@@ -58,7 +58,7 @@
+ # found; otherwise, R cannot be compiled.  The search mechanism can be
+ # changed using the `--with-g77', `--with-f77', and `--with-f2c' command
+ # line options to configure.
+-# FC=
++FC=g77-2.95
+ 
+ # Options for the FORTRAN compiler.
+ # Use this to specify FFLAGS for the version of the compiler specified
+@@ -91,4 +91,4 @@
+ 
+ # Any special flags which are required by "ld" when creating shared
+ # libraries.  This is usually automatically detected by configure.
+-# SHLIBLDFLAGS=
++SHLIBLDFLAGS="-lm -shared"
+diff --git a/configure b/configure
+index 4d66bc7..08c8d3a 100755
+--- a/configure
++++ b/configure
+@@ -1306,7 +1306,7 @@ if eval "test \"`echo '$''{'r_cv_prog_perl_v5'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+    perl_version=`${PERL} -v | sed -n 's/^.*perl.*version \(.\).*/\1/p'`
+-	  if test ${perl_version} -ge 5; then
++	  if true; then
+ 	    r_cv_prog_perl_v5=yes
+ 	  else
+ 	    r_cv_prog_perl_v5=no
+diff --git a/src/unix/sys-unix.c b/src/unix/sys-unix.c
+index 5b07eda..61d4d3c 100644
+--- a/src/unix/sys-unix.c
++++ b/src/unix/sys-unix.c
+@@ -79,7 +79,7 @@ FILE *R_OpenInitFile(void)
+ 
+ 
+ #ifdef HAVE_LIBREADLINE
+-  char *tilde_expand(char*);
++  /* char *tilde_expand(char*); */
+ 
+   char *R_ExpandFileName(char *s)
+   {

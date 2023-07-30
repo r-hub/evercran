@@ -242,3 +242,120 @@ services:
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
+
+  r-0.64.0:
+    image: "rhub/evercran-build:0.64.0"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.64.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.64.1:
+    image: "rhub/evercran-build:0.64.1"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.64.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.64.2:
+    image: "rhub/evercran-build:0.64.2"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.64.2"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.65.0:
+    image: "rhub/evercran-build:0.65.0"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.65.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.65.1:
+    image: "rhub/evercran-build:0.65.1"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.65.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.65.2:
+    image: "rhub/evercran-build:0.65.2"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.65.2"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.90.0:
+    image: "rhub/evercran-build:0.90.0"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.90.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.90.1:
+    image: "rhub/evercran-build:0.90.1"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.90.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.99.0:
+    image: "rhub/evercran-build:0.99.0"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.99.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
