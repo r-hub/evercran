@@ -1,0 +1,41 @@
+diff --git a/config.site b/config.site
+index 354dfd8..4e064b7 100644
+--- a/config.site
++++ b/config.site
+@@ -28,7 +28,7 @@ CFLAGS=-g
+ # the "no" below by the name of your fortran compiler or
+ # using just "FC=" to enable autodetection of one of
+ # f77, g77 or fc.
+-FC="no"
++FC="g77"
+ 
+ # Options for the Fortran compiler.
+ # Use this to specify FFLAGS for the version of the compiler
+@@ -62,4 +62,4 @@ FPICFLAGS=
+ # Enter any special flags which are required by "ld" when
+ # creating shared libraries.  This is  usually automatically
+ # detected by configure.
+-SHLIBLDFLAGS=
++SHLIBLDFLAGS="-lm -shared"
+diff --git a/src/unix/system.c b/src/unix/system.c
+index 8828101..735239d 100644
+--- a/src/unix/system.c
++++ b/src/unix/system.c
+@@ -257,7 +257,7 @@ int main(int ac, char **av)
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_IEEE);
++	/* __setfpucw(_FPU_IEEE); */
+ #endif
+ 
+ #ifdef HAVE_LIBREADLINE
+@@ -324,7 +324,7 @@ qask:
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_DEFAULT);
++	/* __setfpucw(_FPU_DEFAULT); */
+ #endif
+ 
+ 	exit(0);

@@ -1,0 +1,140 @@
+
+services:
+  r-0.49:
+    image: "rhub/evercran-build:0.49"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: 0.49
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.50-a1:
+    image: "rhub/evercran-build:0.50-a1"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: 0.50-a1
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.50-a4:
+    image: "rhub/evercran-build:0.50-a4"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: 0.50-a4
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.60:
+    image: "rhub/evercran-build:0.60"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.60"
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.60.1:
+    image: "rhub/evercran-build:0.60.1"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.60.1"
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.61:
+    image: "rhub/evercran-build:0.61"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.61"
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.61.1:
+    image: "rhub/evercran-build:0.61.1"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.61.1"
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.61.2:
+    image: "rhub/evercran-build:0.61.2"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.61.2"
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.61.3:
+    image: "rhub/evercran-build:0.61.3"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.61.3"
+        IN_PLACE: true
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.62:
+    image: "rhub/evercran-build:0.62"
+    build:
+      context: .
+      platforms:
+        - linux/i386
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "0.62"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output

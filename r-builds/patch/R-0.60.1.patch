@@ -1,0 +1,63 @@
+diff --git a/config.site b/config.site
+index 7b33363..b1953d1 100644
+--- a/config.site
++++ b/config.site
+@@ -33,7 +33,7 @@ CFLAGS="-g"
+ # the "no" below by the name of your fortran compiler or
+ # using just "FC=" to enable autodetection of one of
+ # f77, g77 or fc.
+-FC="no"
++FC="g77"
+ 
+ # Options for the Fortran compiler.
+ # Use this to specify FFLAGS for the version of the compiler
+@@ -67,4 +67,4 @@ FPICFLAGS=
+ # Enter any special flags which are required by "ld" when
+ # creating shared libraries.  This is  usually automatically
+ # detected by configure.
+-SHLIBLDFLAGS=
++SHLIBLDFLAGS="-lm -shared"
+diff --git a/configure b/configure
+index 60f1ecf..c0f2e1f 100755
+--- a/configure
++++ b/configure
+@@ -3472,7 +3472,7 @@ then
+     echo $ac_n "checking whether perl is perl 5""... $ac_c" 1>&6
+ echo "configure:3474: checking whether perl is perl 5" >&5
+     PERL_VERSION_NUMBER=`perl -v | sed -n 's/^.*perl.*version \(.\).*/\1/p'`
+-    if test $PERL_VERSION_NUMBER -ge 5
++    if true
+     then
+         NO_PERL5=""
+         echo "$ac_t""yes" 1>&6
+diff --git a/src/unix/system.c b/src/unix/system.c
+index 101052c..4238b9a 100644
+--- a/src/unix/system.c
++++ b/src/unix/system.c
+@@ -201,7 +201,7 @@ void R_ClearerrConsole()
+ 
+ 
+ #ifdef HAVE_LIBREADLINE
+-char *tilde_expand(char*);
++/* char *tilde_expand(char*); */
+ 
+ char *R_ExpandFileName(char *s)
+ {
+@@ -351,7 +351,7 @@ int main(int ac, char **av)
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_IEEE);
++	/* __setfpucw(_FPU_IEEE); */
+ #endif
+ 
+ #ifdef HAVE_LIBREADLINE
+@@ -429,7 +429,7 @@ qask:
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_DEFAULT);
++	/* __setfpucw(_FPU_DEFAULT); */
+ #endif
+ 
+ 	exit(0);

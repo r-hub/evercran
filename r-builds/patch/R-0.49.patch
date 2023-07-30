@@ -1,0 +1,50 @@
+diff --git a/config.site b/config.site
+index 0c3cafe..8ead4d8 100644
+--- a/config.site
++++ b/config.site
+@@ -28,7 +28,7 @@ CFLAGS="-g"
+ # the "no" below by the name of your fortran compiler or
+ # using just "FC=" to enable autodetection of one of
+ # f77, g77 or fc.
+-FC=no
++FC=g77
+ 
+ # Options for the Fortran compiler.
+ # Use this to specify FFLAGS for the version of the compiler
+@@ -62,4 +62,4 @@ FPICFLAGS=
+ # Enter any special flags which are required by "ld" when
+ # creating shared libraries.  This is  usually automatically
+ # detected by configure.
+-SHLIBLDFLAGS=
++SHLIBLDFLAGS="-lm -shared"
+diff --git a/src/library/profile/Rprofile.unix b/src/library/profile/Rprofile.unix
+index 97a62fc..ca998c1 100644
+--- a/src/library/profile/Rprofile.unix
++++ b/src/library/profile/Rprofile.unix
+@@ -9,4 +9,3 @@ version <- Version()
+ options(na.action="na.omit")
+ options(printcmd=getenv("R_PRINTCMD"))
+ options(papersize=getenv("R_PAPERSIZE"))
+-if(interactive()) x11()
+diff --git a/src/unix/system.c b/src/unix/system.c
+index 99bac60..9fd371c 100644
+--- a/src/unix/system.c
++++ b/src/unix/system.c
+@@ -257,7 +257,7 @@ int main(int ac, char **av)
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_IEEE);
++	/* __setfpucw(_FPU_IEEE); */
+ #endif
+ 
+ #ifdef HAVE_LIBREADLINE
+@@ -324,7 +324,7 @@ qask:
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_DEFAULT);
++	/* __setfpucw(_FPU_DEFAULT); */
+ #endif
+ 
+ 	exit(0);
