@@ -1,0 +1,44 @@
+diff --git a/configure b/configure
+index 9ddebff..d623fe1 100755
+--- a/configure
++++ b/configure
+@@ -918,7 +918,7 @@ if test -n "${PERL}"; then
+   echo $ac_n "checking whether perl is perl 5""... $ac_c" 1>&6
+ echo "configure:920: checking whether perl is perl 5" >&5
+   perl_version=`${PERL} -v | sed -n 's/^.*perl.*version \(.\).*/\1/p'`
+-  if test ${perl_version} -ge 5
++  if true
+   then
+     NO_PERL5=false
+     echo "$ac_t""yes" 1>&6
+diff --git a/src/unix/system.c b/src/unix/system.c
+index 23e7666..b840332 100644
+--- a/src/unix/system.c
++++ b/src/unix/system.c
+@@ -296,7 +296,7 @@ void R_ClearerrConsole()
+ 
+ 
+ #ifdef HAVE_LIBREADLINE
+-char *tilde_expand(char*);
++/* char *tilde_expand(char*); */
+ 
+ char *R_ExpandFileName(char *s)
+ {
+@@ -486,7 +486,7 @@ int main(int ac, char **av)
+ #endif
+ 
+ #ifdef linux
+-  __setfpucw(_FPU_IEEE);
++  /* __setfpucw(_FPU_IEEE); */
+ #endif
+ 
+ #ifdef HAVE_LIBREADLINE
+@@ -567,7 +567,7 @@ qask:
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_DEFAULT);
++	/* __setfpucw(_FPU_DEFAULT); */
+ #endif
+ 
+ 	exit(0);

@@ -10,7 +10,6 @@ ARG R_VERSION=0.49
 ARG IN_PLACE=no
 
 COPY build.sh .
-COPY build2.sh .
 COPY patch patch
 
-RUN if [ -z "$IN_PLACE" ]; then ./build2.sh else ./build.sh fi
+RUN ./build.sh
