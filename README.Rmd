@@ -1,0 +1,97 @@
+---
+title: Run historical R versions on today's computers
+output:
+  github_document:
+    toc: true
+    toc_depth: 2
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+## TL;DR
+
+```sh
+docker pull --platform linux/i386 ghcr.io/r-hub/evercran/1.0.0
+docker run -ti ghcr.io/r-hub/evercran/1.0.0
+```
+
+```
+R : Copyright 2000, The R Development Core Team
+Version 1.0.0  (February 29, 2000)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type	"?license" or "?licence" for distribution details.
+
+R is a collaborative project with many contributors.
+Type	"?contributors" for a list.
+
+Type	"demo()" for some demos, "help()" for on-line help, or
+    	"help.start()" for a HTML browser interface to help.
+Type	"q()" to quit R.
+
+>
+```
+
+## Containers with multiple R versions
+
+All R versions are installed in `/opt/R/<version>`, so you can run one with
+```
+/opt/R/<version>/bin/R
+```
+For example to run R 0.65.1:
+```
+/opt/R/0.65.1/bin/R
+```
+
+| R versions        | Container                    | OS                    |
+|:------------------|:-----------------------------|:----------------------|
+| R 0.49 -- R 1.0.0 | `ghcr.io/r-hub/evercran/0.x` | Debian Sarge 3.1 i386 |
+
+## All containers
+
+```{r, results = "asis", echo = FALSE}
+writeLines("| R version | Container | OS |")
+writeLines("|:----------|:----------|:---|")
+rv <- readLines("containers/sarge-versions.txt")
+writeLines(sprintf(
+  "| R %s | ghcr.io/r-hub/evercran/%s | Debian Sarge 3.1 i386 |", 
+  format(rv), format(rv)
+))
+```
+
+## Similar projects, inspiration
+
+###  [rcheology](https://github.com/hughjonesd/rcheology)
+
+Data on Base Packages for Previous Versions of R
+
+### [rang](https://github.com/chainsawriot/rang)
+
+(Re)constructing R computational environments
+
+## Thanks!
+
+### [debian/eol](https://hub.docker.com/r/debian/eol/)
+
+End of Life Debian versions (pointing at archive.debian.org) 
+
+## License
+
+See https://www.r-project.org/Licenses/ for the R licenses
+
+The Dockerfiles and tools in this repository are licensed under the
+MIT License.
+
+© [R Consortium](https://github.com/rconsortium)
