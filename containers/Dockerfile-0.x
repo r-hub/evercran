@@ -17,4 +17,4 @@ RUN apt-get update && \
 
 WORKDIR /root
 
-CMD [ "R" ]
+CMD [ "bash" ]
