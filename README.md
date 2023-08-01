@@ -85,19 +85,15 @@ For example to run R 0.65.1:
 
 ## Similar projects, inspiration
 
-### [rcheology](https://github.com/hughjonesd/rcheology)
-
-Data on Base Packages for Previous Versions of R
-
-### [rang](https://github.com/chainsawriot/rang)
-
-(Re)constructing R computational environments
+- [rcheology](https://github.com/hughjonesd/rcheology) – Data on Base
+  Packages for Previous Versions of R
+- [rang](https://github.com/chainsawriot/rang) – (Re)constructing R
+  computational environments
 
 ## Thanks!
 
-### [debian/eol](https://hub.docker.com/r/debian/eol/)
-
-End of Life Debian versions (pointing at archive.debian.org)
+- [debian/eol](https://hub.docker.com/r/debian/eol/) – End of Life
+  Debian versions (pointing at archive.debian.org)
 
 ## License
 

@@ -73,18 +73,14 @@ writeLines(sprintf(
 
 ## Similar projects, inspiration
 
-###  [rcheology](https://github.com/hughjonesd/rcheology)
-
+* [rcheology](https://github.com/hughjonesd/rcheology) --
 Data on Base Packages for Previous Versions of R
-
-### [rang](https://github.com/chainsawriot/rang)
-
+* [rang](https://github.com/chainsawriot/rang) --
 (Re)constructing R computational environments
 
 ## Thanks!
 
-### [debian/eol](https://hub.docker.com/r/debian/eol/)
-
+* [debian/eol](https://hub.docker.com/r/debian/eol/) --
 End of Life Debian versions (pointing at archive.debian.org) 
 
 ## License
