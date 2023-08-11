@@ -17,6 +17,27 @@ index 354dfd8..4e064b7 100644
  # detected by configure.
 -SHLIBLDFLAGS=
 +SHLIBLDFLAGS="-lm -shared"
+diff --git a/src/library/profile/Rprofile.unix b/src/library/profile/Rprofile.unix
+index 20ec3a2..0b6851a 100644
+--- a/src/library/profile/Rprofile.unix
++++ b/src/library/profile/Rprofile.unix
+@@ -8,7 +8,15 @@ getenv <- function(item) {
+ }
+ version <- Version()
+ .Machine <- Machine()
+-.lib.loc <- unique(c(unlist(strsplit(getenv("RLIBS"), ":")), getenv("RHOME")))
++# This segfauls in Docker Ubuntu Sarge
++# .lib.loc <- unique(c(unlist(strsplit(getenv("RLIBS"), ":")), getenv("RHOME")))
++.lib.loc <- getenv("RLIBS")
++if (nchar(.lib.loc) > 0) {
++  .lib.loc <- strsplit(.lib.loc, ":")[[1]]
++} else {
++  .lib.loc <- character()
++}
++.lib.loc <- unique(c(.lib.loc, getenv("RHOME")))
+ date <- function() { system("date", intern = TRUE) }
+ unlink <- function(x) {
+   system(paste("rm -rf ", paste(x, collapse = " ")))
 diff --git a/src/unix/system.c b/src/unix/system.c
 index 8828101..735239d 100644
 --- a/src/unix/system.c
