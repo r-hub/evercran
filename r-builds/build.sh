@@ -157,6 +157,12 @@ configure_r() {
                 local args="$args --with-tcltk=/usr/lib/tcl8.4:/usr/lib/tk8.4"
                 local args="$args --enable-R-shlib"
             fi
+            if dpkg --compare-versions "$rver" ge 1.7.0; then
+                if dpkg --compare-versions "$rver" le 1.7.1; then
+                    # need to use internal zlib, otherwise fails to compile
+                    local args="$args --with-zlib=no"
+                fi
+            fi
             ./configure $args
         fi
     )
