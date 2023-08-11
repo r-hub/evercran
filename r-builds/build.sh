@@ -31,6 +31,11 @@ prepare() {
 # install everything, it does not hurt
 
 install_requirements() {
+    if [ -z "$1" ]; then
+	echo "Usage: install_requirements <r-version>"
+	return 100
+    fi
+    local rver="$1"
     apt-get update -y
     apt-get install -y       \
 	    checkinstall     \
@@ -50,8 +55,21 @@ install_requirements() {
 	    libreadline5-dev \
 	    tetex-bin        \
 	    tetex-extra      \
-	    bison            \
-            #
+	    bison
+
+    if dpkg --compare-versions "${rver}" ge 1.1.0; then
+        apt-get install -y   \
+                g++          \
+                g++-2.95     \
+                libjpeg-dev  \
+                libpng-dev
+    fi
+    if dpkg --compare-versions "${rver}" ge 1.2.0; then
+        apt-get install -y   \
+                tcl8.4-dev   \
+                tk8.4-dev
+        ln -s /usr/include/tcl8.4/ /usr/include/tk8.4
+    fi
 }
 
 fetch_r_source() {
@@ -117,6 +135,7 @@ configure_r() {
     fi
     (
 	cd ${build_dir}
+        rm -rf config.cache
         export "PATH=/usr/X11R6/bin:$PATH"
         if dpkg --compare-versions "${rver}" lt 0.62; then
 	    ./configure                         \
@@ -128,8 +147,11 @@ configure_r() {
 	        --x-includes=/usr/X11R6/include \
 	        --x-libraries=/usr/X11R6/lib
         else
-            ./configure                         \
-                --prefix="/opt/R/${rver}"
+            local args="--prefix=/opt/R/${rver}"
+            if dpkg --compare-versions "${rver}" ge 1.2.0; then
+                local args="$args --with-tcltk=/usr/lib/tcl8.4:/usr/lib/tk8.4"
+            fi
+            ./configure $args
         fi
     )
 }
@@ -173,9 +195,10 @@ package_r_in_place() {
     rm -rf ${build_dir}
     echo "GNU R statistical computation and graphics system" > \
 	 description-pak
+    local deps="less, libsm6, libice6, libx11-6, libc6, libreadline5"
     # Need a hack to add dependencies
     export MAINTAINER="csardi.gabor@gmail.com
-Depends: less, xlibs, libreadline5"
+Depends: $deps"
     checkinstall -D -y                               \
 		 --arch i386                         \
 		 --pkgname r-${rver}                 \
@@ -197,9 +220,13 @@ package_r() {
     local build_dir="R-${rver}"
     echo "GNU R statistical computation and graphics system" > \
 	 description-pak
+    local deps="less, libsm6, libice6, libx11-6, libc6, libreadline5"
+    if dpkg --compare-versions "$rver" ge 0.64.0; then
+        local deps="$deps zlib1g"
+    fi
     # Need a hack to add dependencies
     export MAINTAINER="csardi.gabor@gmail.com
-Depends: less, xlibs, libreadline5"
+Depends: $deps"
     (
         cd ${build_dir}
         checkinstall -D -y                               \
@@ -224,7 +251,7 @@ build() {
     local rver="$1"
     prepare ${rver}
     fetch_r_source ${rver}
-    install_requirements
+    install_requirements ${rver}
     patch_r_source ${rver}
     configure_r ${rver}
     build_r ${rver}
