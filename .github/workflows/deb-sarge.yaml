@@ -46,14 +46,12 @@ jobs:
         cd r-builds
         docker-compose build r-${{ matrix.container }}
         docker-compose up r-${{ matrix.container }}
-        ls -l .
-        ls -l output
 
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          output/*.deb
+          r-builds/output/*.deb
         name: "R ${{ matrix.container }}"
         tag_name: "v${{ matrix.container }}"
         repository: r-hub/R
