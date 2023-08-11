@@ -1,0 +1,38 @@
+diff --git a/doc/manual/Makefile.in b/doc/manual/Makefile.in
+index 9a1adf7..4373815 100644
+--- a/doc/manual/Makefile.in
++++ b/doc/manual/Makefile.in
+@@ -67,7 +67,7 @@ docs: html
+ 	fi
+ 	TEXINPUTS="$(srcdir):$$TEXINPUTS" $(TEXI2DVI) $<
+ .texi.html:
+-	$(MAKEINFO) --html -I$(srcdir) $< -o $@ || touch $@
++	$(MAKEINFO) --html --no-split -I$(srcdir) $< -o $@ || touch $@
+ .texi.info:
+ 	@if test "$(MAKEINFO)" = false; then \
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+@@ -296,7 +296,7 @@ $(top_srcdir)/doc/html/faq.html: @MAINTAINER_MODE_TRUE@ $(srcdir)/R-FAQ.texi
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+ 	  exit 1; \
+ 	fi
+-	$(MAKEINFO) --html --number-sections $< -o $@
++	$(MAKEINFO) --html --no-split --number-sections $< -o $@
+ $(top_srcdir)/RESOURCES: @MAINTAINER_MODE_TRUE@ $(srcdir)/resources.texi
+ 	@if test "$(MAKEINFO)" = false; then \
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+@@ -308,13 +308,13 @@ $(top_srcdir)/doc/html/resources.html: @MAINTAINER_MODE_TRUE@ $(srcdir)/resource
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+ 	  exit 1; \
+ 	fi
+-	$(MAKEINFO) --html --no-headers $< -o $@
++	$(MAKEINFO) --html --no-split --no-headers $< -o $@
+ $(top_srcdir)/doc/html/R-admin.html: @MAINTAINER_MODE_TRUE@ $(srcdir)/R-admin.texi $(texiincludes)
+ 	@if test "$(MAKEINFO)" = false; then \
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+ 	  exit 1; \
+ 	fi
+-	$(MAKEINFO) --html --no-headers --number-sections -I$(srcdir) $< -o $@
++	$(MAKEINFO) --html --no-split --no-headers --number-sections -I$(srcdir) $< -o $@
+ 
+ distdir: $(DISTFILES)
+ 	@for f in $(DISTFILES); do \

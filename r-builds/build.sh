@@ -70,6 +70,11 @@ install_requirements() {
                 tk8.4-dev
         ln -s /usr/include/tcl8.4/ /usr/include/tk8.4
     fi
+    if dpkg --compare-versions "${rver}" ge 1.6.0; then
+        apt-get install -y   \
+                libpcre3-dev \
+                libbz2-dev
+    fi
 }
 
 fetch_r_source() {
@@ -181,6 +186,33 @@ build_r() {
         if dpkg --compare-versions "$rver" lt 0.62; then
 	    find ${build_dir} -name "*.o" | xargs rm
         fi
+    )
+    if dpkg --compare-versions "$rver" ge 1.3.0; then
+        if dpkg --compare-versions "$rver" le 1.5.1; then
+            install_recommended "$rver"
+        fi
+    fi
+}
+
+install_recommended() {
+    if [ -z "$1" ]; then
+	echo "Usage: build_r <r-version>"
+	return 100
+    fi
+    local rver="$1"
+    local major=`echo $rver | sed 's/\..*$//'`
+    local url="${CRAN}/src/base/R-${major}/R-${rver}-recommended.tgz"
+    local build_dir="R-${rver}"
+    (
+        set +x
+        cd "$build_dir"
+        wget "$url" -O RC.tgz
+        tar xzf RC.tgz
+        rm RC.tgz
+        for pkg in $(ls R-$rver-recommended | grep '.tar.gz$'); do
+            ./bin/R CMD INSTALL "R-$rver-recommended/$pkg"
+        done
+        rm -r "R-$rver-recommended"
     )
 }
 
