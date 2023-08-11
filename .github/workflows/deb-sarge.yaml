@@ -46,6 +46,8 @@ jobs:
         cd r-builds
         docker-compose build r-${{ matrix.container }}
         docker-compose up r-${{ matrix.container }}
+        ls -l .
+        ls -l output
 
     - name: Release
       uses: softprops/action-gh-release@v1
