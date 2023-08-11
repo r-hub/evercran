@@ -47,9 +47,10 @@ For example to run R 0.65.1:
 
     /opt/R/0.65.1/bin/R
 
-| R versions       | Container                    | OS                    |
-|:-----------------|:-----------------------------|:----------------------|
-| R 0.49 – R 1.0.0 | `ghcr.io/r-hub/evercran/0.x` | Debian Sarge 3.1 i386 |
+| R versions        | Container                    | OS                    |
+|:------------------|:-----------------------------|:----------------------|
+| R 0.49 – R 1.0.0  | `ghcr.io/r-hub/evercran/0.x` | Debian Sarge 3.1 i386 |
+| R 1.0.0 – R 1.9.1 | `ghcr.io/r-hub/evercran/1.x` | Debian Sarge 3.1 i386 |
 
 ## All containers
 
@@ -82,6 +83,28 @@ For example to run R 0.65.1:
 | R 0.90.1  | ghcr.io/r-hub/evercran/0.90.1  | Debian Sarge 3.1 i386 |
 | R 0.99.0  | ghcr.io/r-hub/evercran/0.99.0  | Debian Sarge 3.1 i386 |
 | R 1.0.0   | ghcr.io/r-hub/evercran/1.0.0   | Debian Sarge 3.1 i386 |
+| R 1.0.1   | ghcr.io/r-hub/evercran/1.0.1   | Debian Sarge 3.1 i386 |
+| R 1.1.0   | ghcr.io/r-hub/evercran/1.1.0   | Debian Sarge 3.1 i386 |
+| R 1.1.1   | ghcr.io/r-hub/evercran/1.1.1   | Debian Sarge 3.1 i386 |
+| R 1.2.0   | ghcr.io/r-hub/evercran/1.2.0   | Debian Sarge 3.1 i386 |
+| R 1.2.1   | ghcr.io/r-hub/evercran/1.2.1   | Debian Sarge 3.1 i386 |
+| R 1.2.2   | ghcr.io/r-hub/evercran/1.2.2   | Debian Sarge 3.1 i386 |
+| R 1.2.3   | ghcr.io/r-hub/evercran/1.2.3   | Debian Sarge 3.1 i386 |
+| R 1.3.0   | ghcr.io/r-hub/evercran/1.3.0   | Debian Sarge 3.1 i386 |
+| R 1.3.1   | ghcr.io/r-hub/evercran/1.3.1   | Debian Sarge 3.1 i386 |
+| R 1.4.0   | ghcr.io/r-hub/evercran/1.4.0   | Debian Sarge 3.1 i386 |
+| R 1.4.1   | ghcr.io/r-hub/evercran/1.4.1   | Debian Sarge 3.1 i386 |
+| R 1.5.0   | ghcr.io/r-hub/evercran/1.5.0   | Debian Sarge 3.1 i386 |
+| R 1.5.1   | ghcr.io/r-hub/evercran/1.5.1   | Debian Sarge 3.1 i386 |
+| R 1.6.0   | ghcr.io/r-hub/evercran/1.6.0   | Debian Sarge 3.1 i386 |
+| R 1.6.1   | ghcr.io/r-hub/evercran/1.6.1   | Debian Sarge 3.1 i386 |
+| R 1.6.2   | ghcr.io/r-hub/evercran/1.6.2   | Debian Sarge 3.1 i386 |
+| R 1.7.0   | ghcr.io/r-hub/evercran/1.7.0   | Debian Sarge 3.1 i386 |
+| R 1.7.1   | ghcr.io/r-hub/evercran/1.7.1   | Debian Sarge 3.1 i386 |
+| R 1.8.0   | ghcr.io/r-hub/evercran/1.8.0   | Debian Sarge 3.1 i386 |
+| R 1.8.1   | ghcr.io/r-hub/evercran/1.8.1   | Debian Sarge 3.1 i386 |
+| R 1.9.0   | ghcr.io/r-hub/evercran/1.9.0   | Debian Sarge 3.1 i386 |
+| R 1.9.1   | ghcr.io/r-hub/evercran/1.9.1   | Debian Sarge 3.1 i386 |
 
 ## Similar projects, inspiration
 

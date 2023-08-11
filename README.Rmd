@@ -55,9 +55,10 @@ For example to run R 0.65.1:
 /opt/R/0.65.1/bin/R
 ```
 
-| R versions        | Container                    | OS                    |
-|:------------------|:-----------------------------|:----------------------|
-| R 0.49 -- R 1.0.0 | `ghcr.io/r-hub/evercran/0.x` | Debian Sarge 3.1 i386 |
+| R versions         | Container                    | OS                    |
+|:-------------------|:-----------------------------|:----------------------|
+| R 0.49  -- R 1.0.0 | `ghcr.io/r-hub/evercran/0.x` | Debian Sarge 3.1 i386 |
+| R 1.0.0 -- R 1.9.1 | `ghcr.io/r-hub/evercran/1.x` | Debian Sarge 3.1 i386 |
 
 ## All containers
 

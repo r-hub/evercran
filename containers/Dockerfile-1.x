@@ -10,11 +10,11 @@ RUN echo 'deb http://ppa.r-pkg.org/evercran sarge main' \
 
 COPY sarge-versions.txt .
 
-RUN cat sarge-versions.txt | sed '/0\.49/,/1\.0\.0/!d;/1\.0\.0/q' > \
-    0x-versions.txt
+RUN cat sarge-versions.txt | sed '/1\.0\.0/,/1\.9\.1/!d;/1\.9\.1/q' > \
+    1x-versions.txt
 
 RUN apt-get update && \
-    apt-get install -y `cat 0x-versions.txt | sed 's/^/r-/'` && \
+    apt-get install -y `cat 1x-versions.txt | sed 's/^/r-/'` && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/lib/apt/lists/partial && \

@@ -1,4 +1,4 @@
-name: Build w/ Sarge (R 0.49 - R 1.0.0)
+name: Build w/ Sarge (R 0.49 - R 1.9.1)
 
 on:
   workflow_dispatch:

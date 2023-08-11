@@ -90,8 +90,10 @@ fetch_r_source() {
     elif [ "$rver" = "0.60" -o "$rver" = "0.61" -o "$rver" = "0.62" \
                  -o "$rver" = "0.63" ]; then
 	local url="${CRAN}/src/base/R-${major}/R-${rver}.0.tgz"
+    elif dpkg --compare-versions "$rver" lt 2.0.0; then
+        local url="${CRAN}/src/base/R-${major}/R-${rver}.tgz"
     else
-	local url="${CRAN}/src/base/R-${major}/R-${rver}.tgz"
+        local url="${CRAN}/src/base/R-${major}/R-${rver}.tar.gz"
     fi
     wget "$url" -O R.tgz
     tar xzf R.tgz
