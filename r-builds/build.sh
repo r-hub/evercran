@@ -222,7 +222,7 @@ package_r() {
 	 description-pak
     local deps="less, libsm6, libice6, libx11-6, libc6, libreadline5"
     if dpkg --compare-versions "$rver" ge 0.64.0; then
-        local deps="$deps zlib1g"
+        local deps="$deps, zlib1g"
     fi
     # Need a hack to add dependencies
     export MAINTAINER="csardi.gabor@gmail.com
