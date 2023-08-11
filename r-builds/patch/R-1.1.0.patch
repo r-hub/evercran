@@ -1,0 +1,44 @@
+diff --git a/config.site b/config.site
+index 0bd1b69..eb69089 100644
+--- a/config.site
++++ b/config.site
+@@ -40,7 +40,7 @@
+ # If unspecified, a search is made for gcc and cc (in that order).
+ # To override this choice, specify the name of the command which runs
+ # the compiler here, for example `c89'.
+-# CC=
++CC=gcc-2.95
+ 
+ # Debugging and optimization options for the C compiler.
+ # Use this to specify CFLAGS for the version of the C compiler specified
+@@ -65,7 +65,7 @@
+ # found; otherwise, R cannot be compiled.  The search mechanism can be
+ # changed using the `--with-g77', `--with-f77', and `--with-f2c' command
+ # line options to configure.
+-# FC=
++FC=g77-2.95
+ 
+ # Options for the FORTRAN compiler.
+ # Use this to specify FFLAGS for the version of the compiler specified
+@@ -115,7 +115,7 @@
+ # uses the values of the environment variables `CXX' or `CCC' if set,
+ # and then looks under the names `c++', `g++', `gcc', `CC', `cxx', and
+ # `cc++' (in that order).
+-# CXX=
++CXX=g++-2.95
+ # Options for the C++ compiler.
+ # CXXFLAGS=
+ # Any special flags which must be used when compiling C++ code to be
+diff --git a/src/unix/sys-unix.c b/src/unix/sys-unix.c
+index a328201..d815f42 100644
+--- a/src/unix/sys-unix.c
++++ b/src/unix/sys-unix.c
+@@ -84,7 +84,7 @@ FILE *R_OpenInitFile(void)
+ 
+ 
+ #ifdef HAVE_LIBREADLINE
+-  char *tilde_expand(char*);
++  /* char *tilde_expand(char*); */
+ 
+   char *R_ExpandFileName(char *s)
+   {

@@ -307,3 +307,80 @@ services:
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
+
+  r-1.0.1:
+    image: "rhub/evercran-build:1.0.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "1.0.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-1.1.0:
+    image: "rhub/evercran-build:1.1.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "1.1.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-1.1.1:
+    image: "rhub/evercran-build:1.1.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "1.1.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-1.2.0:
+    image: "rhub/evercran-build:1.2.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "1.2.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-1.2.1:
+    image: "rhub/evercran-build:1.2.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "1.2.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-1.2.2:
+    image: "rhub/evercran-build:1.2.2"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "1.2.2"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-1.2.3:
+    image: "rhub/evercran-build:1.2.3"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: "1.2.3"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output

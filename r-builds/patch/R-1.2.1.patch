@@ -1,0 +1,82 @@
+diff --git a/config.site b/config.site
+index bac2d90..31bb46a 100644
+--- a/config.site
++++ b/config.site
+@@ -40,7 +40,7 @@
+ # If unspecified, a search is made for gcc and cc (in that order).
+ # To override this choice, specify the name of the command which runs
+ # the compiler here, for example `c89'.
+-# CC=
++CC=gcc-2.95
+ 
+ # Debugging and optimization options for the C compiler.
+ # Use this to specify CFLAGS for the version of the C compiler specified
+@@ -65,7 +65,7 @@
+ # found; otherwise, R cannot be compiled.  The search mechanism can be
+ # changed using the `--with-g77', `--with-f77', and `--with-f2c' command
+ # line options to configure.
+-# FC=
++FC=g77-2.95
+ 
+ # Options for the FORTRAN compiler.
+ # Use this to specify FFLAGS for the version of the compiler specified
+@@ -122,7 +122,7 @@
+ # uses the values of the environment variables `CXX' or `CCC' if set,
+ # and then looks under the names `c++', `g++', `gcc', `CC', `cxx', and
+ # `cc++' (in that order).
+-# CXX=
++CXX=g++-2.95
+ 
+ # Options for the C++ compiler.
+ # CXXFLAGS=
+@@ -156,4 +156,4 @@
+ # make name.
+ # Set this if you want to use a make by another name, for example 
+ # if your GNU make is called `gmake', use MAKE=gmake.
+-# MAKE=
+\ No newline at end of file
++# MAKE=
+diff --git a/doc/manual/Makefile.in b/doc/manual/Makefile.in
+index f5d2651..7fe8525 100644
+--- a/doc/manual/Makefile.in
++++ b/doc/manual/Makefile.in
+@@ -71,7 +71,7 @@ docs: html
+ 	fi
+ 	TEXINPUTS="$(srcdir):$$TEXINPUTS" $(TEXI2DVI) $<
+ .texi.html:
+-	$(MAKEINFO) --html -I$(srcdir) $< -o $@ || touch $@
++	$(MAKEINFO) --html --no-split -I$(srcdir) $< -o $@ || touch $@
+ .texi.info:
+ 	@if test "$(MAKEINFO)" = false; then \
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+@@ -302,7 +302,7 @@ $(top_srcdir)/doc/html/faq.html: $(srcdir)/R-FAQ.texi
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+ 	  exit 1; \
+ 	fi
+-	$(MAKEINFO) --html --number-sections $< -o $@
++	$(MAKEINFO) --html --no-split --number-sections $< -o $@
+ $(top_srcdir)/RESOURCES: $(srcdir)/resources.texi
+ 	@if test "$(MAKEINFO)" = false; then \
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+@@ -314,7 +314,7 @@ $(top_srcdir)/doc/html/resources.html: $(srcdir)/resources.texi
+ 	  echo "ERROR: \`makeinfo' v4 needed but missing on your system."; \
+ 	  exit 1; \
+ 	fi
+-	$(MAKEINFO) --html --no-headers $< -o $@
++	$(MAKEINFO) --html --no-split --no-headers $< -o $@
+ 
+ distdir: $(DISTFILES)
+ 	@for f in $(DISTFILES); do \
+diff --git a/src/unix/sys-unix.c b/src/unix/sys-unix.c
+index e940c60..587e409 100644
+--- a/src/unix/sys-unix.c
++++ b/src/unix/sys-unix.c
+@@ -85,7 +85,7 @@ FILE *R_OpenInitFile(void)
+ 
+ 
+ #ifdef HAVE_LIBREADLINE
+-char *tilde_expand(char*);
++/* char *tilde_expand(char*); */
+ 
+ char *R_ExpandFileName(char *s)
+ {

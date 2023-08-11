@@ -150,6 +150,7 @@ configure_r() {
             local args="--prefix=/opt/R/${rver}"
             if dpkg --compare-versions "${rver}" ge 1.2.0; then
                 local args="$args --with-tcltk=/usr/lib/tcl8.4:/usr/lib/tk8.4"
+                local args="$args --enable-R-shlib"
             fi
             ./configure $args
         fi
@@ -223,6 +224,12 @@ package_r() {
     local deps="less, libsm6, libice6, libx11-6, libc6, libreadline5"
     if dpkg --compare-versions "$rver" ge 0.64.0; then
         local deps="$deps, zlib1g"
+    fi
+    if dpkg --compare-versions "$rver" ge 1.1.0; then
+        local deps="$deps, libjpeg62, libpng12-0"
+    fi
+    if dpkg --compare-versions "$rver" ge 1.2.0; then
+        local deps="$deps, tcl8.4, tk8.4"
     fi
     # Need a hack to add dependencies
     export MAINTAINER="csardi.gabor@gmail.com
