@@ -260,6 +260,9 @@ build() {
     else
         package_r ${rver}
     fi
+    for f in *.deb; do
+        mv "$f" "$(echo $f | sed 's/r-/r-evercran-debian-3.1-/')"
+    done
 }
 
 if [ "$sourced" = "0" ]; then
