@@ -1,3 +1,4 @@
+# -*- Dockerfile -*-
 
 FROM debian/eol:sarge
 
