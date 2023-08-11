@@ -11,7 +11,8 @@ RUN echo 'deb http://ppa.r-pkg.org/evercran sarge main' \
 RUN apt-get update && \
     apt-get install -y r-${R_VERSION} && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/lib/apt/lists/partial
 
 RUN ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/
 
