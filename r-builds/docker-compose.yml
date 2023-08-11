@@ -9,7 +9,6 @@ services:
       dockerfile: Dockerfile-sarge
       args:
         R_VERSION: 0.49
-        IN_PLACE: true
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
@@ -23,7 +22,6 @@ services:
       dockerfile: Dockerfile-sarge
       args:
         R_VERSION: 0.50-a1
-        IN_PLACE: true
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
@@ -37,7 +35,6 @@ services:
       dockerfile: Dockerfile-sarge
       args:
         R_VERSION: 0.50-a4
-        IN_PLACE: true
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
