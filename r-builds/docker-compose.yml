@@ -681,3 +681,36 @@ services:
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
+
+  r-2.6.0:
+    image: "rhub/evercran-build:2.6.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.6.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.6.1:
+    image: "rhub/evercran-build:2.6.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.6.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.6.2:
+    image: "rhub/evercran-build:2.6.2"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.6.2"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
