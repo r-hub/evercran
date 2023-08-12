@@ -549,3 +549,135 @@ services:
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
+
+  r-2.0.0:
+    image: "rhub/evercran-build:2.0.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.0.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.0.1:
+    image: "rhub/evercran-build:2.0.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.0.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.1.0:
+    image: "rhub/evercran-build:2.1.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.1.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.1.1:
+    image: "rhub/evercran-build:2.1.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.1.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.2.0:
+    image: "rhub/evercran-build:2.2.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.2.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.2.1:
+    image: "rhub/evercran-build:2.2.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.2.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.3.0:
+    image: "rhub/evercran-build:2.3.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.3.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.3.1:
+    image: "rhub/evercran-build:2.3.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.3.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.4.0:
+    image: "rhub/evercran-build:2.4.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.4.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.4.1:
+    image: "rhub/evercran-build:2.4.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.4.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.5.0:
+    image: "rhub/evercran-build:2.5.0"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.5.0"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-2.5.1:
+    image: "rhub/evercran-build:2.5.1"
+    build:
+      context: .
+      dockerfile: Dockerfile-wheezy
+      args:
+        R_VERSION: "2.5.1"
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output

@@ -22,20 +22,21 @@ prepare() {
 	return 100
     fi
     local rver=$1;
-    if dpkg --compare-versions "${rver}" lt 0.62; then
-        mkdir -p /opt/R
-    fi
+    # It does not hurt to always create this
+    mkdir -p /opt/R
 }
+
 
 # Not all versions need all these, but we might as well
 # install everything, it does not hurt
 
-install_requirements() {
+install_requirements_sarge() {
     if [ -z "$1" ]; then
-	echo "Usage: install_requirements <r-version>"
+	echo "Usage: install_requirements_sarge <r-version>"
 	return 100
     fi
     local rver="$1"
+
     apt-get update -y
     apt-get install -y       \
 	    checkinstall     \
@@ -74,6 +75,51 @@ install_requirements() {
         apt-get install -y   \
                 libpcre3-dev \
                 libbz2-dev
+    fi
+}
+
+install_requirements_wheezy() {
+    if [ -z "$1" ]; then
+	echo "Usage: install_requiremens_wheezy <r-version>"
+	return 100
+    fi
+    local rver="$1"
+
+    apt-get update -y
+    apt-get install -y       \
+            checkinstall     \
+            libx11-dev       \
+            patch            \
+            gcc              \
+            gfortran         \
+            g+++             \
+            libc6-dev        \
+            make             \
+            perl             \
+            m4               \
+            less             \
+            libreadline-gplv2-dev \
+            texlive-base     \
+            texinfo          \
+            libjpeg-dev      \
+            libpng-dev       \
+            tcl8.4-dev       \
+            tk8.4-dev        \
+            libpcre3-dev     \
+            libbz2-dev       \
+            wget
+}
+
+install_requirements() {
+    if [ -z "$1" ]; then
+	echo "Usage: install_requiremens <r-version>"
+	return 100
+    fi
+    local rver="$1"
+    if grep '^3[.]' /etc/debian_version; then
+        install_requirements_sarge "$rver"
+    elif grep '^7[.]' /etc/debian_version; then
+        install_requirements_wheezy "$rver"
     fi
 }
 
@@ -258,6 +304,58 @@ package_r() {
 	return 100
     fi
     local rver="$1"
+    if grep '^3[.]' /etc/debian_version; then
+        package_r_sarge "$rver"
+    elif grep '^7[.]' /etc/debian_version; then
+        package_r_wheezy "$rver"
+    fi
+}
+
+package_r_wheezy() {
+    if [ -z "$1" ]; then
+	echo "Usage: package_r_wheezy <r-version>"
+	return 100
+    fi
+    local rver="$1"
+    local build_dir="R-${rver}"
+    local deps="less, libsm6, libice6, libx11-6, libc6, libreadline5"
+    if dpkg --compare-versions "$rver" ge 2.0.0; then
+        local deps="$deps, zlib1g"
+    fi
+    local arch="`dpkg --print-architecture`"
+
+    (
+        cd ${build_dir}
+        echo "/opt/R/${rver}" > chk-list
+        echo "GNU R statistical computation and graphics system" > \
+	     description-pak
+
+        make install
+
+        checkinstall -D -y                                 \
+		     --arch "$arch"                        \
+		     --pkgname r-${rver}                   \
+		     --pkgversion 1                        \
+		     --pkgsource "https://r-project.org"   \
+		     --pkglicense "GPL 2.0"                \
+                     --maintainer="csardi.gabor@gmail.com" \
+                     --requires="$deps"                    \
+		     --strip=yes --stripso=yes             \
+		     --spec r.spec                         \
+		     --delspec=no                          \
+                     --nodoc                               \
+                     --include=chk-list                    \
+		     echo ok
+        cp r-*.deb ..
+    )
+}
+
+package_r_sarge() {
+    if [ -z "$1" ]; then
+	echo "Usage: package_r_sarge <r-version>"
+	return 100
+    fi
+    local rver="$1"
     local build_dir="R-${rver}"
     echo "GNU R statistical computation and graphics system" > \
 	 description-pak
@@ -304,8 +402,8 @@ build() {
     fi
     local rver="$1"
     prepare ${rver}
-    fetch_r_source ${rver}
     install_requirements ${rver}
+    fetch_r_source ${rver}
     patch_r_source ${rver}
     configure_r ${rver}
     build_r ${rver}
