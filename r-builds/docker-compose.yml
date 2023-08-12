@@ -555,6 +555,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.0.0"
     command: bash -c 'cp /build/*.deb /output'
