@@ -568,6 +568,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.0.1"
     command: bash -c 'cp /build/*.deb /output'
@@ -579,6 +581,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.1.0"
     command: bash -c 'cp /build/*.deb /output'
@@ -590,6 +594,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.1.1"
     command: bash -c 'cp /build/*.deb /output'
@@ -601,6 +607,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.2.0"
     command: bash -c 'cp /build/*.deb /output'
@@ -612,6 +620,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.2.1"
     command: bash -c 'cp /build/*.deb /output'
@@ -623,6 +633,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.3.0"
     command: bash -c 'cp /build/*.deb /output'
@@ -634,6 +646,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.3.1"
     command: bash -c 'cp /build/*.deb /output'
@@ -645,6 +659,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.4.0"
     command: bash -c 'cp /build/*.deb /output'
@@ -656,6 +672,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.4.1"
     command: bash -c 'cp /build/*.deb /output'
@@ -667,6 +685,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.5.0"
     command: bash -c 'cp /build/*.deb /output'
@@ -678,6 +698,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.5.1"
     command: bash -c 'cp /build/*.deb /output'
@@ -689,6 +711,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.6.0"
     command: bash -c 'cp /build/*.deb /output'
@@ -700,6 +724,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.6.1"
     command: bash -c 'cp /build/*.deb /output'
@@ -711,6 +737,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-wheezy
+      platforms:
+        - "linux/i386"
       args:
         R_VERSION: "2.6.2"
     command: bash -c 'cp /build/*.deb /output'
