@@ -412,8 +412,9 @@ build() {
     else
         package_r ${rver}
     fi
+    local debver="`cat /etc/debian_version`"
     for f in *.deb; do
-        mv "$f" "$(echo $f | sed 's/r-/r-evercran-debian-3.1-/')"
+        mv "$f" "$(echo $f | sed 's/r-/r-evercran-debian-'${debver}'-/')"
     done
 }
 
