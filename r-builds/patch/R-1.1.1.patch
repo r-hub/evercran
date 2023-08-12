@@ -29,6 +29,19 @@ index 0bd1b69..eb69089 100644
  # Options for the C++ compiler.
  # CXXFLAGS=
  # Any special flags which must be used when compiling C++ code to be
+diff --git a/src/scripts/R.sh.in b/src/scripts/R.sh.in
+index e4c05fd..c18e11a 100755
+--- a/src/scripts/R.sh.in
++++ b/src/scripts/R.sh.in
+@@ -80,7 +80,7 @@ Options:
+   --verbose             Print more information about progress
+   -d, --debugger=NAME   Run R through debugger NAME
+   -g, --gui=TYPE	Use TYPE as GUI; possible values are \`X11'
+-			(default), \`none' and \`gnome'
++			\`none' (default) and \`gnome'
+ 
+ Commands:
+   BATCH			Run R in batch mode
 diff --git a/src/unix/sys-unix.c b/src/unix/sys-unix.c
 index a328201..d815f42 100644
 --- a/src/unix/sys-unix.c
@@ -42,3 +55,25 @@ index a328201..d815f42 100644
  
    char *R_ExpandFileName(char *s)
    {
+diff --git a/src/unix/system.c b/src/unix/system.c
+index c37146d..0d71de5 100644
+--- a/src/unix/system.c
++++ b/src/unix/system.c
+@@ -85,7 +85,7 @@ void R_load_gnome_shlib(); /* in dynload.c */
+ 
+ int main(int ac, char **av)
+ {
+-    int i, ioff = 1, j, value, ierr, useX11 = 1, usegnome = 0;
++    int i, ioff = 1, j, value, ierr, useX11 = 0, usegnome = 0;
+     char *p, msg[1024], **avv;
+     structRstart rstart;
+     Rstart Rp = &rstart;
+@@ -135,7 +135,7 @@ int main(int ac, char **av)
+ 		useX11 = 1;
+ 	    else {
+ #ifdef HAVE_X11
+-		sprintf(msg, "WARNING: unknown gui `%s', using X11\n", p);
++		sprintf(msg, "WARNING: unknown gui `%s', using none\n", p);
+ #else
+ 		sprintf(msg, "WARNING: unknown gui `%s', using none\n", p);
+ #endif
