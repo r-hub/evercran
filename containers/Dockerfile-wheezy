@@ -1,0 +1,31 @@
+# -*- Dockerfile -*-
+
+FROM debian/eol:wheezy
+
+ARG R_VERSION
+
+ENV PAGER=less
+
+RUN echo 'deb http://ppa.r-pkg.org/evercran wheezy main' \
+    >> /etc/apt/sources.list
+
+RUN apt-get update && \
+    apt-get install -y linux32 r-${R_VERSION} && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/lib/apt/lists/partial
+
+RUN ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/
+
+RUN if [ -f /opt/R/${R_VERSION}/bin/Rscript ]; then               \
+        ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/;    \
+    fi
+
+# Some old versions do not have --vanilla
+RUN (echo 'library()' | /opt/R/${R_VERSION}/bin/R --vanilla | cat) || \
+    (echo 'library()' | /opt/R/${R_VERSION}/bin/R | cat)
+
+WORKDIR /root
+
+ENTRYPOINT [ "linux32" ]
+CMD [ "R" ]
