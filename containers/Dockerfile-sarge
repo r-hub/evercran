@@ -10,7 +10,7 @@ RUN echo 'deb http://ppa.r-pkg.org/evercran sarge main' \
     >> /etc/apt/sources.list
 
 RUN apt-get update && \
-    apt-get install -y r-${R_VERSION} && \
+    apt-get install -y linux32 r-${R_VERSION} && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/lib/apt/lists/partial
@@ -27,4 +27,5 @@ RUN (echo 'library()' | /opt/R/${R_VERSION}/bin/R --vanilla | cat) || \
 
 WORKDIR /root
 
+ENTRYPOINT [ "linux32" ]
 CMD [ "R" ]
