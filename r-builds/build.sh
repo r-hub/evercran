@@ -271,6 +271,13 @@ package_r() {
     if dpkg --compare-versions "$rver" ge 1.2.0; then
         local deps="$deps, tcl8.4, tk8.4"
     fi
+    if dpkg --compare-versions "$rver" ge 1.3.0; then
+        local deps="$deps, libg2c0"
+    fi
+    if dpkg --compare-versions "$rver" ge 1.6.0 &&
+            dpkg --compare-versions "$rver" le 1.8.1; then
+        local deps="$deps, libbz2-1.0"
+    fi
     # Need a hack to add dependencies
     export MAINTAINER="csardi.gabor@gmail.com
 Depends: $deps"
