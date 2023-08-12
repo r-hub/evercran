@@ -1,0 +1,22 @@
+diff --git a/src/main/Rstrptime.h b/src/main/Rstrptime.h
+index 9c14212..d8c9fac 100644
+--- a/src/main/Rstrptime.h
++++ b/src/main/Rstrptime.h
+@@ -194,7 +194,7 @@ static wchar_t w_ab_month_name[][10] =
+ static wchar_t w_am_pm[][4] = {L"AM", L"PM"};
+ 
+ /* Need case-insensitive version */
+-static int wcsncasecmp(const wchar_t *cs1, const wchar_t *s2)
++static int wcsncasecmp0(const wchar_t *cs1, const wchar_t *s2)
+ {
+     size_t i, n = wcslen(cs1);
+     const wchar_t *a = cs1, *b = s2;
+@@ -205,7 +205,7 @@ static int wcsncasecmp(const wchar_t *cs1, const wchar_t *s2)
+ }
+ 
+ #define w_match_string(cs1, s2) \
+-  (wcsncasecmp ((cs1), (s2)) ? 0 : ((s2) += wcslen (cs1), 1))
++  (wcsncasecmp0 ((cs1), (s2)) ? 0 : ((s2) += wcslen (cs1), 1))
+ 
+ #define w_recursive(new_fmt) \
+   (*(new_fmt) != '\0'							      \
