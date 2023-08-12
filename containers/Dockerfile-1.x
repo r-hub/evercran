@@ -14,7 +14,7 @@ RUN cat sarge-versions.txt | sed '/1\.0\.0/,/1\.9\.1/!d;/1\.9\.1/q' > \
     1x-versions.txt
 
 RUN apt-get update && \
-    apt-get install -y `cat 1x-versions.txt | sed 's/^/r-/'` && \
+    apt-get install -y linux32 `cat 1x-versions.txt | sed 's/^/r-/'` && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/lib/apt/lists/partial && \
@@ -22,4 +22,5 @@ RUN apt-get update && \
 
 WORKDIR /root
 
+ENTRYPOINT [ "linux32" ]
 CMD [ "bash" ]
