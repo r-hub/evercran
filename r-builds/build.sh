@@ -108,6 +108,12 @@ install_requirements_wheezy() {
             libpcre3-dev     \
             libbz2-dev       \
             wget
+
+    if dpkg --compare-versions "$rver" ge 2.7.0; then
+        apt-get install -y      \
+                libcairo2-dev   \
+                libpango1.0-dev
+    fi
 }
 
 install_requirements() {
