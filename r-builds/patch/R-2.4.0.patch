@@ -1,0 +1,42 @@
+diff --git a/src/include/Rinlinedfuns.h b/src/include/Rinlinedfuns.h
+index b45e4d3..fced424 100644
+--- a/src/include/Rinlinedfuns.h
++++ b/src/include/Rinlinedfuns.h
+@@ -30,7 +30,14 @@
+ #define R_INLINES_H_
+ 
+ #ifndef COMPILING_R /* defined only in util.c */
+-# define INLINE_FUN extern R_INLINE
++/* The following was added in gcc 4.1.3.  It is defined if
++   GCC is following C99 inline semantics by default: we
++   switch R's usage to the older GNU semantics via attributes. */
++# ifdef __GNUC_STDC_INLINE__
++#  define INLINE_FUN extern __attribute__((gnu_inline)) inline
++# else
++#  define INLINE_FUN extern R_INLINE
++# endif
+ #else
+ # define INLINE_FUN
+ #endif
+diff --git a/src/main/Rstrptime.h b/src/main/Rstrptime.h
+index b491c7f..d6b76b1 100644
+--- a/src/main/Rstrptime.h
++++ b/src/main/Rstrptime.h
+@@ -198,7 +198,7 @@ static wchar_t w_ab_month_name[][10] =
+ static wchar_t w_am_pm[][4] = {L"AM", L"PM"};
+ 
+ /* Need case-insensitive version */
+-static int wcsncasecmp(const wchar_t *cs1, const wchar_t *s2)
++static int wcsncasecmp0(const wchar_t *cs1, const wchar_t *s2)
+ {
+     size_t i, n = wcslen(cs1);
+     const wchar_t *a = cs1, *b = s2;
+@@ -209,7 +209,7 @@ static int wcsncasecmp(const wchar_t *cs1, const wchar_t *s2)
+ }
+ 
+ #define w_match_string(cs1, s2) \
+-  (wcsncasecmp ((cs1), (s2)) ? 0 : ((s2) += wcslen (cs1), 1))
++  (wcsncasecmp0 ((cs1), (s2)) ? 0 : ((s2) += wcslen (cs1), 1))
+ 
+ #define w_recursive(new_fmt) \
+   (*(new_fmt) != '\0'							      \
