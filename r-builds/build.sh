@@ -114,6 +114,16 @@ install_requirements_wheezy() {
                 libcairo2-dev   \
                 libpango1.0-dev
     fi
+
+    if dpkg --compare-versions "$rver" ge 2.9.0; then
+        apt-get install -y      \
+                libicu-dev
+    fi
+
+    if dpkg --compare-versions "$rver" ge 2.10.0; then
+        apt-get install -y      \
+                liblzma-dev
+    fi
 }
 
 install_requirements() {
