@@ -317,6 +317,28 @@ package_r() {
     fi
 }
 
+lookup_dep() {
+    set +x
+    local path="$1"
+    ldd "$path"  | grep -F '=>' | awk '{ print $3; }' |
+        grep ^/ | sort | uniq | xargs dpkg -S  |
+        cut -d: -f1  | sort | uniq
+}
+
+lookup_deps() {
+    set +x
+    if [ -z "$1" ]; then
+        echo "Usage: lookup_deps <path>"
+        return 100
+    fi
+    local path="$1"
+    # We don't need to look up the R binary, because we use --enable-R-shlib
+    local sos=`find "$path" -name "*.so"`
+    for so in $sos; do
+        lookup_dep "$so"
+    done | sort | uniq | tr '\n' , | sed 's/,$//' | sed 's/,/, /g'
+}
+
 package_r_wheezy() {
     if [ -z "$1" ]; then
 	echo "Usage: package_r_wheezy <r-version>"
@@ -324,10 +346,9 @@ package_r_wheezy() {
     fi
     local rver="$1"
     local build_dir="R-${rver}"
-    local deps="less, libsm6, libice6, libx11-6, libc6, libreadline5"
-    if dpkg --compare-versions "$rver" ge 2.0.0; then
-        local deps="$deps, zlib1g"
-    fi
+    echo $build_dir
+    local deps=`lookup_deps "$build_dir"`
+    local deps="$deps, less"
     local arch="`dpkg --print-architecture`"
 
     (
