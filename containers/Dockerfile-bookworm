@@ -1,0 +1,32 @@
+# -*- Dockerfile -*-
+
+FROM debian:bookworm
+
+ARG R_VERSION
+
+ENV PAGER=less
+
+RUN apt-get update && \
+    apt-get install -y curl less && \
+    if [ "$(arch)" = "x86_64" ]; then \
+      curl -LOs https://cdn.posit.co/r/debian-12/pkgs/r-${R_VERSION}_1_amd64.deb; \
+    elif [ "$(arch)" = "aarch64" ]; then \
+      curl -LOs https://github.com/r-hub/R/releases/download/v${R_VERSION}/r-rstudio-debian-12-${R_VERSION}_1_arm64.deb; \
+    else \
+      return 100; \
+    fi &&  \
+    apt install -y ./*.deb && \
+    rm *.deb && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/lib/apt/lists/partial
+
+RUN ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/
+
+RUN if [ -f /opt/R/${R_VERSION}/bin/Rscript ]; then               \
+        ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/;    \
+    fi
+
+WORKDIR /root
+
+CMD [ "R" ]
