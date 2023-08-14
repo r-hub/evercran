@@ -359,6 +359,9 @@ package_r_wheezy() {
     echo $build_dir
     local deps=`lookup_deps "$build_dir"`
     local deps="$deps, less"
+    if dpkg --compare-versions "$rver" lt "2.12.0"; then
+        local deps="$deps, perl"
+    fi
     local arch="`dpkg --print-architecture`"
 
     (
