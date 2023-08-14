@@ -6,11 +6,11 @@ ARG R_VERSION
 
 ENV PAGER=less
 
-RUN echo 'deb http://ppa.r-pkg.org/evercran wheezy main' \
-    >> /etc/apt/sources.list
-
 RUN apt-get update && \
-    apt-get install -y linux32 r-${R_VERSION} && \
+    apt-get install -y linux32 wget ca-certificates && \
+    wget https://github.com/r-hub/R/releases/download/v${R_VERSION}/r-evercran-debian-7.11-${R_VERSION}_1-1_i386.deb && \
+    dpkg -i r-evercran-debian-7.11-${R_VERSION}_1-1_i386.deb || true && \
+    apt-get -fy install && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/lib/apt/lists/partial
