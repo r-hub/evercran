@@ -28,7 +28,7 @@ now!](https://github.com/r-hub/evercran/issues/new) Thanks!
 ## TL;DR
 
 ``` sh
-docker pull --platform linux/i386 ghcr.io/r-hub/evercran/1.0.0
+docker pull ghcr.io/r-hub/evercran/1.0.0
 docker run -ti ghcr.io/r-hub/evercran/1.0.0
 ```
 
@@ -51,15 +51,13 @@ docker run -ti ghcr.io/r-hub/evercran/1.0.0
 ## R 0.49 – R 1.9.1
 
 ``` sh
-docker pull --platform linux/i386 ghcr.io/r-hub/evercran/<version>
+docker pull ghcr.io/r-hub/evercran/<version>
 docker run -ti ghcr.io/r-hub/evercran/<version>
 ```
 
 These containers use Debian 3.1 (Sarge). Notes:
 
-- All containers use the `linux/i386` architecture. You might need to
-  explicitly specify the platform with `--platform` in `docker pull` or
-  `docker run`.
+- All containers use the `linux/i386` architecture.
 
 - While `wget` and `curl` have HTTPS support, in practice HTTPS does not
   work because of certificate errors.
@@ -80,22 +78,28 @@ These containers use Debian 3.1 (Sarge). Notes:
   directly download these from the containers, because of the broken
   HTTPS. Use the PPA to download them.)
 
-- The entry point of the containers is `linux32` to make sure that all
-  programs know that they are running on `i386`. Call `linux32` manually
-  if you change the entry point.
+- If you run this image on `x86_64` machines, then `arch`, `uname -a`
+  and potentially similar commands report the architecture incorrectly
+  as `x86_64`. Use the `linux32` entrypoint to work around this. We
+  don’t do this by default currently, because it causes issues on arm64
+  hosts (see <https://github.com/r-hub/evercran/issues/3>). E.g.:
+
+      ❯ docker run -ti ghcr.io/r-hub/evercran/0.49:latest arch
+      x86_64
+
+      ❯ docker run -ti --entrypoint linux32 ghcr.io/r-hub/evercran/0.49:latest arch
+      i686
 
 ## R 2.0.0 – R 2.15.3
 
 ``` sh
-docker pull --platform linux/i386 ghcr.io/r-hub/evercran/<version>
+docker pull ghcr.io/r-hub/evercran/<version>
 docker run -ti ghcr.io/r-hub/evercran/<version>
 ```
 
 These containers use Debian 7.11 (Wheezy). Notes:
 
-- All containers use the `linux/i386` architecture. You might need to
-  explicitly specify the platform with `--platform` in `docker pull` or
-  `docker run`.
+- All containers use the `linux/i386` architecture.
 
 - `wget` and `curl` have HTTPS support, but you’ll need to install the
   `ca-certificates` package (it is automatically installed if you
@@ -128,15 +132,14 @@ These containers use Debian 7.11 (Wheezy). Notes:
 ## R 3.0.0 – R 4.3.1
 
 ``` sh
-docker pull --platform linux/amd64 ghcr.io/r-hub/evercran/<version>
+docker pull ghcr.io/r-hub/evercran/<version>
 docker run -ti ghcr.io/r-hub/evercran/<version>
 ```
 
 These containers use Debian 12.1 (Bookworm). Notes:
 
 - All containers are available with `linux/amd64` and `linux/arm64`
-  architectures. You might need to explicitly specify the platform with
-  `--platform` in `docker pull` or `docker run`.
+  architectures.
 
 - The amd64 Debian packages are available from
   <https://github.com/rstudio/r-builds>.
