@@ -27,5 +27,4 @@ RUN (echo 'library()' | /opt/R/${R_VERSION}/bin/R --vanilla | cat) || \
 
 WORKDIR /root
 
-ENTRYPOINT [ "linux32" ]
 CMD [ "R" ]
