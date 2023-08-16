@@ -35,4 +35,5 @@ jobs:
         context: "{{defaultContext}}:containers"
         file: Dockerfile-0.x
         push: true
+        provenance: false
         tags: ghcr.io/r-hub/evercran/0.x,rhub/evercran:0.x,docker.io/rhub/evercran:0.x

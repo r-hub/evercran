@@ -70,4 +70,5 @@ jobs:
         build-args: |
           R_VERSION=${{ matrix.container }}
         push: true
+        provenance: false
         tags: ghcr.io/r-hub/evercran/${{ matrix.container }},rhub/evercran:${{ matrix.container}},docker.io/rhub/evercran:${{ matrix.container }}
