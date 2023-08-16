@@ -30,3 +30,10 @@ CREATE TABLE ids (
 );
 
 CREATE INDEX idx_ids_package ON ids(package);
+
+CREATE TABLE meta (
+   key TEXT,
+   value TEXT
+);
+
+CREATE INDEX idx_meta ON meta(key);
