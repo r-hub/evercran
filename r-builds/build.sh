@@ -295,6 +295,7 @@ build_r_historic() {
 	export PATH=".:$PATH"
 	mkdir -p library
 	mkdir -p psmetrics
+	mkdir -p html/funs
 	cd src
 	mkdir -p lib
 	make
@@ -305,7 +306,7 @@ build_r_historic() {
 	    )
 	fi
 	make install
-	make help || make man.help || make man.html
+	make help || make man.help || make man.html || true
     )
 }
 
