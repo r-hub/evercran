@@ -152,6 +152,8 @@ fetch_r_source() {
     elif [ "$rver" = "0.60" -o "$rver" = "0.61" -o "$rver" = "0.62" \
                  -o "$rver" = "0.63" ]; then
 	local url="${CRAN}/src/base/R-${major}/R-${rver}.0.tgz"
+    elif [ "$rver" = "0.10" -o "$rver" = "0.11" ]; then
+	local url="http://r-historic.r-pkg.org/R-${rver}alpha.tgz"
     elif dpkg --compare-versions "$rver" le 0.16.1; then
 	local url="http://r-historic.r-pkg.org/R-${rver}alpha.tar.gz"
     elif dpkg --compare-versions "$rver" lt 2.0.0; then
@@ -209,9 +211,11 @@ configure_r_historic() {
 	cd "${build_dir}"
         export "PATH=/usr/X11R6/bin:$PATH"
 	cd src
-	./configure Linux-elf
-	make install
-	make help
+	if dpkg --compare-versions "${rver}" le 0.10; then
+	    ./configure Linux
+	else
+	    ./configure Linux-elf
+	fi
     )
 }
 
@@ -274,6 +278,8 @@ build_r_historic() {
         export "PATH=/usr/X11R6/bin:$PATH"
 	export PATH="`pwd`/src/manual/help:$PATH"
 	cd src
+	mkdir -p lib
+	make
 	make install
 	make help
     )

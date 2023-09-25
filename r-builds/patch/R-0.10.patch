@@ -1,0 +1,11 @@
+diff --git a/src/library/base/STARTUP b/src/library/base/STARTUP
+index ac98ee1..7242c6c 100644
+--- a/src/library/base/STARTUP
++++ b/src/library/base/STARTUP
+@@ -4,6 +4,4 @@ T := TRUE
+ F := FALSE
+ version := makeversion()
+ .First := function() {
+-	if(interactive() )
+-		x11()
+ }
