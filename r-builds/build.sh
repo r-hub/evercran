@@ -152,15 +152,22 @@ fetch_r_source() {
     elif [ "$rver" = "0.60" -o "$rver" = "0.61" -o "$rver" = "0.62" \
                  -o "$rver" = "0.63" ]; then
 	local url="${CRAN}/src/base/R-${major}/R-${rver}.0.tgz"
+    elif dpkg --compare-versions "$rver" le 0.16.1; then
+	local url="http://r-historic.r-pkg.org/R-${rver}alpha.tar.gz"
     elif dpkg --compare-versions "$rver" lt 2.0.0; then
         local url="${CRAN}/src/base/R-${major}/R-${rver}.tgz"
     else
         local url="${CRAN}/src/base/R-${major}/R-${rver}.tar.gz"
     fi
     wget "$url" -O R.tgz
-    tar xzf R.tgz
-    if [ "$rver" = "0.99.0" ]; then
-        mv R-0.99.0a R-0.99.0
+    if dpkg --compare-versions "$rver" le 0.16.1; then
+	mkdir R-${rver}
+	tar xzf R.tgz -C R-${rver}
+    else
+	tar xzf R.tgz
+	if [ "$rver" = "0.99.0" ]; then
+            mv R-0.99.0a R-0.99.0
+	fi
     fi
     rm R.tgz
     if dpkg --compare-versions "${rver}" lt 0.62; then
