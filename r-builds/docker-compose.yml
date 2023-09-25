@@ -1,5 +1,27 @@
 
 services:
+  r-0.15:
+    image: "rhub/evercran-build:0.15"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: 0.15
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
+  r-0.16:
+    image: "rhub/evercran-build:0.16"
+    build:
+      context: .
+      dockerfile: Dockerfile-sarge
+      args:
+        R_VERSION: 0.16
+    command: bash -c 'cp /build/*.deb /output'
+    volumes:
+      - ./output:/output
+
   r-0.16.1:
     image: "rhub/evercran-build:0.16.1"
     build:

@@ -1,0 +1,31 @@
+diff --git a/src/library/profile/Rprofile.unix b/src/library/profile/Rprofile.unix
+index 97a62fc..ca998c1 100644
+--- a/src/library/profile/Rprofile.unix
++++ b/src/library/profile/Rprofile.unix
+@@ -9,4 +9,3 @@ version <- Version()
+ options(na.action="na.omit")
+ options(printcmd=getenv("R_PRINTCMD"))
+ options(papersize=getenv("R_PAPERSIZE"))
+-if(interactive()) x11()
+diff --git a/src/unix/system.c b/src/unix/system.c
+index f217b26..7d7902a 100644
+--- a/src/unix/system.c
++++ b/src/unix/system.c
+@@ -256,7 +256,7 @@ int main(int ac, char **av)
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_IEEE);
++	/* __setfpucw(_FPU_IEEE); */
+ #endif
+ 
+ #ifdef HAVE_LIBREADLINE
+@@ -323,7 +323,7 @@ qask:
+ #endif
+ 
+ #ifdef linux
+-	__setfpucw(_FPU_DEFAULT);
++	/* __setfpucw(_FPU_DEFAULT); */
+ #endif
+ 
+ 	exit(0);
