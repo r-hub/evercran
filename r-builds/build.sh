@@ -26,6 +26,18 @@ prepare() {
     mkdir -p /opt/R
 }
 
+install_oyacc() {
+    (
+	cd /tmp
+	wget http://r-historic.r-pkg.org/oyacc-1.34.tar.gz
+	rm -rf oyacc-1.34
+	tar xzf oyacc-1.34.tar.gz
+	cd oyacc-1.34
+	./configure --prefix=/usr/local/ --enable-yacc
+	make
+	DESTDIR=/usr/local/ BINDIR=bin/ make install
+    )
+}
 
 # Not all versions need all these, but we might as well
 # install everything, it does not hurt
@@ -57,6 +69,10 @@ install_requirements_sarge() {
 	    tetex-bin        \
 	    tetex-extra      \
 	    bison
+
+    if dpkg --compare-versions "${rver}" le 0.7; then
+	install_oyacc
+    fi
 
     if dpkg --compare-versions "${rver}" ge 1.1.0; then
         apt-get install -y   \
@@ -295,7 +311,7 @@ build_r() {
     if dpkg --compare-versions "${rver}" le 0.12; then
 	build_r_historic "${rver}"
 	return "$?"
-    fi    
+    fi
 
     if dpkg --compare-versions "${rver}" lt 0.62; then
         local build_dir="/opt/R/${rver}"
