@@ -1,0 +1,164 @@
+diff --git a/R.sh b/R.sh
+index cac7315..43bf3f5 100755
+--- a/R.sh
++++ b/R.sh
+@@ -1,4 +1,4 @@
+-RHOME=/usr/local/R
++RHOME=/opt/R/0.0
+ export RHOME
+ 
+ args=""
+diff --git a/src/Systems/Linux b/src/Systems/Linux
+index 96ebb7f..8f4724c 100644
+--- a/src/Systems/Linux
++++ b/src/Systems/Linux
+@@ -5,11 +5,11 @@ SYSDEP= -DLinux -DUnix -DPosixArith
+ X11BASE= /usr/X11R6
+ 
+ # C Compiler and Options (-g and/or -O)
+-CC= gcc
++CC= gcc-2.95
+ CFLAGS= -g -I$(X11BASE)/include $(SYSDEP)
+ 
+ # Fortran Compiler and Options (-g and/or -O)
+-F77= f77
++F77= g77-2.95
+ FFLAGS= -g -w
+ 
+ # Command to Create Libraries from Object Files
+@@ -19,7 +19,7 @@ AR= ar cr
+ RANLIB= ranlib
+ 
+ # Create an Executable from Objects and Libraries
+-LD= f77 -g
++LD= g77-2.95 -g
+ 
+ # Libraries to Load Against
+ LIBS= -L$(X11BASE)/lib -lX11
+diff --git a/src/blas/Makefile.in b/src/blas/Makefile.in
+index 6613941..94a2f5e 100644
+--- a/src/blas/Makefile.in
++++ b/src/blas/Makefile.in
+@@ -6,6 +6,9 @@ libblas.a:	$(OBJ) Makefile
+ 		$(AR) libblas.a $(OBJ)
+ 		$(RANLIB) libblas.a
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ clean:
+ 		@echo cleaning in blas
+ 		@rm -f *.o *.a
+diff --git a/src/eispack/Makefile.in b/src/eispack/Makefile.in
+index 67fb5e6..4c1eac1 100644
+--- a/src/eispack/Makefile.in
++++ b/src/eispack/Makefile.in
+@@ -26,6 +26,9 @@ libeispack.a:	$(OBJ) Makefile
+ 		$(AR) libeispack.a $(OBJ)
+ 		$(RANLIB) libeispack.a
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ clean:
+ 		@echo cleaning in eispack
+ 		@rm -f *.o *.a
+diff --git a/src/linpack/Makefile.in b/src/linpack/Makefile.in
+index dd77d47..f37e807 100644
+--- a/src/linpack/Makefile.in
++++ b/src/linpack/Makefile.in
+@@ -18,6 +18,9 @@ liblinpack.a:	$(OBJ)
+ 		$(AR) liblinpack.a $(OBJ)
+ 		$(RANLIB) liblinpack.a
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ clean:
+ 	@echo cleaning in linpack
+ 	@rm -f *.o *.a
+diff --git a/src/math/Makefile.in b/src/math/Makefile.in
+index 48caee1..97cef25 100755
+--- a/src/math/Makefile.in
++++ b/src/math/Makefile.in
+@@ -26,6 +26,9 @@ libmath.a:	$(OBJ)
+ 		$(RANLIB) libmath.a
+ 		cp Mathlib.h ../main
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ $(OBJ):		Mathlib.h
+ 
+ fperror.o:	../config.h
+diff --git a/src/rrc/STARTUP b/src/rrc/STARTUP
+index 5c5e2dd..16dcb65 100644
+--- a/src/rrc/STARTUP
++++ b/src/rrc/STARTUP
+@@ -22,5 +22,5 @@ if(machine() == "Unix" ) {
+ 	manual := function(...) {
+ 		system("/disk2/staff/R/bin/Rmanual")
+ 		}
+-	.First := function() x11()
++	.First := function() { }
+ }
+diff --git a/src/stat/Makefile.in b/src/stat/Makefile.in
+index 5d79b11..b0dbf1a 100755
+--- a/src/stat/Makefile.in
++++ b/src/stat/Makefile.in
+@@ -18,6 +18,9 @@ libstat.a:	$(OBJ)
+ 		$(AR) libstat.a $(OBJ)
+ 		$(RANLIB) libstat.a
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ clean:
+ 	@echo cleaning in stat
+ 	@rm -f *.o *.a
+diff --git a/src/stat/lowess.f b/src/stat/lowess.f
+index 10e6cb6..8256e51 100755
+--- a/src/stat/lowess.f
++++ b/src/stat/lowess.f
+@@ -21,7 +21,7 @@ c
+       integer nsteps
+       double precision x(n), y(n), f, delta, ys(n), rw(n)
+       double precision res(n)
+-      integer nright, min0, max0, i, j, ifix
++      integer nright, min0, max0, i, j, int
+       integer iter, last, m1, m2, ns, nleft
+       double precision dabs, cut, cmad, r, d1, d2
+       double precision c1, c9, alpha, denom, float
+@@ -30,7 +30,7 @@ c
+          ys(1) = y(1)
+          return
+ c at least two, at most n points
+-   1  ns = max0(min0(ifix(f*float(n)), n), 2)
++   1  ns = max0(min0(int(f*float(n)), n), 2)
+       iter = 1
+          goto  3
+    2     iter = iter+1
+diff --git a/src/stat/rdqrsl.f b/src/stat/rdqrsl.f
+index fbaef05..c65725f 100755
+--- a/src/stat/rdqrsl.f
++++ b/src/stat/rdqrsl.f
+@@ -22,16 +22,17 @@ c	Dec 23/93 modified by r. gentleman
+ c	this function calls linpack dqrsl successively for each row of y
+ c
+ c
+-      integer info, j, kk, t1, t2, ll
++      integer j, kk, t1, t2, ll
+       double precision t
+ c
+ c
+-      if (k .eq. 0) go to 101
++      if (k .eq. 0) go to 100
+       do 101 ll=1,q
+          t1=n*(ll-1)+1
+          t2=q*(ll-1)+1
+          call dqrsl(X,n,n,k,qraux,y(t1),qy,qty,b(t2),rsd(t1),
+      .          xb,job,info)
++  100 continue
+   101 continue
+ c
+ c     set the unused components of b to zero and initialize jpvt

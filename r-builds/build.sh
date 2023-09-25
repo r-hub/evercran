@@ -165,6 +165,8 @@ fetch_r_source() {
     local major=`echo $rver | sed 's/\..*$//'`
     if [ "$rver" = "0.99.0" ]; then
         local url="${CRAN}/src/base/R-${major}/R-${rver}a.tgz"
+    elif [ "$rver" = "0.0" ]; then
+	local url="http://r-historic.r-pkg.org/R-unix-src.tar.gz"
     elif [ "$rver" = "0.60" -o "$rver" = "0.61" -o "$rver" = "0.62" \
                  -o "$rver" = "0.63" ]; then
 	local url="${CRAN}/src/base/R-${major}/R-${rver}.0.tgz"
@@ -307,6 +309,11 @@ build_r_historic() {
 	fi
 	make install
 	make help || make man.help || make man.html || true
+
+	cd ..
+	if [ "$rver" = "0.0" ]; then
+	    cp R.sh bin/R
+	fi
     )
 }
 
