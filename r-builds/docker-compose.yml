@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile-sarge
       args:
-        R_VERSION: 0.10
+        R_VERSION: "0.10"
     command: bash -c 'cp /build/*.deb /output'
     volumes:
       - ./output:/output
