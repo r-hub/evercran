@@ -305,7 +305,7 @@ build_r_historic() {
 	    )
 	fi
 	make install
-	make help || make man.help
+	make help || make man.help || make man.html
     )
 }
 
