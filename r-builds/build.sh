@@ -291,13 +291,21 @@ build_r_historic() {
     local build_dir="/opt/R/${rver}"
     (
 	cd "${build_dir}"
-        export "PATH=/usr/X11R6/bin:$PATH"
-	export PATH="`pwd`/src/manual/help:$PATH"
+        export PATH="/usr/X11R6/bin:$PATH"
+	export PATH=".:$PATH"
+	mkdir -p library
+	mkdir -p psmetrics
 	cd src
 	mkdir -p lib
 	make
+	if [ "$rver" = "0.5" ]; then
+	    (
+		cd library/mva
+		make || true
+	    )
+	fi
 	make install
-	make help
+	make help || make man.help
     )
 }
 
