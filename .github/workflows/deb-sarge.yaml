@@ -1,4 +1,4 @@
-name: Debian package w/ Sarge (R 0.49 - R 1.9.1)
+name: Debian package w/ Sarge (- R 1.9.1)
 
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
       run: |
         inp="${{ github.event.inputs.inpwhichcont }}"
         if [ "x$inp" == "xall" -o "x$inp" == "x" ]; then
-          out="$(cat containers/sarge-versions.txt | tr '\n' ',' | sed 's/,$//')"
+          out="$(cat containers/prerelease-versions.txt containers/sarge-versions.txt | tr '\n' ',' | sed 's/,$//')"
         else
           out=$inp
         fi
