@@ -105,3 +105,25 @@ index 0e51ac0..d1f51aa 100755
  clean:
  	@echo cleaning in stat
  	@-rm -f *.o *.a
+diff --git a/src/stat/lowess.f b/src/stat/lowess.f
+index 10e6cb6..8256e51 100755
+--- a/src/stat/lowess.f
++++ b/src/stat/lowess.f
+@@ -21,7 +21,7 @@ c
+       integer nsteps
+       double precision x(n), y(n), f, delta, ys(n), rw(n)
+       double precision res(n)
+-      integer nright, min0, max0, i, j, ifix
++      integer nright, min0, max0, i, j, int
+       integer iter, last, m1, m2, ns, nleft
+       double precision dabs, cut, cmad, r, d1, d2
+       double precision c1, c9, alpha, denom, float
+@@ -30,7 +30,7 @@ c
+          ys(1) = y(1)
+          return
+ c at least two, at most n points
+-   1  ns = max0(min0(ifix(f*float(n)), n), 2)
++   1  ns = max0(min0(int(f*float(n)), n), 2)
+       iter = 1
+          goto  3
+    2     iter = iter+1
