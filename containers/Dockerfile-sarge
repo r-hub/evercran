@@ -22,8 +22,10 @@ RUN if [ -f /opt/R/${R_VERSION}/bin/Rscript ]; then               \
     fi
 
 # Some old versions do not have --vanilla
-RUN (echo 'library()' | /opt/R/${R_VERSION}/bin/R --vanilla | cat) || \
-    (echo 'library()' | /opt/R/${R_VERSION}/bin/R | cat)
+RUN if dpkg compare-versions "${R_VERSION}" ge 0.49; then                 \
+        (echo 'library()' | /opt/R/${R_VERSION}/bin/R --vanilla | cat) || \
+        (echo 'library()' | /opt/R/${R_VERSION}/bin/R | cat)              \
+    fi
 
 WORKDIR /root
 
