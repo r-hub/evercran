@@ -1,0 +1,108 @@
+diff --git a/src/Systems/Linux b/src/Systems/Linux
+index ef25f15..1c98e93 100644
+--- a/src/Systems/Linux
++++ b/src/Systems/Linux
+@@ -9,11 +9,11 @@ SYSDEP= -DLinux -DUnix -DPosixArith -DProctime
+ X11BASE= /usr/X11R6
+ 
+ # C Compiler and Options (-g and/or -O)
+-CC= gcc
++CC= gcc-2.95
+ CFLAGS= -g -I$(X11BASE)/include $(SYSDEP)
+ 
+ # Fortran Compiler and Options (-g and/or -O)
+-F77= f77
++F77= g77-2.95
+ FFLAGS= -g -w
+ 
+ # Yacc (Note: Bison does not work, get byacc).
+@@ -23,7 +23,7 @@ YACC=yacc
+ MKLIB= ../tools/library.bsd
+ 
+ # Create an Executable from Objects and Libraries
+-LD= f77 -g
++LD= g77-2.95 -g
+ 
+ # Libraries to Load Against
+ LIBS= -L$(X11BASE)/lib -lX11
+diff --git a/src/blas/Makefile.in b/src/blas/Makefile.in
+index c3888e5..3b0ed51 100644
+--- a/src/blas/Makefile.in
++++ b/src/blas/Makefile.in
+@@ -5,6 +5,9 @@ OBJ=	dasum.o daxpy.o dcopy.o ddot.o dmach.o dnrm2.o drot.o \
+ libblas.a:	$(OBJ) Makefile
+ 		$(MKLIB) libblas.a $(OBJ)
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ clean:
+ 		@echo cleaning in blas
+ 		@-rm -f *.o *.a
+diff --git a/src/eispack/Makefile.in b/src/eispack/Makefile.in
+index 460dea1..604b654 100644
+--- a/src/eispack/Makefile.in
++++ b/src/eispack/Makefile.in
+@@ -25,6 +25,9 @@ SRC=	bakvec.f balanc.f balbak.f bandr.f bandv.f bisect.f bqr.f \
+ libeispack.a:	$(OBJ) Makefile
+ 		$(MKLIB) libeispack.a $(OBJ)
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ clean:
+ 		@echo cleaning in eispack
+ 		@-rm -f *.o *.a
+diff --git a/src/library/base/STARTUP b/src/library/base/STARTUP
+index ac98ee1..7242c6c 100644
+--- a/src/library/base/STARTUP
++++ b/src/library/base/STARTUP
+@@ -4,6 +4,4 @@ T := TRUE
+ F := FALSE
+ version := makeversion()
+ .First := function() {
+-	if(interactive() )
+-		x11()
+ }
+diff --git a/src/linpack/Makefile.in b/src/linpack/Makefile.in
+index 67adeca..92e6a3a 100644
+--- a/src/linpack/Makefile.in
++++ b/src/linpack/Makefile.in
+@@ -17,6 +17,9 @@ SRC=	dchdc.f dchdd.f dchex.f dchud.f dgbco.f dgbdi.f dgbfa.f \
+ liblinpack.a:	$(OBJ)
+ 		$(MKLIB) liblinpack.a $(OBJ)
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ clean:
+ 	@echo cleaning in linpack
+ 	@-rm -f *.o *.a
+diff --git a/src/math/Makefile.in b/src/math/Makefile.in
+index e94262a..5770832 100755
+--- a/src/math/Makefile.in
++++ b/src/math/Makefile.in
+@@ -25,6 +25,9 @@ libmath.a:	$(OBJ)
+ 		$(MKLIB) libmath.a $(OBJ)
+ 		cp Mathlib.h ../main
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ $(OBJ):		Mathlib.h
+ 
+ fperror.o:	../config.h
+diff --git a/src/stat/Makefile.in b/src/stat/Makefile.in
+index 3bd4be0..cb991c7 100755
+--- a/src/stat/Makefile.in
++++ b/src/stat/Makefile.in
+@@ -16,6 +16,9 @@ OBJ= \
+ libstat.a:	$(OBJ)
+ 		$(MKLIB) libstat.a $(OBJ)
+ 
++%.o: %.f
++	$(F77) -g -w -c -o $@ $<
++
+ clean:
+ 	@echo cleaning in stat
+ 	@-rm -f *.o *.a
