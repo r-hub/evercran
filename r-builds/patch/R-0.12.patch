@@ -1,0 +1,37 @@
+diff --git a/src/Systems/Linux-elf b/src/Systems/Linux-elf
+index d2134d4..335beb1 100644
+--- a/src/Systems/Linux-elf
++++ b/src/Systems/Linux-elf
+@@ -24,6 +24,6 @@ LD= gcc -g -rdynamic
+ 
+ # Libraries to Load Against
+ # For non GNU readline support use the following
+-LIBS= -L$(X11LIB) -lX11 -lm -ldl 
++# LIBS= -L$(X11LIB) -lX11 -lm -ldl 
+ # For GNU readline support use the following
+-# LIBS= -L$(X11LIB) -lX11 -lm -ldl -lreadline -ltermcap
++LIBS= -L$(X11LIB) -lX11 -lm -ldl -lreadline -ltermcap
+diff --git a/src/Systems/Linux-elf.h b/src/Systems/Linux-elf.h
+index 77097a4..1f0a5e3 100644
+--- a/src/Systems/Linux-elf.h
++++ b/src/Systems/Linux-elf.h
+@@ -7,7 +7,7 @@
+ 
+ #define Linux
+ #define Unix
+-/* #define Readline			/* uncomment GNU for readline support */
++#define Readline			/* uncomment GNU for readline support */
+ #define PosixArith
+ #define DLSupport
+ #define DLNoSymUnderscore
+diff --git a/src/library/base/STARTUP b/src/library/base/STARTUP
+index ac98ee1..7242c6c 100644
+--- a/src/library/base/STARTUP
++++ b/src/library/base/STARTUP
+@@ -4,6 +4,4 @@ T := TRUE
+ F := FALSE
+ version := makeversion()
+ .First := function() {
+-	if(interactive() )
+-		x11()
+ }

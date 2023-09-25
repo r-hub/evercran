@@ -198,12 +198,35 @@ patch_r_source() {
     )
 }
 
+configure_r_historic() {
+    if [ -z "$1" ]; then
+	echo "Usage: configure_r_historic <r-version>"
+	return 100
+    fi
+    local rver="$1"
+    local build_dir="/opt/R/${rver}"
+    (
+	cd "${build_dir}"
+        export "PATH=/usr/X11R6/bin:$PATH"
+	cd src
+	./configure Linux-elf
+	make install
+	make help
+    )
+}
+
 configure_r() {
     if [ -z "$1" ]; then
 	echo "Usage: configure_r <r-version>"
 	return 100
     fi
     local rver="$1"
+
+    if dpkg --compare-versions "${rver}" le 0.12; then
+	configure_r_historic "${rver}"
+	return "$?"
+    fi
+
     if dpkg --compare-versions "${rver}" lt 0.62; then
         local build_dir="/opt/R/${rver}"
     else
@@ -239,12 +262,35 @@ configure_r() {
     )
 }
 
+build_r_historic() {
+    if [ -z "$1" ]; then
+	echo "Usage: build_r_historic <r-version>"
+	return 100
+    fi
+    local rver="$1"
+    local build_dir="/opt/R/${rver}"
+    (
+	cd "${build_dir}"
+        export "PATH=/usr/X11R6/bin:$PATH"
+	export PATH="`pwd`/src/manual/help:$PATH"
+	cd src
+	make install
+	make help
+    )
+}
+
 build_r() {
     if [ -z "$1" ]; then
 	echo "Usage: build_r <r-version>"
 	return 100
     fi
     local rver="$1"
+
+    if dpkg --compare-versions "${rver}" le 0.12; then
+	build_r_historic "${rver}"
+	return "$?"
+    fi    
+
     if dpkg --compare-versions "${rver}" lt 0.62; then
         local build_dir="/opt/R/${rver}"
     else
