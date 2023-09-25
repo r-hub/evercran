@@ -253,6 +253,9 @@ build_r() {
     (
 	cd ${build_dir}
 	make
+	if dpkg --compare-versions "${rver}" le 0.13; then
+	    export PATH="`pwd`/mansrc/help:$PATH"
+	fi
 	grep '^install-help:' Makefile && make install-help
 	grep '^install-html:' Makefile && make install-html
 	# apparently we need this another time, otherwise the
