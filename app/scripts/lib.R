@@ -81,6 +81,14 @@ write_dcf <- function(tab, file) {
   writeBin(charToRaw(dcf), file)
 }
 
+md5 <- function(obj) {
+  raw <- serialize(obj, connection = NULL)
+  tmp <- tempfile("md5-")
+  on.exit(unlink(tmp), add = TRUE)
+  writeBin(raw, tmp)
+  unname(tools::md5sum(tmp))
+}
+
 write_packages <- function(date, force = FALSE, path = "/packages") {
   if (!grepl("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]", date)) {
     stop("`date` must be a date string in 'YYYY-MM-DD' format")
@@ -101,16 +109,28 @@ write_packages <- function(date, force = FALSE, path = "/packages") {
              FROM packages WHERE release_date < ?date
              GROUP BY package) AS dates
      WHERE packages.package = dates.package
-       AND packages.release_date = dates.release_date",
+       AND packages.release_date = dates.release_date
+     ORDER BY package, version DESC",
     date = date
   )
 
   pkgs <- pkgs[, names(metadata_fields)]
   names(pkgs) <- metadata_fields[names(pkgs)]
+  checksum <- md5(pkgs)
   ppath0 <- sub("\\.gz$", "", ppath)
+  chkpath <- sub("PACKAGES[.]gz$", "MD5", ppath)
+  if (file.exists(chkpath)) {
+    oldchk <- readLines(chkpath, warn = FALSE)
+    if (length(oldchk) == 1 && oldchk == checksum) {
+      message(Sys.time(), " Checksum match ", date)
+      return(invisible())
+    }
+  }
+
   write_dcf(pkgs, ppath0)
   unlink(ppath)
   system2("gzip", c("-9", ppath0))
+  writeLines(checksum, chkpath)
   message(Sys.time(), " Wrote out ", date)
   invisible()
 }
