@@ -1,4 +1,4 @@
-name: Deb w/ Etch (R 2.9.0 - R 2.12.2)
+name: Deb w/ Etch (R 2.6.0 - R 2.8.1)
 
 on:
   workflow_dispatch:
