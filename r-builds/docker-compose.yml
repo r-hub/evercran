@@ -908,7 +908,7 @@ services:
     image: "rhub/evercran-build:2.6.0"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-etch
       platforms:
         - "linux/i386"
       args:
@@ -921,7 +921,7 @@ services:
     image: "rhub/evercran-build:2.6.1"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-etch
       platforms:
         - "linux/i386"
       args:
@@ -934,7 +934,7 @@ services:
     image: "rhub/evercran-build:2.6.2"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-etch
       platforms:
         - "linux/i386"
       args:
@@ -947,7 +947,7 @@ services:
     image: "rhub/evercran-build:2.7.0"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-etch
       platforms:
         - "linux/i386"
       args:
@@ -960,7 +960,7 @@ services:
     image: "rhub/evercran-build:2.7.1"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-etch
       platforms:
         - "linux/i386"
       args:
@@ -973,7 +973,7 @@ services:
     image: "rhub/evercran-build:2.7.2"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-etch
       platforms:
         - "linux/i386"
       args:
@@ -986,7 +986,7 @@ services:
     image: "rhub/evercran-build:2.8.0"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-etch
       platforms:
         - "linux/i386"
       args:
@@ -999,7 +999,7 @@ services:
     image: "rhub/evercran-build:2.8.1"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-etch
       platforms:
         - "linux/i386"
       args:

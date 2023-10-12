@@ -1,0 +1,20 @@
+# -*- Dockerfile -*-
+
+FROM debian/eol:etch
+
+WORKDIR /build
+
+ENV PAGER=less
+ENV LESS=-r
+
+ARG R_VERSION=0.49
+
+RUN apt-get update && apt-get install -y linux32
+
+ENTRYPOINT [ "linux32" ]
+CMD [ "bash" ]
+
+COPY build.sh .
+COPY patch patch
+
+RUN linux32 ./build.sh
