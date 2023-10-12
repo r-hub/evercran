@@ -1,4 +1,4 @@
-name: Debian package w/ Wheezy (R 2.0.0 - )
+name: Deb w/ Wheezy (R 2.0.0 - R 2.15.3)
 
 on:
   workflow_dispatch:

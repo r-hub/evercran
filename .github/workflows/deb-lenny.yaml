@@ -1,4 +1,4 @@
-name: Debian package w/ Lenny (R 2.9.0 - R 2.12.2)
+name: Deb w/ Lenny (R 2.9.0 - R 2.12.2)
 
 on:
   workflow_dispatch:

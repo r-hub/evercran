@@ -1,4 +1,4 @@
-name: Debian package w/ Squeeze (R 2.13.0 - R 2.15.3)
+name: Deb w/ Squeeze (R 2.13.0 - R 2.15.3)
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Debian package w/ Sarge (- R 1.9.1)
+name: Deb w/ Sarge (- R 1.9.1)
 
 on:
   workflow_dispatch:
