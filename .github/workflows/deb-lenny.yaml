@@ -1,4 +1,4 @@
-name: Debian package w/ Squeeze (R 2.13.0 - R 2.15.3)
+name: Debian package w/ Lenny (R 2.9.0 - R 2.12.2)
 
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
       run: |
         inp="${{ github.event.inputs.inpwhichcont }}"
         if [ "x$inp" == "xall" -o "x$inp" == "x" ]; then
-          out="$(cat containers/squeeze-versions.txt | tr '\n' ',' | sed 's/,$//')"
+          out="$(cat containers/lenny-versions.txt | tr '\n' ',' | sed 's/,$//')"
         else
           out=$inp
         fi
