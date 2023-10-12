@@ -1142,7 +1142,7 @@ services:
     image: "rhub/evercran-build:2.13.0"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1155,7 +1155,7 @@ services:
     image: "rhub/evercran-build:2.13.1"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1168,7 +1168,7 @@ services:
     image: "rhub/evercran-build:2.13.2"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1181,7 +1181,7 @@ services:
     image: "rhub/evercran-build:2.14.0"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1194,7 +1194,7 @@ services:
     image: "rhub/evercran-build:2.14.1"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1207,7 +1207,7 @@ services:
     image: "rhub/evercran-build:2.14.2"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1220,7 +1220,7 @@ services:
     image: "rhub/evercran-build:2.15.0"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1233,7 +1233,7 @@ services:
     image: "rhub/evercran-build:2.15.1"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1246,7 +1246,7 @@ services:
     image: "rhub/evercran-build:2.15.2"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
@@ -1259,7 +1259,7 @@ services:
     image: "rhub/evercran-build:2.15.3"
     build:
       context: .
-      dockerfile: Dockerfile-wheezy
+      dockerfile: Dockerfile-squeeze
       platforms:
         - "linux/i386"
       args:
