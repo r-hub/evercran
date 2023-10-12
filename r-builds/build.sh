@@ -185,8 +185,11 @@ install_requirements_squeeze() {
     fi
 
     if dpkg --compare-versions "$rver" ge 2.10.0; then
-        apt-get install -y      \
-                liblzma-dev
+        if grep '^5[.]' /etc/debian_version; then
+            apt-get install -y lzma-dev;
+        else
+            apt-get install -y liblzma-dev;
+        fi
     fi
 }
 
