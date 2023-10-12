@@ -473,12 +473,30 @@ package_r() {
     fi
 }
 
+dpkg_grep() {
+    (
+        set +x
+        cd /var/lib/dpkg/info/
+        grep -Fx "$1" *.list | sed 's/[.]list:.*$//'
+    )
+}
+
+dpkg_search() {
+    if grep -q '^6[.]' /etc/debian_version; then
+        dpkg_grep "$1"
+    elif grep -q '^7[.]' /etc/debian_version; then
+        dpkg -S "$1"
+    fi
+}
+
 lookup_dep() {
     set +x
     local path="$1"
+    export -f dpkg_search
+    export -f dpkg_grep
     ldd "$path"  | grep -F '=>' | awk '{ print $3; }' |
-        grep ^/ | sort | uniq | xargs dpkg -S  |
-        cut -d: -f1  | sort | uniq
+        grep ^/ | sort | uniq | xargs -I "{}" bash -c "dpkg_search {}" |
+        cut -d: -f1 | sort | uniq
 }
 
 lookup_deps() {
