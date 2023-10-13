@@ -52,7 +52,7 @@ Type	"q()" to quit R.
 >
 ```
 
-## R 0.0 (alpha-test) -- R 1.9.1
+## R 0.0 (alpha-test) -- R 2.5.1
 
 ```sh
 docker pull ghcr.io/r-hub/evercran/<version>
@@ -90,36 +90,92 @@ These containers use Debian 3.1 (Sarge). Notes:
   i686
   ```
 
-## R 2.0.0 -- R 2.15.3
+## R 2.6.0 -- R 2.8.1
 
 ```sh
 docker pull ghcr.io/r-hub/evercran/<version>
 docker run -ti ghcr.io/r-hub/evercran/<version>
 ```
 
-These containers use Debian 7.11 (Wheezy). Notes:
+These containers use Debian 4.0 (Etch). Notes:
 
 * All containers use the `linux/i386` architecture.
-* `wget` and `curl` have HTTPS support, but you'll need to install the
-  `ca-certificates` package (it is automatically installed if you install
-  `curl`). This triggers a certificate update. Not all HTTPS web sites
-  will work, probably, because of how old versions of the SSL libraries
-  handle alternate vertificate chains, or other reasons.
-* The Debian R packages are availablr as GitHub Releases, in the
-  https://github.com/r-hub/R repository, e.g.:
-  https://github.com/r-hub/R/releases/tag/v2.0.0.
-* To install additional R versions (or to install in a plain
-  `debian/eol:wheezy` container, download it with `wget` or `curl`, install it
-  with `dpkg -i` and then call `apt-get -f install` to also install its
-  dependencies. E.g.:
+* While `wget` and `curl` have HTTPS support, in practice HTTPS
+  does not work because of they use TLS v1.
+* You can use the HTTP (not HTTPS!) PPA at https://ppa.r-pkg.org/evercran/
+  to install more R versions:
   ```sh
-  apt-get update
-  apt-get install -y wget ca-certificates
-  wget https://github.com/r-hub/R/releases/download/v2.0.0/r-evercran-debian-7.11-2.0.0_1-1_i386.deb
-  dpkg -i r-evercran-debian-7.11-2.0.0_1-1_i386.deb || true
-  apt-get -fy install
-  /opt/R/2.0.0/bin/R
+  echo 'deb http://ppa.r-pkg.org/evercran etch main' \
+    >> /etc/apt/sources.list
+  curl -L http://ppa.r-pkg.org/rhub.gpg.key | apt-key add -
+  apt-get update -y
+  apt-get install -y r-2.6.0
   ```
+* The Debian R packages are also available as GitHub Releases, in the
+  https://github.com/r-hub/R repository, e.g.:
+  https://github.com/r-hub/R/releases/tag/v2.6.0
+  (But you cannot directly download these from the containers, because
+  of the broken HTTPS. Use the PPA to download them.)
+* The entry point of the containers is `linux32` to make sure that all
+  programs know that they are running on `i386`. Call `linux32` manually
+  if you change the entry point.
+
+## R 2.9.0 -- R 2.12.2
+
+```sh
+docker pull ghcr.io/r-hub/evercran/<version>
+docker run -ti ghcr.io/r-hub/evercran/<version>
+```
+
+These containers use Debian 5.0.10 (Lenny). Notes:
+
+* All containers use the `linux/i386` architecture.
+* While `wget` and `curl` have HTTPS support, in practice HTTPS
+  does not work because of they use TLS v1.
+* You can use the HTTP (not HTTPS!) PPA at https://ppa.r-pkg.org/evercran/
+  to install more R versions:
+  ```sh
+  echo 'deb http://ppa.r-pkg.org/evercran lenny main' \
+    >> /etc/apt/sources.list
+  curl -L http://ppa.r-pkg.org/rhub.gpg.key | apt-key add -
+  apt-get update -y
+  apt-get install -y r-2.9.0
+  ```
+* The Debian R packages are also available as GitHub Releases, in the
+  https://github.com/r-hub/R repository, e.g.:
+  https://github.com/r-hub/R/releases/tag/v2.9.0
+  (But you cannot directly download these from the containers, because
+  of the broken HTTPS. Use the PPA to download them.)
+* The entry point of the containers is `linux32` to make sure that all
+  programs know that they are running on `i386`. Call `linux32` manually
+  if you change the entry point.
+
+## R 2.13.0 -- R 2.15.3
+
+```sh
+docker pull ghcr.io/r-hub/evercran/<version>
+docker run -ti ghcr.io/r-hub/evercran/<version>
+```
+
+These containers use Debian 6.0.10 (Squeeze). Notes:
+
+* All containers use the `linux/i386` architecture.
+* While `wget` and `curl` have HTTPS support, in practice HTTPS
+  does not work because of they use TLS v1.
+* You can use the HTTP (not HTTPS!) PPA at https://ppa.r-pkg.org/evercran/
+  to install more R versions:
+  ```sh
+  echo 'deb http://ppa.r-pkg.org/evercran squeeze main' \
+    >> /etc/apt/sources.list
+  curl -L http://ppa.r-pkg.org/rhub.gpg.key | apt-key add -
+  apt-get update -y
+  apt-get install -y r-2.13.0
+  ```
+* The Debian R packages are also available as GitHub Releases, in the
+  https://github.com/r-hub/R repository, e.g.:
+  https://github.com/r-hub/R/releases/tag/v2.13.0
+  (But you cannot directly download these from the containers, because
+  of the broken HTTPS. Use the PPA to download them.)
 * The entry point of the containers is `linux32` to make sure that all
   programs know that they are running on `i386`. Call `linux32` manually
   if you change the entry point.
@@ -191,9 +247,19 @@ writeLines(sprintf(
   "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Sarge 3.1 i386 |",
   format(rv), format(rv)
 ))
-rv <- readLines("containers/wheezy-versions.txt")
+rv <- readLines("containers/etch-versions.txt")
 writeLines(sprintf(
-  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian wheezy 7.11 i386 |",
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Etch 4.0r9 i386 |",
+  format(rv), format(rv)
+))
+rv <- readLines("containers/lenny-versions.txt")
+writeLines(sprintf(
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Lenny 5.0.10 i386 |",
+  format(rv), format(rv)
+))
+rv <- readLines("containers/squeeze-versions.txt")
+writeLines(sprintf(
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Squeeze 6.0.10 i386 |",
   format(rv), format(rv)
 ))
 rv <- readLines("containers/bookworm-versions.txt")

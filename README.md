@@ -3,9 +3,12 @@ Run historical R versions on today’s computers
 
 - <a href="#experimental" id="toc-experimental">Experimental!</a>
 - <a href="#tldr" id="toc-tldr">TL;DR</a>
-- <a href="#r-00-alpha-test--r-191" id="toc-r-00-alpha-test--r-191">R 0.0
-  (alpha-test) – R 1.9.1</a>
-- <a href="#r-200--r-2153" id="toc-r-200--r-2153">R 2.0.0 – R 2.15.3</a>
+- <a href="#r-00-alpha-test--r-251" id="toc-r-00-alpha-test--r-251">R 0.0
+  (alpha-test) – R 2.5.1</a>
+- <a href="#r-260--r-281" id="toc-r-260--r-281">R 2.6.0 – R 2.8.1</a>
+- <a href="#r-290--r-2122" id="toc-r-290--r-2122">R 2.9.0 – R 2.12.2</a>
+- <a href="#r-2130--r-2153" id="toc-r-2130--r-2153">R 2.13.0 – R
+  2.15.3</a>
 - <a href="#r-300--r-431" id="toc-r-300--r-431">R 3.0.0 – R 4.3.1</a>
 - <a href="#containers-with-multiple-r-versions"
   id="toc-containers-with-multiple-r-versions">Containers with multiple R
@@ -49,7 +52,7 @@ docker run -ti ghcr.io/r-hub/evercran/1.0.0
 
     >
 
-## R 0.0 (alpha-test) – R 1.9.1
+## R 0.0 (alpha-test) – R 2.5.1
 
 ``` sh
 docker pull ghcr.io/r-hub/evercran/<version>
@@ -91,40 +94,106 @@ These containers use Debian 3.1 (Sarge). Notes:
       ❯ docker run -ti --entrypoint linux32 ghcr.io/r-hub/evercran/0.49:latest arch
       i686
 
-## R 2.0.0 – R 2.15.3
+## R 2.6.0 – R 2.8.1
 
 ``` sh
 docker pull ghcr.io/r-hub/evercran/<version>
 docker run -ti ghcr.io/r-hub/evercran/<version>
 ```
 
-These containers use Debian 7.11 (Wheezy). Notes:
+These containers use Debian 4.0 (Etch). Notes:
 
 - All containers use the `linux/i386` architecture.
 
-- `wget` and `curl` have HTTPS support, but you’ll need to install the
-  `ca-certificates` package (it is automatically installed if you
-  install `curl`). This triggers a certificate update. Not all HTTPS web
-  sites will work, probably, because of how old versions of the SSL
-  libraries handle alternate vertificate chains, or other reasons.
+- While `wget` and `curl` have HTTPS support, in practice HTTPS does not
+  work because of they use TLS v1.
 
-- The Debian R packages are availablr as GitHub Releases, in the
-  <https://github.com/r-hub/R> repository, e.g.:
-  <https://github.com/r-hub/R/releases/tag/v2.0.0>.
-
-- To install additional R versions (or to install in a plain
-  `debian/eol:wheezy` container, download it with `wget` or `curl`,
-  install it with `dpkg -i` and then call `apt-get -f install` to also
-  install its dependencies. E.g.:
+- You can use the HTTP (not HTTPS!) PPA at
+  <https://ppa.r-pkg.org/evercran/> to install more R versions:
 
   ``` sh
-  apt-get update
-  apt-get install -y wget ca-certificates
-  wget https://github.com/r-hub/R/releases/download/v2.0.0/r-evercran-debian-7.11-2.0.0_1-1_i386.deb
-  dpkg -i r-evercran-debian-7.11-2.0.0_1-1_i386.deb || true
-  apt-get -fy install
-  /opt/R/2.0.0/bin/R
+  echo 'deb http://ppa.r-pkg.org/evercran etch main' \
+    >> /etc/apt/sources.list
+  curl -L http://ppa.r-pkg.org/rhub.gpg.key | apt-key add -
+  apt-get update -y
+  apt-get install -y r-2.6.0
   ```
+
+- The Debian R packages are also available as GitHub Releases, in the
+  <https://github.com/r-hub/R> repository, e.g.:
+  <https://github.com/r-hub/R/releases/tag/v2.6.0> (But you cannot
+  directly download these from the containers, because of the broken
+  HTTPS. Use the PPA to download them.)
+
+- The entry point of the containers is `linux32` to make sure that all
+  programs know that they are running on `i386`. Call `linux32` manually
+  if you change the entry point.
+
+## R 2.9.0 – R 2.12.2
+
+``` sh
+docker pull ghcr.io/r-hub/evercran/<version>
+docker run -ti ghcr.io/r-hub/evercran/<version>
+```
+
+These containers use Debian 5.0.10 (Lenny). Notes:
+
+- All containers use the `linux/i386` architecture.
+
+- While `wget` and `curl` have HTTPS support, in practice HTTPS does not
+  work because of they use TLS v1.
+
+- You can use the HTTP (not HTTPS!) PPA at
+  <https://ppa.r-pkg.org/evercran/> to install more R versions:
+
+  ``` sh
+  echo 'deb http://ppa.r-pkg.org/evercran lenny main' \
+    >> /etc/apt/sources.list
+  curl -L http://ppa.r-pkg.org/rhub.gpg.key | apt-key add -
+  apt-get update -y
+  apt-get install -y r-2.9.0
+  ```
+
+- The Debian R packages are also available as GitHub Releases, in the
+  <https://github.com/r-hub/R> repository, e.g.:
+  <https://github.com/r-hub/R/releases/tag/v2.9.0> (But you cannot
+  directly download these from the containers, because of the broken
+  HTTPS. Use the PPA to download them.)
+
+- The entry point of the containers is `linux32` to make sure that all
+  programs know that they are running on `i386`. Call `linux32` manually
+  if you change the entry point.
+
+## R 2.13.0 – R 2.15.3
+
+``` sh
+docker pull ghcr.io/r-hub/evercran/<version>
+docker run -ti ghcr.io/r-hub/evercran/<version>
+```
+
+These containers use Debian 6.0.10 (Squeeze). Notes:
+
+- All containers use the `linux/i386` architecture.
+
+- While `wget` and `curl` have HTTPS support, in practice HTTPS does not
+  work because of they use TLS v1.
+
+- You can use the HTTP (not HTTPS!) PPA at
+  <https://ppa.r-pkg.org/evercran/> to install more R versions:
+
+  ``` sh
+  echo 'deb http://ppa.r-pkg.org/evercran squeeze main' \
+    >> /etc/apt/sources.list
+  curl -L http://ppa.r-pkg.org/rhub.gpg.key | apt-key add -
+  apt-get update -y
+  apt-get install -y r-2.13.0
+  ```
+
+- The Debian R packages are also available as GitHub Releases, in the
+  <https://github.com/r-hub/R> repository, e.g.:
+  <https://github.com/r-hub/R/releases/tag/v2.13.0> (But you cannot
+  directly download these from the containers, because of the broken
+  HTTPS. Use the PPA to download them.)
 
 - The entry point of the containers is `linux32` to make sure that all
   programs know that they are running on `i386`. Call `linux32` manually
@@ -184,162 +253,162 @@ For example to run R 0.65.1:
 
 ## List of all containers
 
-| R version          | Container                        | Platform                    | OS                      |
-|:-------------------|:---------------------------------|:----------------------------|:------------------------|
-| R 0.0 (alpha-test) | `ghcr.io/r-hub/evercran/0.0`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.1 (alpha)      | `ghcr.io/r-hub/evercran/0.1`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.2 (alpha)      | `ghcr.io/r-hub/evercran/0.2`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.3 (alpha)      | `ghcr.io/r-hub/evercran/0.3`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.4 (alpha)      | `ghcr.io/r-hub/evercran/0.4`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.5 (alpha)      | `ghcr.io/r-hub/evercran/0.5`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.6 (alpha)      | `ghcr.io/r-hub/evercran/0.6`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.7 (alpha)      | `ghcr.io/r-hub/evercran/0.7`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.8 (alpha)      | `ghcr.io/r-hub/evercran/0.8`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.9 (alpha)      | `ghcr.io/r-hub/evercran/0.9`     | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.10 (alpha)     | `ghcr.io/r-hub/evercran/0.10`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.11 (alpha)     | `ghcr.io/r-hub/evercran/0.11`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.12 (alpha)     | `ghcr.io/r-hub/evercran/0.12`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.13 (alpha)     | `ghcr.io/r-hub/evercran/0.13`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.14 (alpha)     | `ghcr.io/r-hub/evercran/0.14`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.15 (alpha)     | `ghcr.io/r-hub/evercran/0.15`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.16 (alpha)     | `ghcr.io/r-hub/evercran/0.16`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.16.1 (alpha)   | `ghcr.io/r-hub/evercran/0.16.1`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.49             | `ghcr.io/r-hub/evercran/0.49`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.50-a1          | `ghcr.io/r-hub/evercran/0.50-a1` | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.50-a4          | `ghcr.io/r-hub/evercran/0.50-a4` | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.60             | `ghcr.io/r-hub/evercran/0.60`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.60.1           | `ghcr.io/r-hub/evercran/0.60.1`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.61             | `ghcr.io/r-hub/evercran/0.61`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.61.1           | `ghcr.io/r-hub/evercran/0.61.1`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.61.2           | `ghcr.io/r-hub/evercran/0.61.2`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.61.3           | `ghcr.io/r-hub/evercran/0.61.3`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.62             | `ghcr.io/r-hub/evercran/0.62`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.62.1           | `ghcr.io/r-hub/evercran/0.62.1`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.62.2           | `ghcr.io/r-hub/evercran/0.62.2`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.62.3           | `ghcr.io/r-hub/evercran/0.62.3`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.62.4           | `ghcr.io/r-hub/evercran/0.62.4`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.63             | `ghcr.io/r-hub/evercran/0.63`    | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.63.1           | `ghcr.io/r-hub/evercran/0.63.1`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.63.2           | `ghcr.io/r-hub/evercran/0.63.2`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.63.3           | `ghcr.io/r-hub/evercran/0.63.3`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.64.0           | `ghcr.io/r-hub/evercran/0.64.0`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.64.1           | `ghcr.io/r-hub/evercran/0.64.1`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.64.2           | `ghcr.io/r-hub/evercran/0.64.2`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.65.0           | `ghcr.io/r-hub/evercran/0.65.0`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.65.1           | `ghcr.io/r-hub/evercran/0.65.1`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.90.0           | `ghcr.io/r-hub/evercran/0.90.0`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.90.1           | `ghcr.io/r-hub/evercran/0.90.1`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 0.99.0           | `ghcr.io/r-hub/evercran/0.99.0`  | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.0.0            | `ghcr.io/r-hub/evercran/1.0.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.0.1            | `ghcr.io/r-hub/evercran/1.0.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.1.0            | `ghcr.io/r-hub/evercran/1.1.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.1.1            | `ghcr.io/r-hub/evercran/1.1.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.2.0            | `ghcr.io/r-hub/evercran/1.2.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.2.1            | `ghcr.io/r-hub/evercran/1.2.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.2.2            | `ghcr.io/r-hub/evercran/1.2.2`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.2.3            | `ghcr.io/r-hub/evercran/1.2.3`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.3.0            | `ghcr.io/r-hub/evercran/1.3.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.3.1            | `ghcr.io/r-hub/evercran/1.3.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.4.0            | `ghcr.io/r-hub/evercran/1.4.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.4.1            | `ghcr.io/r-hub/evercran/1.4.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.5.0            | `ghcr.io/r-hub/evercran/1.5.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.5.1            | `ghcr.io/r-hub/evercran/1.5.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.6.0            | `ghcr.io/r-hub/evercran/1.6.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.6.1            | `ghcr.io/r-hub/evercran/1.6.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.6.2            | `ghcr.io/r-hub/evercran/1.6.2`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.7.0            | `ghcr.io/r-hub/evercran/1.7.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.7.1            | `ghcr.io/r-hub/evercran/1.7.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.8.0            | `ghcr.io/r-hub/evercran/1.8.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.8.1            | `ghcr.io/r-hub/evercran/1.8.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.9.0            | `ghcr.io/r-hub/evercran/1.9.0`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 1.9.1            | `ghcr.io/r-hub/evercran/1.9.1`   | `linux/i386`                | Debian Sarge 3.1 i386   |
-| R 2.0.0            | `ghcr.io/r-hub/evercran/2.0.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.0.1            | `ghcr.io/r-hub/evercran/2.0.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.1.0            | `ghcr.io/r-hub/evercran/2.1.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.1.1            | `ghcr.io/r-hub/evercran/2.1.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.2.0            | `ghcr.io/r-hub/evercran/2.2.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.2.1            | `ghcr.io/r-hub/evercran/2.2.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.3.0            | `ghcr.io/r-hub/evercran/2.3.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.3.1            | `ghcr.io/r-hub/evercran/2.3.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.4.0            | `ghcr.io/r-hub/evercran/2.4.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.4.1            | `ghcr.io/r-hub/evercran/2.4.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.5.0            | `ghcr.io/r-hub/evercran/2.5.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.5.1            | `ghcr.io/r-hub/evercran/2.5.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.6.0            | `ghcr.io/r-hub/evercran/2.6.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.6.1            | `ghcr.io/r-hub/evercran/2.6.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.6.2            | `ghcr.io/r-hub/evercran/2.6.2`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.7.0            | `ghcr.io/r-hub/evercran/2.7.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.7.1            | `ghcr.io/r-hub/evercran/2.7.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.7.2            | `ghcr.io/r-hub/evercran/2.7.2`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.8.0            | `ghcr.io/r-hub/evercran/2.8.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.8.1            | `ghcr.io/r-hub/evercran/2.8.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.9.0            | `ghcr.io/r-hub/evercran/2.9.0`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.9.1            | `ghcr.io/r-hub/evercran/2.9.1`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.9.2            | `ghcr.io/r-hub/evercran/2.9.2`   | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.10.0           | `ghcr.io/r-hub/evercran/2.10.0`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.10.1           | `ghcr.io/r-hub/evercran/2.10.1`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.11.0           | `ghcr.io/r-hub/evercran/2.11.0`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.11.1           | `ghcr.io/r-hub/evercran/2.11.1`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.12.0           | `ghcr.io/r-hub/evercran/2.12.0`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.12.1           | `ghcr.io/r-hub/evercran/2.12.1`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.12.2           | `ghcr.io/r-hub/evercran/2.12.2`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.13.0           | `ghcr.io/r-hub/evercran/2.13.0`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.13.1           | `ghcr.io/r-hub/evercran/2.13.1`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.13.2           | `ghcr.io/r-hub/evercran/2.13.2`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.14.0           | `ghcr.io/r-hub/evercran/2.14.0`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.14.1           | `ghcr.io/r-hub/evercran/2.14.1`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.14.2           | `ghcr.io/r-hub/evercran/2.14.2`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.15.0           | `ghcr.io/r-hub/evercran/2.15.0`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.15.1           | `ghcr.io/r-hub/evercran/2.15.1`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.15.2           | `ghcr.io/r-hub/evercran/2.15.2`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 2.15.3           | `ghcr.io/r-hub/evercran/2.15.3`  | `linux/i386`                | Debian wheezy 7.11 i386 |
-| R 3.0.0            | `ghcr.io/r-hub/evercran/3.0.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.0.1            | `ghcr.io/r-hub/evercran/3.0.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.0.2            | `ghcr.io/r-hub/evercran/3.0.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.0.3            | `ghcr.io/r-hub/evercran/3.0.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.1.0            | `ghcr.io/r-hub/evercran/3.1.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.1.1            | `ghcr.io/r-hub/evercran/3.1.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.1.2            | `ghcr.io/r-hub/evercran/3.1.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.1.3            | `ghcr.io/r-hub/evercran/3.1.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.2.0            | `ghcr.io/r-hub/evercran/3.2.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.2.1            | `ghcr.io/r-hub/evercran/3.2.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.2.2            | `ghcr.io/r-hub/evercran/3.2.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.2.3            | `ghcr.io/r-hub/evercran/3.2.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.2.4            | `ghcr.io/r-hub/evercran/3.2.4`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.2.5            | `ghcr.io/r-hub/evercran/3.2.5`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.3.0            | `ghcr.io/r-hub/evercran/3.3.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.3.1            | `ghcr.io/r-hub/evercran/3.3.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.3.2            | `ghcr.io/r-hub/evercran/3.3.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.3.3            | `ghcr.io/r-hub/evercran/3.3.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.4.0            | `ghcr.io/r-hub/evercran/3.4.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.4.1            | `ghcr.io/r-hub/evercran/3.4.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.4.2            | `ghcr.io/r-hub/evercran/3.4.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.4.3            | `ghcr.io/r-hub/evercran/3.4.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.4.4            | `ghcr.io/r-hub/evercran/3.4.4`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.5.0            | `ghcr.io/r-hub/evercran/3.5.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.5.1            | `ghcr.io/r-hub/evercran/3.5.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.5.2            | `ghcr.io/r-hub/evercran/3.5.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.5.3            | `ghcr.io/r-hub/evercran/3.5.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.6.0            | `ghcr.io/r-hub/evercran/3.6.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.6.1            | `ghcr.io/r-hub/evercran/3.6.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.6.2            | `ghcr.io/r-hub/evercran/3.6.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 3.6.3            | `ghcr.io/r-hub/evercran/3.6.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.0.0            | `ghcr.io/r-hub/evercran/4.0.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.0.1            | `ghcr.io/r-hub/evercran/4.0.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.0.2            | `ghcr.io/r-hub/evercran/4.0.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.0.3            | `ghcr.io/r-hub/evercran/4.0.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.0.4            | `ghcr.io/r-hub/evercran/4.0.4`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.0.5            | `ghcr.io/r-hub/evercran/4.0.5`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.1.0            | `ghcr.io/r-hub/evercran/4.1.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.1.1            | `ghcr.io/r-hub/evercran/4.1.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.1.2            | `ghcr.io/r-hub/evercran/4.1.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.1.3            | `ghcr.io/r-hub/evercran/4.1.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.2.0            | `ghcr.io/r-hub/evercran/4.2.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.2.1            | `ghcr.io/r-hub/evercran/4.2.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.2.2            | `ghcr.io/r-hub/evercran/4.2.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.2.3            | `ghcr.io/r-hub/evercran/4.2.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.3.0            | `ghcr.io/r-hub/evercran/4.3.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
-| R 4.3.1            | `ghcr.io/r-hub/evercran/4.3.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1    |
+| R version          | Container                        | Platform                    | OS                         |
+|:-------------------|:---------------------------------|:----------------------------|:---------------------------|
+| R 0.0 (alpha-test) | `ghcr.io/r-hub/evercran/0.0`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.1 (alpha)      | `ghcr.io/r-hub/evercran/0.1`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.2 (alpha)      | `ghcr.io/r-hub/evercran/0.2`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.3 (alpha)      | `ghcr.io/r-hub/evercran/0.3`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.4 (alpha)      | `ghcr.io/r-hub/evercran/0.4`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.5 (alpha)      | `ghcr.io/r-hub/evercran/0.5`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.6 (alpha)      | `ghcr.io/r-hub/evercran/0.6`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.7 (alpha)      | `ghcr.io/r-hub/evercran/0.7`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.8 (alpha)      | `ghcr.io/r-hub/evercran/0.8`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.9 (alpha)      | `ghcr.io/r-hub/evercran/0.9`     | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.10 (alpha)     | `ghcr.io/r-hub/evercran/0.10`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.11 (alpha)     | `ghcr.io/r-hub/evercran/0.11`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.12 (alpha)     | `ghcr.io/r-hub/evercran/0.12`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.13 (alpha)     | `ghcr.io/r-hub/evercran/0.13`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.14 (alpha)     | `ghcr.io/r-hub/evercran/0.14`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.15 (alpha)     | `ghcr.io/r-hub/evercran/0.15`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.16 (alpha)     | `ghcr.io/r-hub/evercran/0.16`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.16.1 (alpha)   | `ghcr.io/r-hub/evercran/0.16.1`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.49             | `ghcr.io/r-hub/evercran/0.49`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.50-a1          | `ghcr.io/r-hub/evercran/0.50-a1` | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.50-a4          | `ghcr.io/r-hub/evercran/0.50-a4` | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.60             | `ghcr.io/r-hub/evercran/0.60`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.60.1           | `ghcr.io/r-hub/evercran/0.60.1`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.61             | `ghcr.io/r-hub/evercran/0.61`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.61.1           | `ghcr.io/r-hub/evercran/0.61.1`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.61.2           | `ghcr.io/r-hub/evercran/0.61.2`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.61.3           | `ghcr.io/r-hub/evercran/0.61.3`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.62             | `ghcr.io/r-hub/evercran/0.62`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.62.1           | `ghcr.io/r-hub/evercran/0.62.1`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.62.2           | `ghcr.io/r-hub/evercran/0.62.2`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.62.3           | `ghcr.io/r-hub/evercran/0.62.3`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.62.4           | `ghcr.io/r-hub/evercran/0.62.4`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.63             | `ghcr.io/r-hub/evercran/0.63`    | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.63.1           | `ghcr.io/r-hub/evercran/0.63.1`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.63.2           | `ghcr.io/r-hub/evercran/0.63.2`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.63.3           | `ghcr.io/r-hub/evercran/0.63.3`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.64.0           | `ghcr.io/r-hub/evercran/0.64.0`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.64.1           | `ghcr.io/r-hub/evercran/0.64.1`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.64.2           | `ghcr.io/r-hub/evercran/0.64.2`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.65.0           | `ghcr.io/r-hub/evercran/0.65.0`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.65.1           | `ghcr.io/r-hub/evercran/0.65.1`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.90.0           | `ghcr.io/r-hub/evercran/0.90.0`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.90.1           | `ghcr.io/r-hub/evercran/0.90.1`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 0.99.0           | `ghcr.io/r-hub/evercran/0.99.0`  | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.0.0            | `ghcr.io/r-hub/evercran/1.0.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.0.1            | `ghcr.io/r-hub/evercran/1.0.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.1.0            | `ghcr.io/r-hub/evercran/1.1.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.1.1            | `ghcr.io/r-hub/evercran/1.1.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.2.0            | `ghcr.io/r-hub/evercran/1.2.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.2.1            | `ghcr.io/r-hub/evercran/1.2.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.2.2            | `ghcr.io/r-hub/evercran/1.2.2`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.2.3            | `ghcr.io/r-hub/evercran/1.2.3`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.3.0            | `ghcr.io/r-hub/evercran/1.3.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.3.1            | `ghcr.io/r-hub/evercran/1.3.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.4.0            | `ghcr.io/r-hub/evercran/1.4.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.4.1            | `ghcr.io/r-hub/evercran/1.4.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.5.0            | `ghcr.io/r-hub/evercran/1.5.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.5.1            | `ghcr.io/r-hub/evercran/1.5.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.6.0            | `ghcr.io/r-hub/evercran/1.6.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.6.1            | `ghcr.io/r-hub/evercran/1.6.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.6.2            | `ghcr.io/r-hub/evercran/1.6.2`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.7.0            | `ghcr.io/r-hub/evercran/1.7.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.7.1            | `ghcr.io/r-hub/evercran/1.7.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.8.0            | `ghcr.io/r-hub/evercran/1.8.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.8.1            | `ghcr.io/r-hub/evercran/1.8.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.9.0            | `ghcr.io/r-hub/evercran/1.9.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 1.9.1            | `ghcr.io/r-hub/evercran/1.9.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.0.0            | `ghcr.io/r-hub/evercran/2.0.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.0.1            | `ghcr.io/r-hub/evercran/2.0.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.1.0            | `ghcr.io/r-hub/evercran/2.1.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.1.1            | `ghcr.io/r-hub/evercran/2.1.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.2.0            | `ghcr.io/r-hub/evercran/2.2.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.2.1            | `ghcr.io/r-hub/evercran/2.2.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.3.0            | `ghcr.io/r-hub/evercran/2.3.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.3.1            | `ghcr.io/r-hub/evercran/2.3.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.4.0            | `ghcr.io/r-hub/evercran/2.4.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.4.1            | `ghcr.io/r-hub/evercran/2.4.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.5.0            | `ghcr.io/r-hub/evercran/2.5.0`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.5.1            | `ghcr.io/r-hub/evercran/2.5.1`   | `linux/i386`                | Debian Sarge 3.1 i386      |
+| R 2.6.0            | `ghcr.io/r-hub/evercran/2.6.0`   | `linux/i386`                | Debian Etch 4.0r9 i386     |
+| R 2.6.1            | `ghcr.io/r-hub/evercran/2.6.1`   | `linux/i386`                | Debian Etch 4.0r9 i386     |
+| R 2.6.2            | `ghcr.io/r-hub/evercran/2.6.2`   | `linux/i386`                | Debian Etch 4.0r9 i386     |
+| R 2.7.0            | `ghcr.io/r-hub/evercran/2.7.0`   | `linux/i386`                | Debian Etch 4.0r9 i386     |
+| R 2.7.1            | `ghcr.io/r-hub/evercran/2.7.1`   | `linux/i386`                | Debian Etch 4.0r9 i386     |
+| R 2.7.2            | `ghcr.io/r-hub/evercran/2.7.2`   | `linux/i386`                | Debian Etch 4.0r9 i386     |
+| R 2.8.0            | `ghcr.io/r-hub/evercran/2.8.0`   | `linux/i386`                | Debian Etch 4.0r9 i386     |
+| R 2.8.1            | `ghcr.io/r-hub/evercran/2.8.1`   | `linux/i386`                | Debian Etch 4.0r9 i386     |
+| R 2.9.0            | `ghcr.io/r-hub/evercran/2.9.0`   | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.9.1            | `ghcr.io/r-hub/evercran/2.9.1`   | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.9.2            | `ghcr.io/r-hub/evercran/2.9.2`   | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.10.0           | `ghcr.io/r-hub/evercran/2.10.0`  | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.10.1           | `ghcr.io/r-hub/evercran/2.10.1`  | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.11.0           | `ghcr.io/r-hub/evercran/2.11.0`  | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.11.1           | `ghcr.io/r-hub/evercran/2.11.1`  | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.12.0           | `ghcr.io/r-hub/evercran/2.12.0`  | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.12.1           | `ghcr.io/r-hub/evercran/2.12.1`  | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.12.2           | `ghcr.io/r-hub/evercran/2.12.2`  | `linux/i386`                | Debian Lenny 5.0.10 i386   |
+| R 2.13.0           | `ghcr.io/r-hub/evercran/2.13.0`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.13.1           | `ghcr.io/r-hub/evercran/2.13.1`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.13.2           | `ghcr.io/r-hub/evercran/2.13.2`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.14.0           | `ghcr.io/r-hub/evercran/2.14.0`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.14.1           | `ghcr.io/r-hub/evercran/2.14.1`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.14.2           | `ghcr.io/r-hub/evercran/2.14.2`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.15.0           | `ghcr.io/r-hub/evercran/2.15.0`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.15.1           | `ghcr.io/r-hub/evercran/2.15.1`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.15.2           | `ghcr.io/r-hub/evercran/2.15.2`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 2.15.3           | `ghcr.io/r-hub/evercran/2.15.3`  | `linux/i386`                | Debian Squeeze 6.0.10 i386 |
+| R 3.0.0            | `ghcr.io/r-hub/evercran/3.0.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.0.1            | `ghcr.io/r-hub/evercran/3.0.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.0.2            | `ghcr.io/r-hub/evercran/3.0.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.0.3            | `ghcr.io/r-hub/evercran/3.0.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.1.0            | `ghcr.io/r-hub/evercran/3.1.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.1.1            | `ghcr.io/r-hub/evercran/3.1.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.1.2            | `ghcr.io/r-hub/evercran/3.1.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.1.3            | `ghcr.io/r-hub/evercran/3.1.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.2.0            | `ghcr.io/r-hub/evercran/3.2.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.2.1            | `ghcr.io/r-hub/evercran/3.2.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.2.2            | `ghcr.io/r-hub/evercran/3.2.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.2.3            | `ghcr.io/r-hub/evercran/3.2.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.2.4            | `ghcr.io/r-hub/evercran/3.2.4`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.2.5            | `ghcr.io/r-hub/evercran/3.2.5`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.3.0            | `ghcr.io/r-hub/evercran/3.3.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.3.1            | `ghcr.io/r-hub/evercran/3.3.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.3.2            | `ghcr.io/r-hub/evercran/3.3.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.3.3            | `ghcr.io/r-hub/evercran/3.3.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.4.0            | `ghcr.io/r-hub/evercran/3.4.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.4.1            | `ghcr.io/r-hub/evercran/3.4.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.4.2            | `ghcr.io/r-hub/evercran/3.4.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.4.3            | `ghcr.io/r-hub/evercran/3.4.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.4.4            | `ghcr.io/r-hub/evercran/3.4.4`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.5.0            | `ghcr.io/r-hub/evercran/3.5.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.5.1            | `ghcr.io/r-hub/evercran/3.5.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.5.2            | `ghcr.io/r-hub/evercran/3.5.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.5.3            | `ghcr.io/r-hub/evercran/3.5.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.6.0            | `ghcr.io/r-hub/evercran/3.6.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.6.1            | `ghcr.io/r-hub/evercran/3.6.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.6.2            | `ghcr.io/r-hub/evercran/3.6.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 3.6.3            | `ghcr.io/r-hub/evercran/3.6.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.0.0            | `ghcr.io/r-hub/evercran/4.0.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.0.1            | `ghcr.io/r-hub/evercran/4.0.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.0.2            | `ghcr.io/r-hub/evercran/4.0.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.0.3            | `ghcr.io/r-hub/evercran/4.0.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.0.4            | `ghcr.io/r-hub/evercran/4.0.4`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.0.5            | `ghcr.io/r-hub/evercran/4.0.5`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.1.0            | `ghcr.io/r-hub/evercran/4.1.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.1.1            | `ghcr.io/r-hub/evercran/4.1.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.1.2            | `ghcr.io/r-hub/evercran/4.1.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.1.3            | `ghcr.io/r-hub/evercran/4.1.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.2.0            | `ghcr.io/r-hub/evercran/4.2.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.2.1            | `ghcr.io/r-hub/evercran/4.2.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.2.2            | `ghcr.io/r-hub/evercran/4.2.2`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.2.3            | `ghcr.io/r-hub/evercran/4.2.3`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.3.0            | `ghcr.io/r-hub/evercran/4.3.0`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
+| R 4.3.1            | `ghcr.io/r-hub/evercran/4.3.1`   | `linux/amd4`, `linux/arm64` | Debian bookworm 12.1       |
 
 ## Similar projects, inspiration
 
