@@ -193,6 +193,45 @@ install_requirements_squeeze() {
     fi
 }
 
+install_requirements_etch() {
+    if [ -z "$1" ]; then
+	echo "Usage: install_requiremens_etch <r-version>"
+	return 100
+    fi
+    local rver="$1"
+
+    apt-get update -y
+    apt-get install -y       \
+            libx11-dev       \
+            patch            \
+            gcc              \
+            gfortran         \
+            g+++             \
+            libc6-dev        \
+            make             \
+            perl             \
+            m4               \
+            less             \
+            libreadline-dev  \
+            texlive-base     \
+            texinfo          \
+            libjpeg-dev      \
+            libpng-dev       \
+            tcl8.4-dev       \
+            tk8.4-dev        \
+            libpcre3-dev     \
+            libbz2-dev       \
+            wget             \
+	    cpio             \
+	    dpkg-dev
+
+    (
+	cd /tmp
+	wget http://archive.debian.org/debian/pool/main/c/checkinstall/checkinstall_1.6.2-1_i386.deb
+	dpkg -i checkinstall_1.6.2-1_i386.deb
+    )
+}
+
 install_requirements() {
     if [ -z "$1" ]; then
 	echo "Usage: install_requiremens <r-version>"
@@ -201,6 +240,8 @@ install_requirements() {
     local rver="$1"
     if grep '^3[.]' /etc/debian_version; then
         install_requirements_sarge "$rver"
+    elif grep '^4[.]' /etc/debian_version; then
+        install_requirements_etch "$rver"
     elif grep '^[456][.]' /etc/debian_version; then
         install_requirements_squeeze "$rver"
     elif grep '^7[.]' /etc/debian_version; then
