@@ -201,7 +201,7 @@ install_requirements() {
     local rver="$1"
     if grep '^3[.]' /etc/debian_version; then
         install_requirements_sarge "$rver"
-    elif grep '^[56][.]' /etc/debian_version; then
+    elif grep '^[456][.]' /etc/debian_version; then
         install_requirements_squeeze "$rver"
     elif grep '^7[.]' /etc/debian_version; then
         install_requirements_wheezy "$rver"
@@ -469,7 +469,7 @@ package_r() {
     local rver="$1"
     if grep '^3[.]' /etc/debian_version; then
         package_r_sarge "$rver"
-    elif grep '^[567][.]' /etc/debian_version; then
+    elif grep '^[4567][.]' /etc/debian_version; then
         package_r_wheezy "$rver"
     fi
 }
@@ -483,7 +483,7 @@ dpkg_grep() {
 }
 
 dpkg_search() {
-    if grep -q '^[56][.]' /etc/debian_version; then
+    if grep -q '^[456][.]' /etc/debian_version; then
         dpkg_grep "$1"
     elif grep -q '^7[.]' /etc/debian_version; then
         dpkg -S "$1"
