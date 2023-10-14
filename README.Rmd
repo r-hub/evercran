@@ -264,7 +264,7 @@ writeLines(sprintf(
 ))
 rv <- readLines("containers/bookworm-versions.txt")
 writeLines(sprintf(
-  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/amd4`, `linux/arm64`| Debian bookworm 12.1 |",
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/amd64`, `linux/arm64`| Debian bookworm 12.1 |",
   format(rv), format(rv)
 ))
 ```
