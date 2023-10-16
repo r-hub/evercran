@@ -239,27 +239,27 @@ rv <- readLines("containers/prerelease-versions.txt")
 lab <- paste(rv, "(alpha)")
 lab[1] <- "0.0 (alpha-test)"
 writeLines(sprintf(
-  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Sarge 3.1 i386 |",
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Sarge 3.1 |",
   format(lab), format(rv)
 ))
 rv <- readLines("containers/sarge-versions.txt")
 writeLines(sprintf(
-  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Sarge 3.1 i386 |",
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Sarge 3.1 |",
   format(rv), format(rv)
 ))
 rv <- readLines("containers/etch-versions.txt")
 writeLines(sprintf(
-  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Etch 4.0r9 i386 |",
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Etch 4.0r9 |",
   format(rv), format(rv)
 ))
 rv <- readLines("containers/lenny-versions.txt")
 writeLines(sprintf(
-  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Lenny 5.0.10 i386 |",
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Lenny 5.0.10 |",
   format(rv), format(rv)
 ))
 rv <- readLines("containers/squeeze-versions.txt")
 writeLines(sprintf(
-  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Squeeze 6.0.10 i386 |",
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Squeeze 6.0.10 |",
   format(rv), format(rv)
 ))
 rv <- readLines("containers/bookworm-versions.txt")
