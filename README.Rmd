@@ -101,7 +101,8 @@ These containers use Debian 4.0 (Etch). Notes:
 
 * All containers use the `linux/i386` architecture.
 * While `wget` and `curl` have HTTPS support, in practice HTTPS
-  does not work because of they use TLS v1.
+  does not work well, because they use TLS v1, which is not supported by many
+  servers.
 * You can use the HTTP (not HTTPS!) PPA at https://ppa.r-pkg.org/evercran/
   to install more R versions:
   ```sh
@@ -131,7 +132,8 @@ These containers use Debian 5.0.10 (Lenny). Notes:
 
 * All containers use the `linux/i386` architecture.
 * While `wget` and `curl` have HTTPS support, in practice HTTPS
-  does not work because of they use TLS v1.
+  does not work well, because they use TLS v1, which is not supported by many
+  servers.
 * You can use the HTTP (not HTTPS!) PPA at https://ppa.r-pkg.org/evercran/
   to install more R versions:
   ```sh
@@ -161,7 +163,8 @@ These containers use Debian 6.0.10 (Squeeze). Notes:
 
 * All containers use the `linux/i386` architecture.
 * While `wget` and `curl` have HTTPS support, in practice HTTPS
-  does not work because of they use TLS v1.
+  does not work well, because they use TLS v1, which is not supported by many
+  servers.
 * You can use the HTTP (not HTTPS!) PPA at https://ppa.r-pkg.org/evercran/
   to install more R versions:
   ```sh
