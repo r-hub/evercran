@@ -63,7 +63,7 @@ services:
   shell:
     build: shell
     image: "rhub/evercran-shell:0.0.1"
-    command: sleep 1000000d
+    command: /root/entrypoint.sh
     environment:
       - PG_USER=postgres
       - PG_HOST=db
