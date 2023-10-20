@@ -1,5 +1,5 @@
 
-CREATE TABLE packages (
+CREATE TABLE IF NOT EXISTS packages (
    package TEXT,
    version TEXT,
    depends TEXT,
@@ -20,20 +20,22 @@ CREATE TABLE packages (
    release_date TIMESTAMP,
    current BOOLEAN);
 
-CREATE INDEX idx_packages_package_date ON packages(package, release_date);
-CREATE INDEX idx_packages_package ON packages(package);
-CREATE INDEX idx_packages_date ON packages(release_date);
+CREATE INDEX IF NOT EXISTS idx_packages_package_date ON packages(package, release_date);
+CREATE INDEX IF NOT EXISTS idx_packages_package ON packages(package);
+CREATE INDEX IF NOT EXISTS idx_packages_date ON packages(release_date);
 
-CREATE TABLE ids (
+CREATE TABLE IF NOT EXISTS ids (
    package TEXT,
    id TEXT
 );
 
-CREATE INDEX idx_ids_package ON ids(package);
+CREATE INDEX IF NOT EXISTS idx_ids_package ON ids(package);
 
-CREATE TABLE meta (
-   key TEXT,
+CREATE TABLE IF NOT EXISTS meta (
+   key TEXT PRIMARY KEY,
    value TEXT
 );
 
-CREATE INDEX idx_meta ON meta(key);
+CREATE INDEX IF NOT EXISTS idx_meta ON meta(key);
+
+INSERT INTO meta VALUES ('initialized', 'true') ON CONFLICT DO NOTHING;
