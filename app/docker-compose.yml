@@ -51,7 +51,6 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/pg-password
     volumes:
       - dbdata:/var/lib/postgresql
-      - ./pg-init:/docker-entrypoint-initdb.d
     secrets:
       - pg-password
     deploy:
@@ -81,7 +80,6 @@ services:
       - PG_PASS_FILE=/run/secrets/pg-password
     volumes:
       - packages:/packages
-      - ./scripts:/scripts
     secrets:
       - pg-password
     deploy:
