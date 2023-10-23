@@ -5,10 +5,8 @@ setup_db_main <- function() {
   meta <- db$query("SELECT value FROM meta WHERE key = 'last-event-id'")
   if (nrow(meta) == 0) {
     init_db()
-  } else {
-    update_db()
   }
-
+  update_db()
   init_packages()
 }
 
