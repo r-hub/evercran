@@ -1,0 +1,8 @@
+resources:
+  - dbdata-persistentvolumeclaim.yaml
+  - packages-persistentvolumeclaim.yaml
+  - evercran-deployment.yaml
+  - evercran-service.yaml
+  - db-deployment.yaml
+  - db-service.yaml
+  - shell-deployment.yaml

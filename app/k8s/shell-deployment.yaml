@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o k8s
+    kompose.service.group: evercran
+    kompose.version: 1.31.2 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: shell
+  name: shell
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: shell
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o k8s
+        kompose.service.group: evercran
+        kompose.version: 1.31.2 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/app-default: "true"
+        io.kompose.service: shell
+    spec:
+      containers:
+        - args:
+            - /root/entrypoint.sh
+          env:
+            - name: PG_HOST
+              value: db
+            - name: PG_PASS_FILE
+              value: /db-password
+            - name: PG_USER
+              value: postgres
+          image: rhub/evercran-shell:0.0.2
+          name: shell
+          resources: {}
+          volumeMounts:
+            - mountPath: /packages
+              name: packages
+      restartPolicy: Always
+      volumes:
+        - name: packages
+          persistentVolumeClaim:
+            claimName: packages
+status: {}

@@ -6,10 +6,10 @@ RUN apk add postgresql13-dev
 RUN installr -d jsonlite RPostgres
 RUN apk add postgresql13-client
 
-COPY update-db.sh /etc/periodic/15min/update-db.sh
-COPY update.sh /etc/periodic/daily/update.sh
-COPY entrypoint.sh /root/entrypoint.sh
+COPY update-db.sh /etc/periodic/15min/
+COPY update.sh /etc/periodic/daily/
+COPY entrypoint.sh /root/
 
-RUN echo -n "dbpassword" > /db-password
+RUN echo "dbpassword" > /db-password
 
 COPY scripts /scripts

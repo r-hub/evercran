@@ -1,10 +1,14 @@
 volumes:
   packages:
+    labels:
+      kompose.volume.size: '10Gi'
   dbdata:
+    labels:
+      kompose.volume.size: '1Gi'
 
 services:
   evercran:
-    image: "rhub/evercran"
+    image: "rhub/evercran:0.0.1"
     build:
       context: evercran
     environment:
@@ -31,14 +35,19 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
+    labels:
+      - kompose.service.group=evercran
+      - kompose.service.type=nodeport
 
   db:
-    image: "rhub/evercran-db"
+    image: "rhub/evercran-db:0.0.1"
     build:
       context: db
     environment:
       - PGDATA=/var/lib/postgresql/data
       - POSTGRES_PASSWORD_FILE=/db-password
+    ports:
+      - "5432:5432"
     volumes:
       - dbdata:/var/lib/postgresql
     deploy:
@@ -54,9 +63,11 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
+    labels:
+      - kompose.service.group=evercran
 
   shell:
-    image: "rhub/evercran-db"
+    image: "rhub/evercran-shell:0.0.2"
     build:
       context: shell
     command: /root/entrypoint.sh
@@ -69,3 +80,5 @@ services:
     deploy:
       restart_policy:
         condition: any
+    labels:
+      - kompose.service.group=evercran
