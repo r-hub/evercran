@@ -8,4 +8,6 @@ RUN npm install -g nodemon && npm install
 COPY . .
 RUN npm ci
 
+RUN echo -n "dbpassword" > /db-password
+
 CMD ["npm", "start"]
