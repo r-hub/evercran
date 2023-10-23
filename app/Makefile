@@ -2,10 +2,10 @@
 .PHONY: build push deploy dev
 
 build:
-	docker-compose build
+	docker compose build
 
 push:
-	docker-compose push
+	docker compose push
 
 deploy:
 	docker stack deploy \

@@ -7,8 +7,6 @@ services:
     image: "rhub/evercran"
     build:
       context: evercran
-      platforms:
-        - linux/amd64
     environment:
       - PG_USER=postgres
       - PG_HOST=db
@@ -37,9 +35,7 @@ services:
   db:
     image: "rhub/evercran-db"
     build:
-      context: postgres
-      platforms:
-        - linux/amd64
+      context: db
     environment:
       - PGDATA=/var/lib/postgresql/data
       - POSTGRES_PASSWORD_FILE=/db-password
@@ -63,8 +59,6 @@ services:
     image: "rhub/evercran-db"
     build:
       context: shell
-      platforms:
-        - linux/amd64
     command: /root/entrypoint.sh
     environment:
       - PG_USER=postgres
