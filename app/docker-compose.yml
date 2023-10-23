@@ -8,16 +8,20 @@ secrets:
 
 services:
   evercran:
-    image: "rhub/evercran:0.0.1"
-    build: evercran
+    image: "rhub/evercran"
+    build:
+      context: evercran
+      platforms:
+        - linux/amd64
     environment:
       - PG_USER=postgres
       - PG_HOST=db
       - PG_PASS_FILE=/run/secrets/pg-password
+      - PORT=80
     depends_on:
       - db
     ports:
-      - "80:3000"
+      - "80:80"
     secrets:
       - pg-password
     volumes:
@@ -37,7 +41,11 @@ services:
         window: 120s
 
   db:
-    image: "postgres:15.3-alpine3.18"
+    image: "rhub/evercran-db"
+    build:
+      context: postgres
+      platforms:
+        - linux/amd64
     environment:
       - PGDATA=/var/lib/postgresql/data
       - POSTGRES_PASSWORD_FILE=/run/secrets/pg-password
@@ -61,8 +69,11 @@ services:
         window: 120s
 
   shell:
-    build: shell
-    image: "rhub/evercran-shell:0.0.1"
+    image: "rhub/evercran-db"
+    build:
+      context: shell
+      platforms:
+        - linux/amd64
     command: /root/entrypoint.sh
     environment:
       - PG_USER=postgres
