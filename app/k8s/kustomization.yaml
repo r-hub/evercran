@@ -7,3 +7,4 @@ resources:
   - db-service.yaml
   - shell-deployment.yaml
   - ingress.yaml
+  - issuer.yaml

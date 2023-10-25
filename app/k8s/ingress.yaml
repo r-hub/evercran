@@ -3,9 +3,15 @@ kind: Ingress
 metadata:
   name: evercran
   annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - evercran.r-pkg.org
+    secretName: tls-secret
   rules:
     - host: evercran.r-pkg.org
       http:
