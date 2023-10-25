@@ -6,3 +6,4 @@ resources:
   - db-deployment.yaml
   - db-service.yaml
   - shell-deployment.yaml
+  - ingress.yaml

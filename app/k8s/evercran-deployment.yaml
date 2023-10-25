@@ -39,12 +39,12 @@ spec:
             - name: PG_USER
               value: postgres
             - name: PORT
-              value: "80"
+              value: "3000"
           image: rhub/evercran:0.0.1
           name: evercran
           ports:
-            - containerPort: 80
-              hostPort: 80
+            - containerPort: 3000
+              hostPort: 3000
               protocol: TCP
           resources: {}
           volumeMounts:

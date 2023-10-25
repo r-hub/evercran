@@ -15,11 +15,11 @@ services:
       - PG_USER=postgres
       - PG_HOST=db
       - PG_PASS_FILE=/db-password
-      - PORT=80
+      - PORT=3000
     depends_on:
       - db
     ports:
-      - "80:80"
+      - "3000:3000"
     volumes:
       - packages:/packages
     deploy:
