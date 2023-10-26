@@ -7,7 +7,7 @@ ARG R_VERSION
 ENV PAGER=less
 
 RUN apt-get update && \
-    apt-get install -y curl less && \
+    apt-get install -y curl less wget && \
     if [ "$(arch)" = "x86_64" ]; then \
       curl -LOs https://cdn.posit.co/r/debian-12/pkgs/r-${R_VERSION}_1_amd64.deb; \
     elif [ "$(arch)" = "aarch64" ]; then \
@@ -28,8 +28,6 @@ RUN if [ -f /opt/R/${R_VERSION}/bin/Rscript ]; then               \
     fi
 
 WORKDIR /root
-
-RUN apt-get install wget
 
 COPY cran.txt /tmp/cran.txt
 COPY set-cran.sh /tmp/set-cran.sh
