@@ -74,8 +74,9 @@ work on all R versions, as of today:
     options(download.file.method = "wget")
 
 Modify the URLs to use the snapshot date you’d like. Add this to the
-`~/.Rprofile` file. You’ll also need to install the `wget` Debian
-package for the downloads to work.
+`~/.Rprofile` file. You’ll also need to install `wget` for the downloads
+to work. You can use a https URL if your `wget` installation supports
+https.
 
 ## R 0.0 (alpha-test) – R 2.5.1
 
