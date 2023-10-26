@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 Note that these containers are currently experimental!
 
 Found a bug?
-[Please let us now!](https://github.com/r-hub/evercran/issues/new)
+[Please let us know!](https://github.com/r-hub/evercran/issues/new)
 Thanks!
 
 ## TL;DR

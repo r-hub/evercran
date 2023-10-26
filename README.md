@@ -23,7 +23,7 @@ Run historical R versions on today’s computers
 Note that these containers are currently experimental!
 
 Found a bug? [Please let us
-now!](https://github.com/r-hub/evercran/issues/new) Thanks!
+know!](https://github.com/r-hub/evercran/issues/new) Thanks!
 
 ## TL;DR
 
