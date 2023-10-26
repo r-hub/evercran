@@ -1,24 +1,20 @@
 Run historical R versions on today’s computers
 ================
 
-- <a href="#experimental" id="toc-experimental">Experimental!</a>
-- <a href="#tldr" id="toc-tldr">TL;DR</a>
-- <a href="#r-00-alpha-test--r-251" id="toc-r-00-alpha-test--r-251">R 0.0
-  (alpha-test) – R 2.5.1</a>
-- <a href="#r-260--r-281" id="toc-r-260--r-281">R 2.6.0 – R 2.8.1</a>
-- <a href="#r-290--r-2122" id="toc-r-290--r-2122">R 2.9.0 – R 2.12.2</a>
-- <a href="#r-2130--r-2153" id="toc-r-2130--r-2153">R 2.13.0 – R
-  2.15.3</a>
-- <a href="#r-300--r-431" id="toc-r-300--r-431">R 3.0.0 – R 4.3.1</a>
-- <a href="#containers-with-multiple-r-versions"
-  id="toc-containers-with-multiple-r-versions">Containers with multiple R
-  versions</a>
-- <a href="#list-of-all-containers" id="toc-list-of-all-containers">List
-  of all containers</a>
-- <a href="#similar-projects-inspiration"
-  id="toc-similar-projects-inspiration">Similar projects, inspiration</a>
-- <a href="#thanks" id="toc-thanks">Thanks!</a>
-- <a href="#license" id="toc-license">License</a>
+- [Experimental!](#experimental)
+- [TL;DR](#tldr)
+- [The evercran CRAN snapshots](#the-evercran-cran-snapshots)
+- [R 0.0 (alpha-test) – R 2.5.1](#r-00-alpha-test--r-251)
+- [R 2.6.0 – R 2.8.1](#r-260--r-281)
+- [R 2.9.0 – R 2.12.2](#r-290--r-2122)
+- [R 2.13.0 – R 2.15.3](#r-2130--r-2153)
+- [R 3.0.0 – R 4.3.1](#r-300--r-431)
+- [Containers with multiple R
+  versions](#containers-with-multiple-r-versions)
+- [List of all containers](#list-of-all-containers)
+- [Similar projects, inspiration](#similar-projects-inspiration)
+- [Thanks!](#thanks)
+- [License](#license)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -51,6 +47,35 @@ docker run -ti ghcr.io/r-hub/evercran/1.0.0
     Type    "q()" to quit R.
 
     >
+
+## The evercran CRAN snapshots
+
+The evercran project has daily CRAN snapshots, starting from the very
+beginning up to today. The URLs are of the form
+
+    http://evercran.r-pkg.org/YYYY/MM/DD
+    https://evercran.r-pkg.org/YYYY/MM/DD
+
+and they start at 1999/01/01.
+
+Package downloads are redirected to CRAN, so you will need an R download
+method that follows redirection.
+
+All the evercran containers (from R 0.65.1) in this repository are
+already set up to an appropriate evercran snapshot: they use the date of
+the *next* R release. (Except for the container of the latest R release,
+of course, that uses a regular CRAN mirror instead of a snapshot.)
+
+To use an evercran snapshot on a different R installation, this should
+work on all R versions, as of today:
+
+    options(CRAN = "http://evercran.r-pkg.org/2010/10/10")
+    options(repos = c(CRAN = "http://evercran.r-pkg.org/2010/10/10"))
+    options(download.file.method = "wget")
+
+Modify the URLs to use the snapshot date you’d like. Add this to the
+`~/.Rprofile` file. You’ll also need to install the `wget` Debian
+package for the downloads to work.
 
 ## R 0.0 (alpha-test) – R 2.5.1
 
@@ -106,7 +131,8 @@ These containers use Debian 4.0 (Etch). Notes:
 - All containers use the `linux/i386` architecture.
 
 - While `wget` and `curl` have HTTPS support, in practice HTTPS does not
-  work because of they use TLS v1.
+  work well, because they use TLS v1, which is not supported by many
+  servers.
 
 - You can use the HTTP (not HTTPS!) PPA at
   <https://ppa.r-pkg.org/evercran/> to install more R versions:
@@ -141,7 +167,8 @@ These containers use Debian 5.0.10 (Lenny). Notes:
 - All containers use the `linux/i386` architecture.
 
 - While `wget` and `curl` have HTTPS support, in practice HTTPS does not
-  work because of they use TLS v1.
+  work well, because they use TLS v1, which is not supported by many
+  servers.
 
 - You can use the HTTP (not HTTPS!) PPA at
   <https://ppa.r-pkg.org/evercran/> to install more R versions:
@@ -176,7 +203,8 @@ These containers use Debian 6.0.10 (Squeeze). Notes:
 - All containers use the `linux/i386` architecture.
 
 - While `wget` and `curl` have HTTPS support, in practice HTTPS does not
-  work because of they use TLS v1.
+  work well, because they use TLS v1, which is not supported by many
+  servers.
 
 - You can use the HTTP (not HTTPS!) PPA at
   <https://ppa.r-pkg.org/evercran/> to install more R versions:
