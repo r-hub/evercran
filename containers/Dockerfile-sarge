@@ -29,4 +29,8 @@ RUN if dpkg compare-versions "${R_VERSION}" ge 0.49; then                 \
 
 WORKDIR /root
 
+COPY cran.txt /tmp/cran.txt
+COPY set-cran.sh /tmp/set-cran.sh
+RUN R_VERSION=${R_VERSION} /tmp/set-cran.sh
+
 CMD [ "R" ]
