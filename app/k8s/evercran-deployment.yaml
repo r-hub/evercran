@@ -40,7 +40,7 @@ spec:
               value: postgres
             - name: PORT
               value: "3000"
-          image: rhub/evercran:0.0.1
+          image: rhub/evercran:0.0.2
           name: evercran
           ports:
             - containerPort: 3000
