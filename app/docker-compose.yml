@@ -1,10 +1,8 @@
 volumes:
-  packages:
-    labels:
-      kompose.volume.size: '10Gi'
   packages2:
     labels:
       kompose.volume.size: '10Gi'
+      kompose.volume.storage-class-name: azurefiles
   dbdata:
     labels:
       kompose.volume.size: '1Gi'
@@ -24,8 +22,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - packages:/packages
-      - packages2:/packages2:ro
+      - packages2:/packages:ro
     deploy:
       update_config:
         order: start-first
@@ -80,8 +77,7 @@ services:
       - PG_HOST=db
       - PG_PASS_FILE=/db-password
     volumes:
-      - packages:/packages
-      - packages2:/packages2:rw
+      - packages2:/packages:rw
     deploy:
       restart_policy:
         condition: any

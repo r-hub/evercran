@@ -1,6 +1,5 @@
 resources:
   - dbdata-persistentvolumeclaim.yaml
-  - packages-persistentvolumeclaim.yaml
   - packages2-persistentvolumeclaim.yaml
   - evercran-deployment.yaml
   - evercran-service.yaml

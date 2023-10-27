@@ -49,15 +49,10 @@ spec:
           resources: {}
           volumeMounts:
             - mountPath: /packages
-              name: packages
-            - mountPath: /packages2
               name: packages2
               readOnly: true
       restartPolicy: Always
       volumes:
-        - name: packages
-          persistentVolumeClaim:
-            claimName: packages
         - name: packages2
           persistentVolumeClaim:
             claimName: packages2

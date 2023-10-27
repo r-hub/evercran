@@ -26,4 +26,6 @@ k8s:
 	kompose convert -f docker-compose.yml -o k8s
 	sed -i .bak '/type: Recreate/d' k8s/evercran-deployment.yaml
 	sed -i .bak '/type: Recreate/d' k8s/db-deployment.yaml
+	sed -i .bak 's/ReadOnlyMany/ReadWriteMany\n  storageClassName: azurefiles/' \
+		k8s/packages2-persistentvolumeclaim.yaml
 	rm k8s/*.bak
