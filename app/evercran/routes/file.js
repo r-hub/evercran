@@ -30,7 +30,7 @@ router.get(
         const { groups: { pkg, ver } } = re_pkgfile.exec(filename);
         if (pkg != req.params.package) { return next(); }
         const path = 'Archive/' + pkg + '/';
-	console.log(req.protocol)
+        console.log(JSON.stringify(req.headers));
         const mirror = req.protocol == "https" ? https_mirror : http_mirror;
         const url =  mirror + '/src/contrib/' + path + filename;
         console.log(`${req.url} -> ${url}`);
@@ -48,7 +48,7 @@ router.get(
             if (pkg != req.params.package) { return next(); }
         }
         const path = await get_package_path(pkg, ver);
-	console.log(req.protocol)
+        console.log(JSON.stringify(req.headers));
         const mirror = req.protocol == "https" ? https_mirror : http_mirror;
         const url = mirror + '/src/contrib/' + path + filename;
         console.log(`${req.url} -> ${url}`);
