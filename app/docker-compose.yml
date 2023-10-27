@@ -68,7 +68,7 @@ services:
       - kompose.service.group=evercran
 
   shell:
-    image: "rhub/evercran-shell:0.0.4"
+    image: "rhub/evercran-shell:0.0.5"
     build:
       context: shell
     command: /root/entrypoint.sh

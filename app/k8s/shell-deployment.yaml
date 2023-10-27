@@ -37,7 +37,7 @@ spec:
               value: /db-password
             - name: PG_USER
               value: postgres
-          image: rhub/evercran-shell:0.0.4
+          image: rhub/evercran-shell:0.0.5
           name: shell
           resources: {}
           volumeMounts:
