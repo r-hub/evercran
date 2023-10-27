@@ -4,7 +4,7 @@ import pool from '../lib/pool.js';
 
 const re_pkgfile = /^(?<pkg>[a-zA-Z0-9]+)_(?<ver>[-a-zA-Z0-9.]+)[.]tar[.]gz$/;
 const http_mirror = "http://cran.r-project.org";
-const https_mirror = "https://cloud.r-project.org";
+const https_mirror = "https://cran.rstudio.com";
 
 async function get_package_path(pkg, ver) {
     const ret = await pool.query(
@@ -30,8 +30,8 @@ router.get(
         const { groups: { pkg, ver } } = re_pkgfile.exec(filename);
         if (pkg != req.params.package) { return next(); }
         const path = 'Archive/' + pkg + '/';
-        console.log(JSON.stringify(req.headers));
-        const mirror = req.protocol == "https" ? https_mirror : http_mirror;
+        const proto = req.get("x-forwarded-proto");
+        const mirror = proto == "https" ? https_mirror : http_mirror;
         const url =  mirror + '/src/contrib/' + path + filename;
         console.log(`${req.url} -> ${url}`);
         res.redirect(url);
@@ -48,8 +48,8 @@ router.get(
             if (pkg != req.params.package) { return next(); }
         }
         const path = await get_package_path(pkg, ver);
-        console.log(JSON.stringify(req.headers));
-        const mirror = req.protocol == "https" ? https_mirror : http_mirror;
+        const proto = req.get("x-forwarded-proto");
+        const mirror = proto == "https" ? https_mirror : http_mirror;
         const url = mirror + '/src/contrib/' + path + filename;
         console.log(`${req.url} -> ${url}`);
         res.redirect(url);

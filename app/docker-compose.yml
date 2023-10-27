@@ -9,7 +9,7 @@ volumes:
 
 services:
   evercran:
-    image: "rhub/evercran:0.0.4"
+    image: "rhub/evercran:0.0.5"
     build:
       context: evercran
     environment:
