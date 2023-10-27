@@ -43,9 +43,14 @@ spec:
           volumeMounts:
             - mountPath: /packages
               name: packages
+            - mountPath: /packages2
+              name: packages2
       restartPolicy: Always
       volumes:
         - name: packages
           persistentVolumeClaim:
             claimName: packages
+        - name: packages2
+          persistentVolumeClaim:
+            claimName: packages2
 status: {}

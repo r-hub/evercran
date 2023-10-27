@@ -2,6 +2,9 @@ volumes:
   packages:
     labels:
       kompose.volume.size: '10Gi'
+  packages2:
+    labels:
+      kompose.volume.size: '10Gi'
   dbdata:
     labels:
       kompose.volume.size: '1Gi'
@@ -22,6 +25,7 @@ services:
       - "3000:3000"
     volumes:
       - packages:/packages
+      - packages2:/packages2:ro
     deploy:
       update_config:
         order: start-first
@@ -77,6 +81,7 @@ services:
       - PG_PASS_FILE=/db-password
     volumes:
       - packages:/packages
+      - packages2:/packages2:rw
     deploy:
       restart_policy:
         condition: any
