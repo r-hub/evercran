@@ -214,7 +214,7 @@ These containers use Debian 6.0.10 (Squeeze). Notes:
   programs know that they are running on `i386`. Call `linux32` manually
   if you change the entry point.
 
-## R 3.0.0 -- R 4.3.1
+## R 3.0.0 -- R 4.3.2
 
 ```sh
 docker pull ghcr.io/r-hub/evercran/<version>
@@ -227,7 +227,7 @@ These containers use Debian 12.1 (Bookworm). Notes:
   architectures.
 * The amd64 Debian packages are available from
   https://github.com/rstudio/r-builds.
-* The arm64 DEbian packages are available from the GitHub Releases at the
+* The arm64 Debian packages are available from the GitHub Releases at the
   https://github.com/r-hub/R repository E.g.
   https://github.com/r-hub/R/releases/tag/v4.3.1.
 * To install additional R versions (or to install in a plain
