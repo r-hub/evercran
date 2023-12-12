@@ -13,5 +13,5 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 Using https://cert-manager.io
 
 ```
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yamla
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
 ```
