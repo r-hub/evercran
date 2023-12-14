@@ -47,7 +47,7 @@ index c8fbd12..eadff5b 100644
 +} else {
 +  .lib.loc <- character()
 +}
-+.lib.loc <- unique(c(.lib.loc, getenv("RHOME")))
++.lib.loc <- unique(c(.lib.loc, .Library))
  
  options(printcmd = getenv("R_PRINTCMD"))
  options(papersize = getenv("R_PAPERSIZE"))
