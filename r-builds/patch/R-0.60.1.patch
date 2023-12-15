@@ -30,6 +30,27 @@ index 60f1ecf..c0f2e1f 100755
      then
          NO_PERL5=""
          echo "$ac_t""yes" 1>&6
+diff --git a/src/library/profile/Rprofile.unix b/src/library/profile/Rprofile.unix
+index c8fbd12..eadff5b 100644
+--- a/src/library/profile/Rprofile.unix
++++ b/src/library/profile/Rprofile.unix
+@@ -9,7 +9,15 @@ options(na.action = "na.omit")
+ 
+ .Library <- paste(getenv("RHOME"), "library", sep = "/")
+ 
+-.lib.loc <- unique(c(unlist(strsplit(getenv("RLIBS"), ":")), .Library))
++# This segfauls in Docker Ubuntu Sarge
++# .lib.loc <- unique(c(unlist(strsplit(getenv("RLIBS"), ":")), getenv("RHOME")))
++.lib.loc <- getenv("RLIBS")
++if (nchar(.lib.loc) > 0) {
++  .lib.loc <- strsplit(.lib.loc, ":")[[1]]
++} else {
++  .lib.loc <- character()
++}
++.lib.loc <- unique(c(.lib.loc, .Library))
+ 
+ options(printcmd = getenv("R_PRINTCMD"))
+ options(papersize = getenv("R_PAPERSIZE"))
 diff --git a/src/unix/system.c b/src/unix/system.c
 index 101052c..4238b9a 100644
 --- a/src/unix/system.c
