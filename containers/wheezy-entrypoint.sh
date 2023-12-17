@@ -4,7 +4,7 @@
 # We need linux32 for an x86_64 host where `arch` returns `x86_64`, but
 # we cannot use it on an arm64 host, because it fails currently.
 
-if [ "`arch`" = "x86_64" ]; then
+if [ "`uname -m`" = "x86_64" ]; then
     exec linux32 ${1+"$@"}
 else
     exec ${1+"$@"}
