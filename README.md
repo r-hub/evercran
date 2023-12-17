@@ -108,18 +108,6 @@ These containers use Debian 3.1 (Sarge). Notes:
   directly download these from the containers, because of the broken
   HTTPS. Use the PPA to download them.)
 
-- If you run this image on `x86_64` machines, then `arch`, `uname -a`
-  and potentially similar commands report the architecture incorrectly
-  as `x86_64`. Use the `linux32` entrypoint to work around this. We
-  don’t do this by default currently, because it causes issues on arm64
-  hosts (see <https://github.com/r-hub/evercran/issues/3>). E.g.:
-
-      ❯ docker run -ti ghcr.io/r-hub/evercran/0.49:latest arch
-      x86_64
-
-      ❯ docker run -ti --entrypoint linux32 ghcr.io/r-hub/evercran/0.49:latest arch
-      i686
-
 ## R 2.6.0 – R 2.8.1
 
 ``` sh
@@ -151,10 +139,6 @@ These containers use Debian 4.0 (Etch). Notes:
   <https://github.com/r-hub/R/releases/tag/v2.6.0> (But you cannot
   directly download these from the containers, because of the broken
   HTTPS. Use the PPA to download them.)
-
-- The entry point of the containers is `linux32` to make sure that all
-  programs know that they are running on `i386`. Call `linux32` manually
-  if you change the entry point.
 
 ## R 2.9.0 – R 2.12.2
 
@@ -188,10 +172,6 @@ These containers use Debian 5.0.10 (Lenny). Notes:
   directly download these from the containers, because of the broken
   HTTPS. Use the PPA to download them.)
 
-- The entry point of the containers is `linux32` to make sure that all
-  programs know that they are running on `i386`. Call `linux32` manually
-  if you change the entry point.
-
 ## R 2.13.0 – R 2.15.3
 
 ``` sh
@@ -223,10 +203,6 @@ These containers use Debian 6.0.10 (Squeeze). Notes:
   <https://github.com/r-hub/R/releases/tag/v2.13.0> (But you cannot
   directly download these from the containers, because of the broken
   HTTPS. Use the PPA to download them.)
-
-- The entry point of the containers is `linux32` to make sure that all
-  programs know that they are running on `i386`. Call `linux32` manually
-  if you change the entry point.
 
 ## R 3.0.0 – R 4.3.2
 

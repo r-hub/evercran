@@ -5,11 +5,11 @@ FROM debian/eol:wheezy
 ENV PAGER=less
 ENV LESS=-r
 
-COPY wheezy-versions.txt .
+COPY 2.x-versions.txt .
 
 RUN apt-get update && \
     apt-get install -y linux32 wget ca-certificates && \
-    for ver in `cat wheezy-versions.txt`; do \
+    for ver in `cat 2.x-versions.txt`; do \
       wget https://github.com/r-hub/R/releases/download/v${ver}/r-evercran-debian-7.11-${ver}_1-1_i386.deb && \
       dpkg -i r-evercran-debian-7.11-${ver}_1-1_i386.deb || true && \
       apt-get -fy install; \
@@ -17,9 +17,11 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/lib/apt/lists/partial && \
-    rm wheezy-versions.txt
+    rm 2.x-versions.txt
 
 WORKDIR /root
 
-ENTRYPOINT [ "linux32" ]
+COPY wheezy-entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+
 CMD [ "bash" ]
