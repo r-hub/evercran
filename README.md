@@ -12,6 +12,7 @@ Run historical R versions on today’s computers
 - [Containers with multiple R
   versions](#containers-with-multiple-r-versions)
 - [List of all containers](#list-of-all-containers)
+- [Frequently asked questions](#frequently-asked-questions)
 - [Similar projects, inspiration](#similar-projects-inspiration)
 - [Thanks!](#thanks)
 - [License](#license)
@@ -415,6 +416,45 @@ For example to run R 0.65.1:
 | R 4.3.0            | `ghcr.io/r-hub/evercran/4.3.0`   | `linux/amd64`, `linux/arm64` | Debian bookworm 12.1  |
 | R 4.3.1            | `ghcr.io/r-hub/evercran/4.3.1`   | `linux/amd64`, `linux/arm64` | Debian bookworm 12.1  |
 | R 4.3.2            | `ghcr.io/r-hub/evercran/4.3.2`   | `linux/amd64`, `linux/arm64` | Debian bookworm 12.1  |
+
+## Frequently asked questions
+
+<details>
+<summary>
+Why does `list.files()` return an empty vector?
+</summary>
+
+If you see something like
+
+    > list.files("/opt/R")
+    character(0)
+
+then you need to run the entry point of the container, see the question
+after the next one.
+</details>
+<details>
+<summary>
+Why is the architecture detected as `x86_64` instead of `i386`?
+</summary>
+You need to run the entry point of the container, see the next question.
+</details>
+<details>
+<summary>
+`docker run` works, but `docker exec` does not, why?
+</summary>
+
+Running 32bit (`i386`) containers on arm64 and amd64 platforms is
+tricky, and to make everything work properly, we need to run a special
+entry point. This entry point runs with `docker run`, but it does not
+for `docker exec`, and you need to run it manually:
+
+    docker exec -it <container> entrypoint.sh bash
+
+If you don’t run the entry point then on arm64 hosts you might get file
+system errors (<https://github.com/r-hub/evercran/issues/7>). On amd64
+platforms typically the architecture will be mis-detected
+(<https://github.com/r-hub/evercran/issues/3>).
+</details>
 
 ## Similar projects, inspiration
 
