@@ -248,34 +248,34 @@ For example to run R 0.65.1:
 ```{r, results = "asis", echo = FALSE}
 writeLines("| R version | Container | Platform | OS |")
 writeLines("|:----------|:----------|:---------|:---|")
-rv <- readLines("containers/prerelease-versions.txt")
+rv <- readLines("containers/versions-prerelease.txt")
 lab <- paste(rv, "(alpha)")
 lab[1] <- "0.0 (alpha-test)"
 writeLines(sprintf(
   "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Sarge 3.1 |",
   format(lab), format(rv)
 ))
-rv <- readLines("containers/sarge-versions.txt")
+rv <- readLines("containers/versions-sarge.txt")
 writeLines(sprintf(
   "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Sarge 3.1 |",
   format(rv), format(rv)
 ))
-rv <- readLines("containers/etch-versions.txt")
+rv <- readLines("containers/versions-etch.txt")
 writeLines(sprintf(
   "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Etch 4.0r9 |",
   format(rv), format(rv)
 ))
-rv <- readLines("containers/lenny-versions.txt")
+rv <- readLines("containers/versions-lenny.txt")
 writeLines(sprintf(
   "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Lenny 5.0.10 |",
   format(rv), format(rv)
 ))
-rv <- readLines("containers/squeeze-versions.txt")
+rv <- readLines("containers/versions-squeeze.txt")
 writeLines(sprintf(
   "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/i386` | Debian Squeeze 6.0.10 |",
   format(rv), format(rv)
 ))
-rv <- readLines("containers/bookworm-versions.txt")
+rv <- readLines("containers/versions-bookworm.txt")
 writeLines(sprintf(
   "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/amd64`, `linux/arm64`| Debian bookworm 12.1 |",
   format(rv), format(rv)

@@ -33,7 +33,7 @@ COPY cran.txt /tmp/cran.txt
 COPY set-cran.sh /tmp/set-cran.sh
 RUN R_VERSION=${R_VERSION} /tmp/set-cran.sh
 
-COPY bookworm-entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY entrypoint-bookworm.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
 CMD [ "R" ]

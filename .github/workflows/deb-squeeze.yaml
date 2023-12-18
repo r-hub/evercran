@@ -22,7 +22,7 @@ jobs:
       run: |
         inp="${{ github.event.inputs.inpwhichcont }}"
         if [ "x$inp" == "xall" -o "x$inp" == "x" ]; then
-          out="$(cat containers/squeeze-versions.txt | tr '\n' ',' | sed 's/,$//')"
+          out="$(cat containers/versions-squeeze.txt | tr '\n' ',' | sed 's/,$//')"
         else
           out=$inp
         fi

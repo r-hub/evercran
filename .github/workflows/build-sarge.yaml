@@ -10,7 +10,7 @@ on:
         type: string
 
 jobs:
-  
+
   setup-matrix:
     runs-on: ubuntu-latest
     outputs:
@@ -23,7 +23,7 @@ jobs:
       run: |
         inp="${{ github.event.inputs.inpwhichcont }}"
         if [ "x$inp" == "xall" -o "x$inp" == "x" ]; then
-          out="$(cat containers/prerelease-versions.txt containers/sarge-versions.txt | tr '\n' ',' | sed 's/,$//')"
+          out="$(cat containers/versions-prerelease.txt containers/versions-sarge.txt | tr '\n' ',' | sed 's/,$//')"
         else
           out=$inp
         fi
