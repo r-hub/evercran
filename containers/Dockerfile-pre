@@ -19,5 +19,8 @@ RUN apt-get update && \
 
 WORKDIR /root
 
-ENTRYPOINT [ "linux32" ]
+COPY sarge-entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY inode64.so /usr/local/lib/inode64.so
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+
 CMD [ "bash" ]
