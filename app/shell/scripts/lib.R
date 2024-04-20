@@ -1,18 +1,35 @@
+source("rematch2.R")
 
 `%||%` <- function(l, r) if (is.null(l)) r else l
 
 db <- local({
   con <- NULL
+
+  # all fields are compulsory!
+  url_parse <- function(x) {
+    re <- paste0(
+      "^postgres://",
+      "(?<username>[^:]*):",
+      "(?<password>[^@]*)@",
+      "(?<hostname>[^:/]*):",
+      "(?<port>[0-9]+)/",
+      "(?<path>.*)$"
+    )
+    m <- re_match(x, re)
+    m[, setdiff(colnames(m), c(".text", ".match"))]
+  }
+
   db_connect <- function() {
-    host <- Sys.getenv("PG_HOST")
-    user <- "postgres"
-    pass <- readLines(Sys.getenv("PG_PASS_FILE"))
+    url <- Sys.getenv("DATABASE_URL")
+    parsed <- url_parse(url)
     if (is.null(con) || ! DBI::dbIsValid(con)) {
       con <<- DBI::dbConnect(
         RPostgres::Postgres(),
-        host = host,
-        user = user,
-        pass = pass
+        dbname = parsed$path,
+        host = parsed$hostname,
+        port = parsed$port,
+        user = parsed$username,
+        pass = parsed$password
       )
     }
   }
@@ -138,13 +155,23 @@ write_packages <- function(date, force = FALSE, path = "/packages") {
 wait <- function(limit = as.difftime(10, units = "mins")) {
   started <- Sys.time()
   message("Initializing database")
-  tryCatch({
-    val <- db$query("SELECT value FROM meta WHERE key = 'initialized'")$value
-    if (length(val) == 1 && val == "true") return(TRUE)
-    if (started + limit > Sys.time()) return(FALSE)
-    message("Waiting 5 seconds for database")
-    Sys.sleep(5)
-  })
+  repeat {
+    tryCatch(
+      {
+        val <- db$query("SELECT value FROM meta WHERE key = 'initialized'")$value
+        if (length(val) == 1 && val == "true") {
+          return(TRUE)
+        }
+        if (started + limit > Sys.time()) {
+          return(FALSE)
+        }
+      },
+      error = function(e) {
+        message("Waiting 5 seconds for database")
+        Sys.sleep(5)
+      }
+    )
+  }
 }
 
 update_db <- function(force = FALSE) {

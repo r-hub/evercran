@@ -1,0 +1,38 @@
+volumes:
+  packages:
+  dbdata:
+
+services:
+  evercran:
+    build:
+      context: .
+      dockerfile: app/evercran/Dockerfile
+    command: nodemon bin/www.js
+    environment:
+      - DATABASE_URL=postgres://postgres:secret@db:5432/postgres
+    ports:
+      - "3000:80"
+    volumes:
+      - packages:/packages:ro
+      - ./app/evercran:/src
+
+  db:
+    image: "postgres:16.2-bookworm"
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql
+      - ./app/db/create.sql:/docker-entrypoint-initdb.d/create.sql
+
+  shell:
+    build:
+      context: .
+      dockerfile: app/shell/Dockerfile
+    environment:
+      - DATABASE_URL=postgres://postgres:secret@db:5432/postgres
+      - R_DEFAULT_INTERNET_TIMEOUT=1800
+    volumes:
+      - packages:/packages:rw

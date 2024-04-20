@@ -1,14 +1,18 @@
 import pg from 'pg';
-import fs from "fs";
+import url from 'url';
 
-const pass_file = process.env.PG_PASS_FILE;
-const pass = pass_file && fs.readFileSync(pass_file, 'utf8').trim();
+const pg_url = process.env.DATABASE_URL;
 
-const pool = new pg.Pool({
-    host: process.env.PG_HOST,
-    user: process.env.PG_USER || 'postgres',
-    db: 'postgres',
-    password: pass
-})
+const params = url.parse(pg_url);
+const auth = params.auth.split(':');
+const creds = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split('/')[1]
+};
+
+const pool = new pg.Pool(creds);
 
 export default pool;
