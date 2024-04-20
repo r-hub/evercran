@@ -7,13 +7,15 @@ Create postgres DB, apps:
 ```
 dokku apps:create evercran
 dokku builder-dockerfile:set evercran dockerfile-path \
-    evercran/app/Dockerfile
+    app/evercran/Dockerfile
+dokku builder:set evercran selected dockerfile
 dokku postgres:create evercran
 dokku postgres:link evercran evercran
 
 dokku apps:create evercran-shell
-dokku builder-dockerfile:set evercran dockerfile-path \
-    evercran/shell/Dockerfile
+dokku builder-dockerfile:set evercran-shell dockerfile-path \
+    app/shell/Dockerfile
+dokku builder:set evercran-shell selected dockerfile
 dokku postgres:link evercran evercran-shell
 ```
 

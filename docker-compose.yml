@@ -33,6 +33,5 @@ services:
       dockerfile: app/shell/Dockerfile
     environment:
       - DATABASE_URL=postgres://postgres:secret@db:5432/postgres
-      - R_DEFAULT_INTERNET_TIMEOUT=1800
     volumes:
       - packages:/packages:rw

@@ -11,4 +11,6 @@ COPY app/shell/entrypoint.sh /root/
 
 COPY app/shell/scripts /scripts
 
+ENV R_DEFAULT_INTERNET_TIMEOUT=1800
+
 ENTRYPOINT ["/root/entrypoint.sh"]
