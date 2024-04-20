@@ -49,3 +49,12 @@ dokku letsencrypt:set evercran email csardi.gabor@gmail.com
 dokku domains:add evercran evercran.r-pkg.org
 dokku letsencrypt:enable evercran
 ```
+
+Actually, that's not good, because we cannot redirect to https,
+that would break the old R versions the evercran supports. So we
+need our own nginx config template file, inside the repo. We
+need to set its location in the config:
+```
+dokku nginx:set evercran nginx-conf-sigil-path \
+    app/evercran/nginx.conf.sigil
+```
