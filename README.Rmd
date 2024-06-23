@@ -193,7 +193,7 @@ These containers use Debian 6.0.10 (Squeeze). Notes:
   (But you cannot directly download these from the containers, because
   of the broken HTTPS. Use the PPA to download them.)
 
-## R 3.0.0 -- R 4.4.0
+## R 3.0.0 -- R 4.4.1
 
 ```sh
 docker pull ghcr.io/r-hub/evercran/<version>
