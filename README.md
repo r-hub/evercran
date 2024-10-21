@@ -225,7 +225,7 @@ These containers use Debian 12.1 (Bookworm). Notes:
   <https://github.com/r-hub/R/releases/tag/v4.3.1>.
 
 - To install additional R versions (or to install in a plain `debian:12`
-  container, download it with `wget` or `curl`, ant install it with
+  container), download it with `wget` or `curl`, and install it with
   `apt install ./<filename>`. E.g.:
 
   ``` sh
