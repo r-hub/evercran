@@ -1,0 +1,30 @@
+name: Run any R version
+
+on:
+  workflow_dispatch:
+    inputs:
+      rversion:
+        description: |
+          R version to run, e.g. 4.4.2. See
+          https://github.com/r-hub/evercran#list-of-all-containers
+          for a list of possible values.
+        required: true
+        default: '1.0.0'
+        type: string
+
+jobs:
+  evercran:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Start container
+      run: |
+        docker run --rm -d --name evercran ghcr.io/r-hub/evercran/${INPUT_RVERSION} sleep 1d
+      shell: bash
+
+    - name: Start tmate
+      uses: r-hub/action-tmate@master
+      with:
+        limit-access-to-action: true
+        connect-timeout-seconds: '600'
+        start-command: 'docker exec -ti evercran R'
+        default-command: 'docker exec -ti evercran bash'
