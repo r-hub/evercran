@@ -1,4 +1,4 @@
-name: Run any R version
+name: Any R version
 
 on:
   workflow_dispatch:

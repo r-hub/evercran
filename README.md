@@ -4,6 +4,8 @@ Run historical R versions on today’s computers
 - [Experimental!](#experimental)
 - [TL;DR](#tldr)
 - [The evercran CRAN snapshots](#the-evercran-cran-snapshots)
+- [Interactive R shell on GitHub
+  Actions](#interactive-r-shell-on-github-actions)
 - [R 0.0 (alpha-test) – R 2.5.1](#r-00-alpha-test--r-251)
 - [R 2.6.0 – R 2.8.1](#r-260--r-281)
 - [R 2.9.0 – R 2.12.2](#r-290--r-2122)
@@ -78,6 +80,35 @@ Modify the URLs to use the snapshot date you’d like. Add this to the
 `~/.Rprofile` file. You’ll also need to install `wget` for the downloads
 to work. You can use a https URL if your `wget` installation supports
 https.
+
+## Interactive R shell on GitHub Actions
+
+You can also run any R version interactively on GitHub Actions:
+
+0.  Add your public SSH key to GitHub, at
+    <https://github.com/settings/keys>. If you don’t have an SSH
+    key-pair, generate one first using your SSH client.
+1.  Fork this repository.
+2.  In the ‘Actions’ menu of your fork enable GitHub Actions.
+3.  Click on ‘All workflows’ on the left, and select ‘Any R version’.
+4.  Click the ‘Run workflow’ dropdown menu on the right side.
+5.  Enter the R version you like. See the list of all versions below.
+6.  Click on the ‘Run workflow’ button.
+7.  Wait a few seconds for the workflow to start running.
+8.  Click on running workflow’s name (‘Any R version’).
+9.  Click on ‘evercran’.
+10. Wait a couple of seconds, until you see the ‘ssh connection’ banner.
+11. Copy the SSH command below and paste it into a terminal window. Or,
+    if you use an SSH app, copy the connection URL and use it in the
+    app. You’ll need your SSH key to authenticate.
+
+R is running in a Docker container, in a tmate session. To open a new
+shell in the container use `CTRL+b c` (press `CTRL` + `b` together, let
+them go, then press `c`). Type `R` in the shell to open another R
+session. Use `CTRL+b n` to switch between your shells.
+
+When you quit from all shells, the container also stops and the workflow
+terminates.
 
 ## R 0.0 (alpha-test) – R 2.5.1
 
