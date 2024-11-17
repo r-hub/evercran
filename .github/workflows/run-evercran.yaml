@@ -18,7 +18,7 @@ jobs:
     steps:
     - name: Start container
       run: |
-        docker run --rm -d --name evercran ghcr.io/r-hub/evercran/${INPUT_RVERSION} sleep 1d
+        docker run --rm -d --name evercran ghcr.io/r-hub/evercran/${{ inputs.rversion }} sleep 1d
       shell: bash
 
     - name: Start tmate
