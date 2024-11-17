@@ -24,7 +24,7 @@ jobs:
     - name: Start tmate
       uses: r-hub/action-tmate@master
       with:
-        limit-access-to-action: true
+        limit-access-to-actor: true
         connect-timeout-seconds: '600'
         start-command: 'docker exec -ti evercran R'
         default-command: 'docker exec -ti evercran bash'
