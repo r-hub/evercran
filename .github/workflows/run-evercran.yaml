@@ -21,6 +21,16 @@ jobs:
         docker run --rm -d --name evercran ghcr.io/r-hub/evercran/${{ inputs.rversion }} sleep 1d
       shell: bash
 
+    - name: Install compilers
+      run: |
+        if dpkg --compare-versions '${{ inputs.rversion }}' le '1.2.3'; then
+           docker exec -i evercran sh - <<EOF
+           apt-get update
+           apt-get install -y gcc-2.95 g++-2.95 g77-2.95 libc-dev perl-modules libg2c0-dev make
+        EOF
+        fi
+      shell: bash
+
     - name: Start tmate
       uses: r-hub/action-tmate@master
       with:
