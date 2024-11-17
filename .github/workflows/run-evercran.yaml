@@ -24,17 +24,17 @@ jobs:
     - name: Install compilers
       run: |
         if dpkg --compare-versions '${{ inputs.rversion }}' le '1.2.3'; then
-           docker exec -i evercran sh - <<EOF
+           docker exec -i evercran entrypoint.sh sh - <<EOF
            apt-get update
            apt-get install -y gcc-2.95 g++-2.95 g77-2.95 libc-dev perl-modules libg2c0-dev make
         EOF
         elif dpkg --compare-versions '${{ inputs.rversion }}' lt '2.9.0'; then
-           docker exec -i evercran sh - <<EOF
+           docker exec -i evercran entrypoint.sh sh - <<EOF
            apt-get update
            apt-get install -y gcc g++ g77 libc-dev perl-modules libg2c0-dev make
         EOF
         elif dpkg --compare-versions '${{ inputs.rversion }}' lt '3.0.0'; then
-           docker exec -i evercran sh - <<EOF
+           docker exec -i evercran entrypoint.sh sh - <<EOF
            apt-get update
            apt-get install -y gcc g++ gfortran libc-dev make
         EOF
@@ -46,5 +46,5 @@ jobs:
       with:
         limit-access-to-actor: true
         connect-timeout-seconds: '600'
-        start-command: 'docker exec -ti evercran R'
-        default-command: 'docker exec -ti evercran bash'
+        start-command: 'docker exec -ti evercran entrypoint.sh R'
+        default-command: 'docker exec -ti evercran entrypoint.sh bash'
