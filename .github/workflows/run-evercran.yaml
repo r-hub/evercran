@@ -28,6 +28,16 @@ jobs:
            apt-get update
            apt-get install -y gcc-2.95 g++-2.95 g77-2.95 libc-dev perl-modules libg2c0-dev make
         EOF
+        elif dpkg --compare-versions '${{ inputs.rversion }}' lt '2.9.0'; then
+           docker exec -i evercran sh - <<EOF
+           apt-get update
+           apt-get install -y gcc g++ g77 libc-dev perl-modules libg2c0-dev make
+        EOF
+        elif dpkg --compare-versions '${{ inputs.rversion }}' lt '3.0.0'; then
+           docker exec -i evercran sh - <<EOF
+           apt-get update
+           apt-get install -y gcc g++ gfortran libc-dev make
+        EOF
         fi
       shell: bash
 
