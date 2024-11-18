@@ -402,6 +402,13 @@ build_r_historic() {
 	    )
 	fi
 	make install
+	if [ "$rver" = "0.0" -o "$rver" = "0.1" -o "$rver" = "0.2" -o "$rver" = "0.3" ]; then
+	    (
+		cd doc/help
+		PATH=$PATH:`pwd`
+		make
+	    )
+	fi
 	make help || make man.help || make man.html || true
 
 	cd ..
