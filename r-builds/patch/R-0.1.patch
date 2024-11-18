@@ -66,6 +66,16 @@ index a679184..f508309 100644
  clean:
  	@echo cleaning in linpack
  	@-rm -f *.o *.a
+diff --git a/src/manual/html/html.index b/src/manual/html/html.index
+index d154c04..1578615 100755
+--- a/src/manual/html/html.index
++++ b/src/manual/html/html.index
+@@ -20,4 +20,4 @@ BEGIN {k=0 ; printf("<CENTER><TABLE>\n") ; printf("<TR ALIGN=LEFT>\n")}
+ k=k+1 ; if(k == 5) { printf("<TR ALIGN=LEFT>\n"); k=0 }}
+ END { printf("</TABLE></CENTER>\n") }
+ ' >> $HTMLDIR/funs/index.html
+-echo '</DIR>' >> $FILE
++echo '</DIR>'
 diff --git a/src/math/Makefile.in b/src/math/Makefile.in
 index 6cad946..52c482a 100755
 --- a/src/math/Makefile.in

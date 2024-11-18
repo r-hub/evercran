@@ -402,11 +402,34 @@ build_r_historic() {
 	    )
 	fi
 	make install
-	if [ "$rver" = "0.0" -o "$rver" = "0.1" -o "$rver" = "0.2" -o "$rver" = "0.3" ]; then
+	if [ "$rver" = "0.0" ]; then
 	    (
-		cd doc/help
+		cd "${build_dir}/doc/help"
 		PATH=$PATH:`pwd`
 		make
+	    )
+	fi
+	if [ "$rver" = "0.1" -o "$rver" = "0.2" ]; then
+	    (
+		# this version only supports HTML help, but we can make it work...
+		cd "${build_dir}/src/manual/help"
+		PATH=$PATH:`pwd`
+		mkdir ../../help
+		mkdir -p src
+	        rm -rf src/*
+		(cd src; ln -s ../../man/* .)
+		(cd src; ln -s ../../man281/* .)
+		help.format
+		help.aliases
+		rm -rf src/*
+		mv ../../help ../../../
+	    )
+	fi
+	if [ "$rver" = "0.3" ]; then
+	    (
+		cd "${build_dir}/src/manual/help"
+		PATH=$PATH:`pwd`
+		make all
 	    )
 	fi
 	make help || make man.help || make man.html || true
