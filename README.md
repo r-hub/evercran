@@ -10,7 +10,7 @@ Run historical R versions on today’s computers
 - [R 2.6.0 – R 2.8.1](#r-260--r-281)
 - [R 2.9.0 – R 2.12.2](#r-290--r-2122)
 - [R 2.13.0 – R 2.15.3](#r-2130--r-2153)
-- [R 3.0.0 – R 4.4.2](#r-300--r-442)
+- [R 3.0.0 – R 4.4.3](#r-300--r-443)
 - [Containers with multiple R
   versions](#containers-with-multiple-r-versions)
 - [List of all containers](#list-of-all-containers)
@@ -216,7 +216,7 @@ These containers use Debian 6.0.10 (Squeeze). Notes:
   directly download these from the containers, because of the broken
   HTTPS. Use the PPA to download them.)
 
-## R 3.0.0 – R 4.4.2
+## R 3.0.0 – R 4.4.3
 
 ``` sh
 docker pull ghcr.io/r-hub/evercran/<version>
@@ -431,6 +431,7 @@ For example to run R 0.65.1:
 | R 4.4.0            | `ghcr.io/r-hub/evercran/4.4.0`   | `linux/amd64`, `linux/arm64` | Debian bookworm 12.1  |
 | R 4.4.1            | `ghcr.io/r-hub/evercran/4.4.1`   | `linux/amd64`, `linux/arm64` | Debian bookworm 12.1  |
 | R 4.4.2            | `ghcr.io/r-hub/evercran/4.4.2`   | `linux/amd64`, `linux/arm64` | Debian bookworm 12.1  |
+| R 4.4.3            | `ghcr.io/r-hub/evercran/4.4.3`   | `linux/amd64`, `linux/arm64` | Debian bookworm 12.1  |
 
 ## Frequently asked questions
 
