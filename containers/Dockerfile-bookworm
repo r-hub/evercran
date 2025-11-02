@@ -9,9 +9,10 @@ ENV PAGER=less
 RUN apt-get update && \
     apt-get install -y curl less wget && \
     if [ "$(arch)" = "x86_64" ]; then \
-      curl -LOs https://cdn.posit.co/r/debian-12/pkgs/r-${R_VERSION}_1_amd64.deb; \
+      curl -LOsf https://cdn.posit.co/r/debian-12/pkgs/r-${R_VERSION}_1_amd64.deb; \
     elif [ "$(arch)" = "aarch64" ]; then \
-      curl -LOs https://github.com/r-hub/R/releases/download/v${R_VERSION}/r-rstudio-debian-12-${R_VERSION}_1_arm64.deb; \
+      curl -LOsf https://github.com/r-hub/R/releases/download/v${R_VERSION}/r-rstudio-debian-12-${R_VERSION}_1_arm64.deb || \
+      curl -LOsf https://cdn.posit.co/r/debian-12/pkgs/r-${R_VERSION}_1_arm64.deb; \
     else \
       return 100; \
     fi &&  \
