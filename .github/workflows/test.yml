@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app/evercran
 
     steps:
     - name: Checkout code
@@ -19,6 +22,7 @@ jobs:
       with:
         node-version: '20'
         cache: 'npm'
+        cache-dependency-path: 'app/evercran/package-lock.json'
 
     - name: Install dependencies
       run: npm ci
@@ -33,7 +37,7 @@ jobs:
       uses: codecov/codecov-action@v4
       if: success()
       with:
-        files: ./coverage/lcov.info
+        files: ./app/evercran/coverage/lcov.info
         flags: unittests
         fail_ci_if_error: false
       env:
