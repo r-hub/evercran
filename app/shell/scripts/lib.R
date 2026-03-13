@@ -197,7 +197,7 @@ update_db <- function(force = FALSE) {
   pkgs <- response$results
   message("Updating ", length(pkgs), " packages.")
   for (pkg in pkgs) {
-    if (is.null(pkg$doc$type) && !startsWith(pkg$id, "_")) {
+    if (is.null(pkg$doc$type) && !startsWith(pkg$id, "_") && !is.null(pkg$doc$name)) {
       update_package(pkg, force = force)
     }
   }
