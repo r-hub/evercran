@@ -1,9 +1,9 @@
 FROM rhub/r-minimal:latest
 
 RUN apk update
-RUN apk add postgresql13-dev
+RUN apk add postgresql-dev
 RUN installr -d jsonlite RPostgres
-RUN apk add postgresql13-client
+RUN apk add postgresql-client
 
 COPY app/shell/update-db.sh /etc/periodic/15min/
 COPY app/shell/update.sh /etc/periodic/daily/
