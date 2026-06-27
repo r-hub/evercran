@@ -296,7 +296,7 @@ update_package <- function(pkgdata, force = FALSE) {
     needscompilation = x("NeedsCompilation") == "yes",
     license_is_foss = x("License_is_FOSS") == "yes",
     license_restricts_use = x("License_restricts_use") == "yes",
-    os_type = x("os_type"),
+    os_type = x("OS_type"),
     priority = x("Priority"),
     archs = x("Archs"),
     path = x("Path"),
