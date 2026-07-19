@@ -16,7 +16,7 @@ jobs:
       containers: ${{ steps.setup-matrix.outputs.containers }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - name: Set up matrix of containers
       id: setup-matrix
       run: |
@@ -39,7 +39,7 @@ jobs:
     name: R ${{ matrix.container }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Build
       run: |
@@ -48,7 +48,7 @@ jobs:
         docker compose up r-${{ matrix.container }}
 
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v3
       with:
         files: |
           r-builds/output/*.deb
