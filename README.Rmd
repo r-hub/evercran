@@ -201,14 +201,15 @@ These containers use Debian 6.0.10 (Squeeze). Notes:
   (But you cannot directly download these from the containers, because
   of the broken HTTPS. Use the PPA to download them.)
 
-## R 3.0.0 -- R 4.6.0
+## R 3.0.0 -- R 4.6.1
 
 ```sh
 docker pull ghcr.io/r-hub/evercran/<version>
 docker run -ti ghcr.io/r-hub/evercran/<version>
 ```
 
-These containers use Debian 12.1 (Bookworm). Notes:
+R 3.0.0 -- R 4.6.0 use Debian 12.1 (Bookworm). R 4.6.1 and later use
+Debian 13 (Trixie). Notes:
 
 * All containers are available with `linux/amd64` and `linux/arm64`
   architectures.
@@ -286,6 +287,11 @@ writeLines(sprintf(
 rv <- readLines("containers/versions-bookworm.txt")
 writeLines(sprintf(
   "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/amd64`, `linux/arm64`| Debian bookworm 12.1 |",
+  format(rv), format(rv)
+))
+rv <- readLines("containers/versions-trixie.txt")
+writeLines(sprintf(
+  "| R %s | `ghcr.io/r-hub/evercran/%s` | `linux/amd64`, `linux/arm64`| Debian trixie 13 |",
   format(rv), format(rv)
 ))
 ```
