@@ -124,4 +124,5 @@
 4.5.1	https://evercran.r-pkg.org/2026/03/11
 4.5.3	https://evercran.r-pkg.org/2026/04/24
 4.6.0	https://evercran.r-pkg.org/2026/06/24
-4.6.1	https://cloud.r-project.org
+4.6.1	https://evercran.r-pkg.org/2026/10/29
+4.6.2	https://cloud.r-project.org
