@@ -20,7 +20,12 @@
     "supertest": "^7.2.2"
   },
   "overrides": {
-    "minimatch": "^10.2.1",
+    "glob": "^14.0.2",
+    "minimatch": "^11.0.1",
     "test-exclude": "^8.0.0"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "unrs-resolver@1.12.2": true
   }
 }
